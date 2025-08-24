@@ -27,6 +27,20 @@ SMODS.Back({
 end
 })
 
+function TDECKS.random_joker_center(_rarity)
+    local center
+    local _pool, _pool_key = get_current_pool("Joker", _rarity, false, "tdeck_erratic")
+    center = pseudorandom_element(_pool, pseudoseed(_pool_key))
+    local it = 1
+    while center == 'UNAVAILABLE' do
+        it = it + 1
+        center = pseudorandom_element(_pool, pseudoseed(_pool_key..'_resample'..it))
+    end
+
+    center = G.P_CENTERS[center]
+    return center
+end
+
 SMODS.Sticker{
     atlas = "erratic_perish",
     key = "tainted_perish",
@@ -38,7 +52,7 @@ SMODS.Sticker{
             "{C:red}dbg = nil{}",
         }
     },
-
+    badge_colour = HEX("FF0000"),
     should_apply = function(self, card)
         return card.ability
            and card.ability.set == "Joker"
@@ -52,8 +66,8 @@ SMODS.Sticker{
     calculate = function(self, card, context)
         if not card.ability[self.key] then return end
 
-        card.ability._tdec_triggered = card.ability._tdec_triggered or false
-        G.GAME._tdec_erratic_sound_played = G.GAME._tdec_erratic_sound_played or false
+        --card.ability._tdec_triggered = card.ability._tdec_triggered or false
+        --G.GAME._tdec_erratic_sound_played = G.GAME._tdec_erratic_sound_played or false --Not Needed; nil evaluates as false
 
         if context.check_eternal and card.ability._tdec_force_eternal then
             return { no_destroy = { override_compat = true } }
@@ -63,36 +77,27 @@ SMODS.Sticker{
             card.ability._tdec_triggered = true
 
             G.E_MANAGER:add_event(Event({
-                delay = 0,
+                trigger = "before",
+                func = function()
+                    card:flip()
+                    return true
+                end
+            }))
+            G.E_MANAGER:add_event(Event({
                 func = function()
                     if not G.GAME._tdec_erratic_sound_played then
                         play_sound('tdec_erratic_bug2')
                         G.GAME._tdec_erratic_sound_played = true
                     end
+                    card:set_ability(TDECKS.random_joker_center())
+                    return true
+                end
+            }))
 
-                    local had_eternal = card.ability.eternal
-                    local had_rental = card.ability.rental
-
-                    G.GAME.joker_buffer = (G.GAME.joker_buffer or 0) + 1
-                    local new_card = SMODS.add_card{
-                        set = 'Joker',
-                        sticker = 's_tdec_tainted_perish'
-                    }
-                    G.GAME.joker_buffer = 0
-
-                    if had_rental and new_card then
-                        new_card.ability.rental = true
-                    end
-
-                    if had_eternal and new_card then
-                        new_card.ability.eternal = true
-                        new_card.ability._tdec_force_eternal = true
-                    end
-
-                    if card.start_dissolve then
-                        card:start_dissolve(nil, true)
-                    end
-
+            G.E_MANAGER:add_event(Event({
+                trigger = "after",
+                func = function()
+                    card:flip()
                     return true
                 end
             }))

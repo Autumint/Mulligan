@@ -1,3 +1,5 @@
+TDECKS = SMODS.current_mod
+
 SMODS.Back({
     key = "tainted_placeholder",
     loc_txt = {
