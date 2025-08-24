@@ -1,0 +1,121 @@
+[manifest]
+version = "1.0.0"
+dump_lua = true
+priority = 99999999
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+  local ordered_names, viewed_deck = {}, 1
+  for k, v in ipairs(G.P_CENTER_POOLS.Back) do
+    ordered_names[#ordered_names+1] = v.name
+    if v.name == G.GAME.viewed_back.name then viewed_deck = k end
+  end
+'''
+position = "at"
+payload = '''
+  local ordered_names, viewed_deck = {}, 1
+  for k, v in ipairs(get_decks_centers()) do
+    ordered_names[#ordered_names+1] = v.name
+    if v.name == G.GAME.viewed_back.name or v.key == G.GAME.viewed_back.effect.center.original or (can_be_tainted(G.GAME.viewed_back.effect.center) or {}).key == v.key then viewed_deck = k end
+  end
+'''
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+ G.GAME.viewed_back = Back(get_deck_from_name(G.PROFILES[G.SETTINGS.profile].MEMORY.deck))
+'''
+position = "at"
+payload = '''
+ G.GAME.viewed_back = get_viewed_back()
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+create_option_cycle({options =  ordered_names, opt_callback = 'change_viewed_back', current_option = viewed_deck, colour = G.C.RED, w = 3.5, mid =
+'''
+position = "at"
+payload = '''
+create_option_cycle({options =  G.FUNCS.get_decks_tainted(), opt_callback = 'change_viewed_back', current_option = viewed_deck, colour = G.C.RED, w = 3.5, mid =
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+local _can_continue = G.MAIN_MENU_UI and G.FUNCS.can_continue({config = {func = true}})
+'''
+position = "at"
+payload = '''
+local _can_continue = G.MAIN_MENU_UI and G.FUNCS.can_continue({config = {func = true}})
+if G.FORCE_NEW_RUN then _can_continue = false end
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "back.lua"
+pattern = '''
+if G.localization.descriptions.Back[key_override or back_config.key].unlock_parsed then
+'''
+position = "at"
+payload = '''
+if (G.localization.descriptions.Back[key_override or (back_config or {}).key] or {}).unlock_parsed then
+'''
+match_indent = true
+
+[[patches]]
+[patches.regex]
+target = '''=[SMODS galdur "galdur.lua"]'''
+pattern = "G\\.P_CENTER_POOLS\\.Back"
+position = 'at'
+line_prepend = '$indent'
+payload = '''
+get_decks_centers()
+'''
+[[patches]]
+[patches.pattern]
+target = "game.lua"
+pattern = '''
+            if G.FILE_HANDLER.progress then
+                G.SAVE_MANAGER.channel:push({
+                    type = 'save_progress',
+                    save_progress = G.ARGS.save_progress
+                  })
+            elseif G.FILE_HANDLER.settings then
+                G.SAVE_MANAGER.channel:push({
+                    type = 'save_settings',
+                    save_settings = G.ARGS.save_settings,
+                    profile_num = G.SETTINGS.profile,
+                    save_profile = G.PROFILES[G.SETTINGS.profile]
+                  })
+            end
+'''
+position = "at"
+payload = '''
+pcall(function()
+            if G.FILE_HANDLER.progress then
+                G.SAVE_MANAGER.channel:push({
+                    type = 'save_progress',
+                    save_progress = G.ARGS.save_progress
+                  })
+            elseif G.FILE_HANDLER.settings then
+                G.SAVE_MANAGER.channel:push({
+                    type = 'save_settings',
+                    save_settings = G.ARGS.save_settings,
+                    profile_num = G.SETTINGS.profile,
+                    save_profile = G.PROFILES[G.SETTINGS.profile]
+                  })
+            end
+end)
+'''
+match_indent = true
