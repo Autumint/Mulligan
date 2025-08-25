@@ -102,5 +102,19 @@ function get_viewed_back()
     if not ((G.TAINTED_ENABLED and (v.original or not can_be_tainted(v))) or (not v.original and not G.TAINTED_ENABLED)) then
         v = can_be_tainted(v)
     end
+    if G.TAINTED_ENABLED and not can_be_tainted(v) then
+        v = G.P_CENTERS["b_tdec_tainted_placeholder"]
+    end
+    if not G.TAINTED_ENABLED and v.original then
+        v = G.P_CENTERS[v.original]
+    end
+    print(v.key)
     return Back(v)
+end
+
+local change_back = G.FUNCS.change_viewed_back
+G.FUNCS.change_viewed_back = function(args)
+    change_back(args)
+    G.viewed_deck = args.to_key
+    G.PROFILES[G.SETTINGS.profile].MEMORY.viewed_deck = G.viewed_deck
 end

@@ -4,6 +4,14 @@ dump_lua = true
 priority = 99999999
 
 [[patches]]
+[patches.regex]
+target = "functions/UI_definitions.lua"
+pattern = '''[local]* *viewed_deck'''
+position = "at"
+payload = '''G.viewed_deck'''
+match_indent = true
+
+[[patches]]
 [patches.pattern]
 target = "functions/UI_definitions.lua"
 pattern = '''
@@ -15,11 +23,30 @@ pattern = '''
 '''
 position = "at"
 payload = '''
-  local ordered_names, viewed_deck = {}, 1
-  for k, v in ipairs(get_decks_centers()) do
-    ordered_names[#ordered_names+1] = v.name
-    if v.name == G.GAME.viewed_back.name or v.key == G.GAME.viewed_back.effect.center.original or (can_be_tainted(G.GAME.viewed_back.effect.center) or {}).key == v.key then viewed_deck = k end
+  viewed_deck = viewed_deck or G.PROFILES[G.SETTINGS.profile].MEMORY.viewed_deck or 1
+  local ordered_names = {}
+  if otype(viewed_deck) == "string" then
+    viewed_deck = 1
+    for k, v in ipairs(get_decks_centers()) do
+      ordered_names[#ordered_names+1] = v.name
+      if v.name == G.GAME.viewed_back.name then viewed_deck = k end
+    end
   end
+'''
+match_indent = true
+
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+function G.UIDEF.run_setup_option(type)
+'''
+position = "at"
+payload = '''
+function G.UIDEF.run_setup_option(ttype)
+local otype = type
+local type = ttype
 '''
 match_indent = true
 
