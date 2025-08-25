@@ -109,6 +109,8 @@ function get_viewed_back()
     end
     if v and (G.TAINTED_ENABLED and not v.original) then
         v = G.P_CENTERS.b_tdec_tainted_placeholder
+        G.P_CENTERS.b_tdec_tainted_placeholder.unlocked = false
+        G.P_CENTERS.b_tdec_tainted_placeholder.discovered = false
     end
     return Back(v)
 end

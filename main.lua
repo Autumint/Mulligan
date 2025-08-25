@@ -11,7 +11,7 @@ SMODS.Back({
             "Coming Soon..."
         }
     },
-    atlas = "erratic_atlas",
+    atlas = "tainted_atlas",
     pos = {x = 999, y = 999},
     unlocked = false,
     discovered = false,
