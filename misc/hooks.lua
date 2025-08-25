@@ -108,7 +108,6 @@ function get_viewed_back()
     if v and not G.TAINTED_ENABLED and v.original then
         v = G.P_CENTERS[v.original]
     end
-    print(v.key)
     return Back(v)
 end
 
