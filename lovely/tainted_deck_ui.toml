@@ -23,7 +23,7 @@ pattern = '''
 '''
 position = "at"
 payload = '''
-  viewed_deck = viewed_deck or G.PROFILES[G.SETTINGS.profile].MEMORY.viewed_deck or 1
+  viewed_deck = viewed_deck or G.PROFILES[G.SETTINGS.profile].MEMORY.deck_view or 1
   local ordered_names = {}
   if otype(viewed_deck) == "string" then
     viewed_deck = 1
