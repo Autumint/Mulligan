@@ -1,6 +1,6 @@
 local TDEC = {
     state = 'Alive',                     
-    saved = { Alive = {}, Dead = {} },   
+    preserved = { Alive = {}, Dead = {} },   
     swapped_this_round = false,          
 }
 
@@ -9,11 +9,10 @@ function Game:start_run(args)
     if not args or not args.savetext then
         TDEC = {
             state = 'Alive',
-            saved = { Alive = {}, Dead = {} },
+            preserved = { Alive = {}, Dead = {} },
             swapped_this_round = false,
         }
     end
-
     game_start_run_ref(self, args)
 end
 
@@ -22,6 +21,7 @@ SMODS.Back{
     key = "tainted_checkered",
     atlas = "tainted_atlas",
     pos = { x = 1, y = 1 },
+    config = { extra_hand_bonus = 2, extra_discard_bonus = 2, dollars = 6 }
 
     loc_vars = function(self, info_queue, back)
         return {
@@ -70,13 +70,13 @@ SMODS.Back{
             play_sound('tdec_checkered_sound')
             TDEC.swapped_this_round = true  
 
-            local keys = {}
+            local preserved = {}
             for _, j in ipairs(G.jokers.cards) do
                 if not SMODS.is_eternal(j) then
-                    keys[#keys+1] = j.config.center.key
+                    preserved[#preserved+1] = j:save()
                 end
             end
-            TDEC.saved[TDEC.state] = keys
+            TDEC.saved[TDEC.state] = preserved
 
             local to_remove = {}
             for _, j in ipairs(G.jokers.cards) do
@@ -95,36 +95,35 @@ SMODS.Back{
             end
 
             TDEC.state = (TDEC.state == 'Alive') and 'Dead' or 'Alive'
-            local spawn_keys = TDEC.saved[TDEC.state] or {}
+            local spawn_data = TDEC.saved[TDEC.state] or {}
 
             G.E_MANAGER:add_event(Event({
                 func = function()
-                    local remaining = 0
-                    for _, j in ipairs(G.jokers.cards) do
-                        if not SMODS.is_eternal(j) then
-                            remaining = remaining + 1
-                        end
-                    end
-                    return remaining == 0
+                    return #G.jokers.cards == 0
                 end
             }))
 
-            for _, k in ipairs(spawn_keys) do
+            for _, data in ipairs(spawn_data) do
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        SMODS.add_card{
-                            key = k,
-                            area = G.jokers,
+                        local new_card = SMODS.add_card{
+                            key = data.key,
+                            set = "Joker",
                             no_juice = true
                         }
+                        if new_card then
+                            new_card:load(data)
+                            new_card:hard_set_T()
+                        end
                         return true
                     end
                 }))
             end
-                    return {
-            message = "Flip",
-            colour = G.C.BLUE
-        }
+
+            return {
+                message = "Flip",
+                colour = G.C.BLUE
+            }
         end
-    end,
+    end
 }
