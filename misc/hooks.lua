@@ -102,11 +102,13 @@ function get_viewed_back()
     if not ((G.TAINTED_ENABLED and (v.original or not can_be_tainted(v))) or (not v.original and not G.TAINTED_ENABLED)) then
         v = can_be_tainted(v)
     end
-    if G.TAINTED_ENABLED and not can_be_tainted(v) then
-        v = G.P_CENTERS["b_tdec_tainted_placeholder"]
+    for i, v2 in pairs(get_decks_centers()) do
+        if i == G.viewed_deck then
+            v = v2
+        end
     end
-    if v and not G.TAINTED_ENABLED and v.original then
-        v = G.P_CENTERS[v.original]
+    if v and (G.TAINTED_ENABLED and not v.original) then
+        v = G.P_CENTERS.b_tdec_tainted_placeholder
     end
     return Back(v)
 end
