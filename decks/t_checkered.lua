@@ -1,4 +1,4 @@
-local TDEC = {
+local TCFlip = {
     state = 'Alive',
     preserved = { Alive = {}, Dead = {} },
     swapped_this_round = false,
@@ -7,22 +7,22 @@ local TDEC = {
 local game_start_run_ref = Game.start_run
 function Game:start_run(args)
     if not args or not args.savetext then
-        TDEC.state = 'Alive'
-        TDEC.preserved = { Alive = {}, Dead = {} }
-        TDEC.swapped_this_round = false
+        TCFlip.state = 'Alive'
+        TCFlip.preserved = { Alive = {}, Dead = {} }
+        TCFlip.swapped_this_round = false
     end
     game_start_run_ref(self, args)
 end
 
-function TDEC.do_flip()
+function TCFlip.do_flip()
     play_sound('tdec_checkered_sound')
-    TDEC.swapped_this_round = true
+    TCFlip.swapped_this_round = true
 
     local preserved = {}
     for _, j in ipairs(G.jokers.cards) do
         preserved[#preserved+1] = j:save()
     end
-    TDEC.preserved[TDEC.state] = preserved
+    TCFlip.preserved[TCFlip.state] = preserved
 
     local to_remove = {}
     for _, j in ipairs(G.jokers.cards) do
@@ -30,18 +30,22 @@ function TDEC.do_flip()
             to_remove[#to_remove+1] = j
         end
     end
+
+    local flipcolor = (TCFlip.state == 'Alive') and G.C.ORANGE or G.C.BLUE
+
+
     for _, j in ipairs(to_remove) do
         j.getting_sliced = true
         G.E_MANAGER:add_event(Event({
             func = function()
-                j:start_dissolve({ G.C.RED }, nil, 1.6)
+                j:start_dissolve({ flipcolor }, nil, 1.6)
                 return true
             end
         }))
     end
 
-    TDEC.state = (TDEC.state == 'Alive') and 'Dead' or 'Alive'
-    local spawn_data = TDEC.preserved[TDEC.state] or {}
+    TCFlip.state = (TCFlip.state == 'Alive') and 'Dead' or 'Alive'
+    local spawn_data = TCFlip.preserved[TCFlip.state] or {}
 
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -68,7 +72,7 @@ function TDEC.do_flip()
 
     return {
         message = "Flip",
-        colour = G.C.BLUE
+        colour = flipcolor
     }
 end
 
@@ -95,10 +99,10 @@ SMODS.Back{
         }
     end,
     loc_txt = {
-        name = "Enigmatic Deck",
+        name = "Enigma Deck",
         text = {
             "{V:1}#1#{V:2}#2#{}",
-            "{C:red}Between Life and Death",
+            "Between {V:2}Life{} and {V:1}Death{}",
         },
     },
     apply = function(self, back)
@@ -118,14 +122,14 @@ SMODS.Back{
     end,
     calculate = function(self, card, context)
         if context and context.setting_blind then
-            TDEC.swapped_this_round = false
+            TCFlip.swapped_this_round = false
             return
         end
 
         if context and context.end_of_round
         and not context.repetition
-        and not TDEC.swapped_this_round then
-            return TDEC.do_flip()
+        and not TCFlip.swapped_this_round then
+            return TCFlip.do_flip()
         end
     end
 }
@@ -144,6 +148,6 @@ SMODS.Consumable{
         return true
     end,
     use = function(self, card, area, copier)
-        return TDEC.do_flip()
+        return TCFlip.do_flip()
     end
 }
