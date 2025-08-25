@@ -114,12 +114,16 @@ SMODS.Sticker{
 }
 
 SMODS.ConsumableType {
-    key = 'DebugScript',
+    key = 'TaintedCards',
     default = 'c_tdec_debugcard',
     primary_colour = G.C.SET.Tarot,
     secondary_colour = G.C.SECONDARY_SET.Tarot,
     collection_rows = { 1 },
-    shop_rate = 0
+    shop_rate = 0,
+    loc_txt = {
+        name = "Tainted Cards",
+        collection = "Tainted Cards"
+    }
 }
 
 SMODS.Consumable {
@@ -132,7 +136,7 @@ SMODS.Consumable {
     atlas = "debugcard_atlas",
     unlocked = true, 
     key = 'debugcard',
-    set = 'DebugScript',
+    set = 'TaintedCards',
     pos = { x = 0, y = 0 },
     
     in_pool = function(self, args)
