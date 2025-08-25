@@ -21,7 +21,7 @@ SMODS.Back{
     key = "tainted_checkered",
     atlas = "tainted_atlas",
     pos = { x = 1, y = 1 },
-    config = { extra_hand_bonus = 2, extra_discard_bonus = 2, dollars = 6 }
+    config = { extra_hand_bonus = 2, extra_discard_bonus = 2, dollars = 6 },
 
     loc_vars = function(self, info_queue, back)
         return {
