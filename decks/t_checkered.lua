@@ -82,13 +82,6 @@ SMODS.Back{
             },
         }
     end,
-    loc_txt = {
-        name = "Enigma Deck",
-        text = {
-            "{V:1}#1#{V:2}#2#{}",
-            "Between {V:2}Life{} and {V:1}Death{}",
-        },
-    },
     apply = function(self, back)
         G.GAME.TCFlip = {
             state = 'Alive',
@@ -128,10 +121,6 @@ SMODS.Consumable{
     unlocked = true,
     key = "flip_card",
     set = "TaintedCards",
-    loc_txt = {
-        name = "Flip?",
-        text = {"Placeholder"},
-    },
     cost = 4,
     rarity = 1,
     can_use = function(self, card)

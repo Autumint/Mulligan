@@ -2,15 +2,6 @@ TDECKS = SMODS.current_mod
 
 SMODS.Back({
     key = "tainted_placeholder",
-    loc_txt = {
-        name = "Coming Soon",
-        text = {
-            "...?"
-        },
-        unlock = {
-            "Coming Soon..."
-        }
-    },
     atlas = "tainted_atlas",
     pos = {x = 999, y = 999},
     unlocked = false,

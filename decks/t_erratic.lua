@@ -1,13 +1,6 @@
 SMODS.Back({
     original = "b_erratic",
     key = "tainted_erratic",
-    loc_txt = {
-        name = "C@PRIC10US D?CK",
-        text = {
-            "{C:red}ERR: ATT.GET ?JOKER?, GOT_NIL{}", 
-            "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
-        }
-    },
     atlas = "tainted_atlas", 
     pos = {x = 2, y = 1}, 
     unlocked = true,
@@ -45,13 +38,6 @@ SMODS.Sticker{
     atlas = "erratic_perish",
     key = "tainted_perish",
     pos = { x = 0, y = 0 },
-
-    loc_txt = {
-        name = "ERR_EVCHANGING",
-        text = {
-            "{C:red}dbg = nil{}",
-        }
-    },
     badge_colour = HEX("FF0000"),
     should_apply = function(self, card)
         return card.ability
@@ -118,7 +104,7 @@ SMODS.ConsumableType {
     default = 'c_tdec_debugcard',
     primary_colour = G.C.SET.Tarot,
     secondary_colour = G.C.SECONDARY_SET.Tarot,
-    collection_rows = { 1 },
+    collection_rows = { 6, 6 },
     shop_rate = 0,
     loc_txt = {
         name = "Tainted Cards",
@@ -127,12 +113,6 @@ SMODS.ConsumableType {
 }
 
 SMODS.Consumable {
-    loc_txt = {
-        name = "Debug Card",
-        text = {
-            "{C:red}[!] OUTPUT: Defined_Global_Input Corrected{}"
-        }
-    },
     atlas = "debugcard_atlas",
     unlocked = true, 
     key = 'debugcard',

@@ -7,16 +7,7 @@ SMODS.Joker{
     pos = { x = 0, y = 0 },
     eternal_compat = true,
     blueprint_compat = false,
-
     config = { extra = { every = 3, count = 0, armed = false } },
-
-    loc_txt = {
-        name = "Tainted Madness",
-        text = {
-            "{C:red,E:2}What's yours is mine{}",
-        }
-    },
-
     set_ability = function(self, card, initial, delay_sprites)
         card:set_eternal(true)
         card:set_edition(nil, true)
@@ -76,13 +67,6 @@ end
 SMODS.Back({
     original = "b_zodiac",
     key = "tainted_zodiac",
-    loc_txt = {
-        name = "Benighted Deck",
-        text = {
-            "Better {C:money}Shops.{}",
-            "{C:red,E:2}Repent for your Debt.{}"
-        }
-    },
     atlas = "tainted_atlas", 
     pos = {x = 6, y = 1}, 
     unlocked = true,

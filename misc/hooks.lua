@@ -99,8 +99,10 @@ function get_viewed_back()
         G.PROFILES[G.SETTINGS.profile].MEMORY.deck = get_deck_from_name(G.PROFILES[G.SETTINGS.profile].MEMORY.deck)
         v = G.PROFILES[G.SETTINGS.profile].MEMORY.deck
     end
-    if not ((G.TAINTED_ENABLED and (v.original or not can_be_tainted(v))) or (not v.original and not G.TAINTED_ENABLED)) then
-        v = can_be_tainted(v)
+    if v then 
+        if not ((G.TAINTED_ENABLED and (v.original or not can_be_tainted(v))) or (not v.original and not G.TAINTED_ENABLED)) then
+            v = can_be_tainted(v)
+        end
     end
     for i, v2 in pairs(get_decks_centers()) do
         if i == G.viewed_deck then
@@ -119,5 +121,5 @@ local change_back = G.FUNCS.change_viewed_back
 G.FUNCS.change_viewed_back = function(args)
     change_back(args)
     G.viewed_deck = args.to_key
-    G.PROFILES[G.SETTINGS.profile].MEMORY.viewed_deck = G.viewed_deck
+    G.PROFILES[G.SETTINGS.profile].MEMORY.deck_view = G.viewed_deck
 end

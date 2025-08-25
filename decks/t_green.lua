@@ -15,14 +15,6 @@ SMODS.Back{
     atlas = "tainted_atlas",
     pos = { x = 3, y = 0 },
     config = { extra_hand_bonus = 1, extra_discard_bonus = 1, dollars = 4 },
-    loc_txt = {
-        name = "Mi$er Deck",
-        text = {
-            "{C:attention}Greed{} is Good.",
-            "{C:red,E:2}Chasing Wealth.{}"
-        }
-    },
-
     calculate = function(self, back, context)
         if not G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_green" then
             return
