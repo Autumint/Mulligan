@@ -25,3 +25,10 @@ SMODS.Atlas{
     px = 71,
     py = 19
 }
+
+SMODS.Atlas{
+    key = "tainted_checkered",
+    path = "tainted_checkered.png",
+    px = 71,
+    py = 95
+}
