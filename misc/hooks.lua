@@ -105,7 +105,7 @@ function get_viewed_back()
     if G.TAINTED_ENABLED and not can_be_tainted(v) then
         v = G.P_CENTERS["b_tdec_tainted_placeholder"]
     end
-    if not G.TAINTED_ENABLED and v.original then
+    if v and not G.TAINTED_ENABLED and v.original then
         v = G.P_CENTERS[v.original]
     end
     print(v.key)
