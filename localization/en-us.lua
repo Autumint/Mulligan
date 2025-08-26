@@ -31,7 +31,7 @@ return {
             b_tdec_tainted_ghost = {
                 name = "Phantasm Deck"
                 text = {
-                    "Placeholder Text"
+                    "Placeholder Text",
                     "{C:blue}1{} Hand"
                 }
             },
