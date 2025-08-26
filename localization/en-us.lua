@@ -71,7 +71,7 @@ return {
                 }
             }
         },
-        Other = {
+        Sticker = {
             tainted_perish = {
                 name = "ERR_EVCHANGING",
                 text = {
@@ -79,7 +79,7 @@ return {
                 }
             }
         },
-        TaintedCards = {
+        Consumable = {
             c_tdec_debugcard = {
                 name = "Debug Card",
                 text = {
@@ -89,6 +89,12 @@ return {
             c_tdec_flip_card = {
                 name = "Flip?",
                 text = {"Placeholder"},
+            },
+            c_tdec_holy_card = {
+                name = "Holy Card",
+                text = {
+                    "Gain {C:blue}+1{} hand. If the extra hand is used, the effect is {C:red}lost{}"
+                }
             }
         }
     }
