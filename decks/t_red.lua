@@ -6,23 +6,20 @@ SMODS.Back{
     unlocked = true,
     discovered = true,
     config = {
-        max_highlight = 7,
+        max_highlight_mod = 2,
         hands = -2        
     },
+    apply = function(self)
+        G.E_MANAGER:add_event(Event{
+            func = function()
+                SMODS.change_discard_limit(self.config.max_highlight_mod)
+                return true
+            end
+        })
+    end,
     calculate = function(self, back, context)
         if context.pre_discard and #G.hand.highlighted == 1 then
             ease_hands_played(1)
         end
     end
 }
-
-local start_run_hook = G.start_run
-function G.start_run(self, args)
-    local ret = start_run_hook(self, args)
-    if G.GAME.selected_back 
-       and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_red" then
-        SMODS.change_discard_limit(2)
-    end
-    return ret
-end
-
