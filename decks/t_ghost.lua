@@ -39,6 +39,12 @@ SMODS.Back{
                 G.GAME.round_resets.hands = 1
             end
         end
+
+        if G.GAME and G.GAME.round_resets then
+            if G.GAME.current_round.hands_left > 2 then
+                G.GAME.current_round.hands_left = 2
+            end
+        end
     end,
 }
 

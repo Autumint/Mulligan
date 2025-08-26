@@ -31,7 +31,7 @@ return {
             b_tdec_tainted_ghost = {
                 name = "Phantasm Deck",
                 text = {
-                    "Placeholder Text",
+                    "{C:blue}Purge{} all Evil{}",
                     "{C:blue}1{} Hand"
                 }
             },
@@ -41,7 +41,7 @@ return {
                 text = {
                     "{V:1}#1#{V:2}#2#{}",
                     "Between {V:2}Life{} and {V:1}Death{}",
-                }
+                },
             },
             b_tdec_tainted_zodiac = {
                 name = "Benighted Deck",
@@ -77,7 +77,7 @@ return {
                 }
             }
         },
-        Sticker = {
+        Other = {
             tainted_perish = {
                 name = "ERR_EVCHANGING",
                 text = {
@@ -85,7 +85,7 @@ return {
                 }
             }
         },
-        Consumable = {
+        TaintedCards = {
             c_tdec_debugcard = {
                 name = "Debug Card",
                 text = {
@@ -94,7 +94,9 @@ return {
             },
             c_tdec_flip_card = {
                 name = "Flip?",
-                text = {"Placeholder"},
+                text = {
+                    "Placeholder"
+                }
             },
             c_tdec_holy_card = {
                 name = "Holy Card",
@@ -102,6 +104,7 @@ return {
                     "Gain {C:blue}+1{} hand. If the extra hand is used, the effect is {C:red}lost{}"
                 }
             }
+            }
         }
     }
-}
+
