@@ -28,14 +28,20 @@ return {
             --black
             --magic
             --nebula
-            --ghost
+            b_tdec_tainted_ghost = {
+                name = "Phantasm Deck"
+                text = {
+                    "Placeholder Text"
+                    "{C:blue}1{} Hand"
+                }
+            },
             --abandoned
             b_tdec_tainted_checkered = {
                 name = "Enigma Deck",
                 text = {
                     "{V:1}#1#{V:2}#2#{}",
                     "Between {V:2}Life{} and {V:1}Death{}",
-                },
+                }
             },
             b_tdec_tainted_zodiac = {
                 name = "Benighted Deck",
