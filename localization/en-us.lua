@@ -10,7 +10,7 @@ return {
         },
         Back = {
             b_tdec_tainted_red = {
-                name = "??? Deck",
+                name = "Curdled Deck",
                 text = {
                     "{C:red}Less{} is {C:blue}More{}",
                     "{C:blue}-2{} Hands"
