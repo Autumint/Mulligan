@@ -3,7 +3,7 @@ SMODS.Back{
     key = "tainted_ghost",
     atlas = "tainted_atlas",
     pos = {x = 6, y = 0},
-    config = { consumables = {'c_tdec_holycard'},
+    config = { consumables = {'c_tdec_holy_card'},
         hands = -3,
         discards = 2,
     },
