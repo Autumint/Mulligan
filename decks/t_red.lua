@@ -7,7 +7,7 @@ SMODS.Back{
     discovered = true,
     config = {
         max_highlight = 7,
-        hands = -1        
+        hands = -2        
     },
     calculate = function(self, back, context)
         if context.pre_discard and #G.hand.highlighted == 1 then
