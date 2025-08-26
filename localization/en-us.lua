@@ -9,7 +9,13 @@ return {
             },
         },
         Back = {
-            --red
+            b_tdec_tainted_red = {
+                name = "??? Deck",
+                text = {
+                    "{C:red}Less{} is {C:blue}More{}",
+                    "{C:blue}-2{} Hands"
+                }
+            },          
             --blue
             --yellow
             b_tdec_tainted_green = {

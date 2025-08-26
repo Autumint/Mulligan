@@ -21,6 +21,7 @@ local files = {
     "decks/t_green",
     "decks/t_painted",
     "decks/t_zodiac",
+    "decks/t_red"
 }
 for i, v in pairs(files) do
     SMODS.load_file(v..".lua")()  
