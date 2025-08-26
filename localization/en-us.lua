@@ -29,7 +29,7 @@ return {
             --magic
             --nebula
             b_tdec_tainted_ghost = {
-                name = "Phantasm Deck"
+                name = "Phantasm Deck",
                 text = {
                     "Placeholder Text",
                     "{C:blue}1{} Hand"
