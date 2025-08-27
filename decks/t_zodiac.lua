@@ -1,5 +1,5 @@
 SMODS.Joker{
-    key = "taintedmadness",
+    key = "tainted_madness",
     atlas = "madness_atlas",
     allow_duplicates = false,
     rarity = 1,

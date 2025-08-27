@@ -7,7 +7,31 @@ return {
                     "{C:red,E:2}What's yours is mine{}",
                 }
             },
+            j_tdec_Sumptorium = {
+                name = "Sumptorium",
+                text = {
+                    "{C:blue}-2{} Hands",
+                    "At the end of each boss blind",
+                    "summon a {C:red}Clot{}"
+                }
+            },
+            j_tdec_SumptoClot = {
+                name = "Clot",
+                text = {
+                    "Summoned by {C:red}Sumptorium{}",
+                    "Provides {X:mult,C:white}X1.5{} mult"
+                }
+            },
+            j_tdec_purgatory = {
+                name = "Purgatory",
+                text = {
+                    "{C:blue}Spectral{} cards grant {X:mult,C:white}X1{} mult and {C:purple}Tarot{}",
+                    "cards grant {X:mult,C:white}X0.5{} mult for the next played {C:blue}hand{}",
+                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+                }
+            }
         },
+
         Back = {
             b_tdec_tainted_red = {
                 name = "Curdled Deck",
@@ -16,8 +40,6 @@ return {
                     "{C:blue}-2{} Hands"
                 }
             },          
-            --blue
-            --yellow
             b_tdec_tainted_green = {
                 name = "Mi$er Deck",
                 text = {
@@ -25,9 +47,6 @@ return {
                     "{C:red,E:2}Chasing Wealth.{}"
                 }
             },
-            --black
-            --magic
-            --nebula
             b_tdec_tainted_ghost = {
                 name = "Phantasm Deck",
                 text = {
@@ -35,7 +54,6 @@ return {
                     "{C:blue}1{} Hand"
                 }
             },
-            --abandoned
             b_tdec_tainted_checkered = {
                 name = "Enigma Deck",
                 text = {
@@ -57,8 +75,6 @@ return {
                     "{C:red,E:2}Dry Paint.{}"
                 }
             },
-            --anaglyph
-            --plasma
             b_tdec_tainted_erratic = {
                 name = "C@PRIC10US D?CK",
                 text = {
@@ -66,7 +82,6 @@ return {
                     "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
                 }
             },
-            --placeholder
             b_tdec_tainted_placeholder = {
                 name = "Coming Soon",
                 text = {
@@ -77,6 +92,7 @@ return {
                 }
             }
         },
+
         Other = {
             tainted_perish = {
                 name = "ERR_EVCHANGING",
@@ -85,6 +101,7 @@ return {
                 }
             }
         },
+
         taintedcards = {
             c_tdec_debugcard = {
                 name = "Debug Card",
@@ -104,7 +121,22 @@ return {
                     "Gain {C:blue}+1{} hand. If the extra hand is used, the effect is {C:red}lost{}"
                 }
             }
+        },
+
+        Edition = {
+            e_tdec_clotting = {
+                name = "Clotting",
+                text = {
+                    "{C:blue}+1{} Joker Slot, {C:red}Removed{}",
+                    "if {C:red}Sumptorium{} isn't present"
+                }
             }
         }
+    },
+    misc = {
+        labels = {
+            tdec_clotting = "Clotting",
     }
+}
 
+}

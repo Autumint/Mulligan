@@ -32,3 +32,24 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
+
+SMODS.Atlas{
+    key = "Clot_Atlas",
+    path = "clot.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas{
+    key = "Sumptorium_Atlas",
+    path = "sumptorium.png",
+    px = 71,
+    py = 95
+}
+
+SMODS.Atlas{
+    key = "Purgatory_Atlas",
+    path = "purgatory.png",
+    px = 71,
+    py = 95
+}

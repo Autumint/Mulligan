@@ -27,7 +27,10 @@ local files = {
     "consumables/consumabletype",
     "consumables/debugcard",
     "consumables/holycard",
-    "consumables/flip"
+    "consumables/flip",
+
+    "jokers/sumptorium",
+    "jokers/purgatory"
 }
 for i, v in pairs(files) do
     SMODS.load_file(v..".lua")()  

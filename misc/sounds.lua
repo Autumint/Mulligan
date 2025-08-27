@@ -18,3 +18,10 @@ SMODS.Sound({
     key = "checkered_sound",
     path = "lazarusflipdead.ogg",
 })
+
+SMODS.Sound({
+    vol = 1.0,
+    pitch = 1,
+    key = "heart_out",
+    path = "heart_out.ogg",
+})
