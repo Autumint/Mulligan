@@ -73,7 +73,7 @@ SMODS.Back({
     discovered = true,
     config = {
         jokers = { "j_tdec_taintedmadness" },
-        vouchers = { "v_overstock_norm", "v_reroll_surplus", "v_clearance_sale" },
+        vouchers = { "v_overstock_norm", "v_reroll_surplus" },
         joker_slot = 1
     },
     apply = function(self)

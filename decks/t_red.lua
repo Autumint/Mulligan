@@ -7,7 +7,8 @@ SMODS.Back{
     discovered = true,
     config = {
         max_highlight_mod = 2,
-        hands = -2        
+        hands = -2,
+        discards = 1
     },
     apply = function(self)
         G.E_MANAGER:add_event(Event{

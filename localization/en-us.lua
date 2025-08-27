@@ -71,7 +71,7 @@ return {
                 }
             }
         },
-        Sticker = {
+        Other = {
             tainted_perish = {
                 name = "ERR_EVCHANGING",
                 text = {
@@ -79,7 +79,7 @@ return {
                 }
             }
         },
-        Consumable = {
+        taintedcards = {
             c_tdec_debugcard = {
                 name = "Debug Card",
                 text = {
