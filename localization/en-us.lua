@@ -81,7 +81,7 @@ return {
                     "{C:blue}Restless{}",
                     "{C:red}No Skips.{}"
                 }
-            }
+            },
             b_tdec_tainted_erratic = {
                 name = "C@PRIC10US D?CK",
                 text = {
