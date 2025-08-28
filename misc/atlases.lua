@@ -35,7 +35,7 @@ SMODS.Atlas{
 
 SMODS.Atlas{
     key = "Clot_Atlas",
-    path = "thrombosisclot.png",
+    path = "clot.png",
     px = 71,
     py = 95
 }
