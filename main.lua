@@ -23,6 +23,7 @@ local files = {
     "decks/t_zodiac",
     "decks/t_red",
     "decks/t_ghost",
+    "decks/t_anaglyph",
 
     "consumables/consumabletype",
     "consumables/debugcard",
