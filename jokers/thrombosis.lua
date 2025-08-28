@@ -2,7 +2,7 @@
 
 SMODS.Joker {
     key = "Sumptorium",
-    atlas = "Sumptorium_Atlas",
+    atlas = "Thrombosis_Atlas",
     blueprint_compat = false,
     eternal_compat = false,
     rarity = 3,

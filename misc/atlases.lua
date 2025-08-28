@@ -41,8 +41,8 @@ SMODS.Atlas{
 }
 
 SMODS.Atlas{
-    key = "Sumptorium_Atlas",
-    path = "sumptorium.png",
+    key = "Thrombosis_Atlas",
+    path = "thrombosis.png",
     px = 71,
     py = 95
 }

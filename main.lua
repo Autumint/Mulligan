@@ -29,7 +29,7 @@ local files = {
     "consumables/holycard",
     "consumables/flip",
 
-    "jokers/sumptorium",
+    "jokers/thrombosis",
     "jokers/purgatory"
 }
 for i, v in pairs(files) do
