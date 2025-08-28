@@ -8,7 +8,7 @@ return {
                 }
             },
             j_tdec_Sumptorium = {
-                name = "Sumptorium",
+                name = "Thrombosis",
                 text = {
                     "{C:blue}-2{} Hands",
                     "At the end of each boss blind",
@@ -18,7 +18,7 @@ return {
             j_tdec_SumptoClot = {
                 name = "Clot",
                 text = {
-                    "Summoned by {C:red}Sumptorium{}",
+                    "Summoned by {C:red}Thrombosis{}",
                     "Provides {X:mult,C:white}X1.5{} mult"
                 }
             },
