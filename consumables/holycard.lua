@@ -1,4 +1,5 @@
 SMODS.Consumable {
+    atlas = "Holy_Atlas",
     unlocked = true,
     key = 'holy_card',
     cost = 4,
