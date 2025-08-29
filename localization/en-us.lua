@@ -71,8 +71,7 @@ return {
             b_tdec_tainted_painted = {
                 name = "Dried Deck",
                 text = {
-                    "Better {C:money}Jokers.{}",
-                    "{C:red,E:2}Dry Paint.{}"
+                    "{C:money}In The Making!{}"
                 }
             },
             b_tdec_tainted_anaglyph = {
