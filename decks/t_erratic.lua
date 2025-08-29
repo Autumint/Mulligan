@@ -12,14 +12,12 @@ SMODS.Back{
         trigger = 'after',
         func = function()
             local c = create_card("taintedcards", G.consumeables, nil, nil, nil, nil, "c_tdec_debugcard") 
-            c.ability.eternal = true
             c:add_to_deck()
             G.consumeables:emplace(c)  
             return true
         end}))
     end
 }
-
 
 function TDECKS.random_joker_center(_rarity)
     local center
@@ -52,9 +50,6 @@ SMODS.Sticker{
 
     calculate = function(self, card, context)
         if not card.ability[self.key] then return end
-
-        --card.ability._tdec_triggered = card.ability._tdec_triggered or false
-        --G.GAME._tdec_erratic_sound_played = G.GAME._tdec_erratic_sound_played or false --Not Needed; nil evaluates as false
 
         if context.check_eternal and card.ability._tdec_force_eternal then
             return { no_destroy = { override_compat = true } }

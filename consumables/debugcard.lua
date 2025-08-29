@@ -1,6 +1,30 @@
 local debugkeeper = false
 local roundkeeper = 3
 
+do
+    local original_use_and_sell = G.UIDEF.use_and_sell_buttons
+
+    local function remove_sell_button(node)
+        if not node or not node.nodes then return end
+        for i = #node.nodes, 1, -1 do
+            local child = node.nodes[i]
+            if child.config and child.config.button == "sell_card" then
+                table.remove(node.nodes, i)
+            else
+                remove_sell_button(child)
+            end
+        end
+    end
+
+    function G.UIDEF.use_and_sell_buttons(card)
+        local m = original_use_and_sell(card)
+        if card.config and card.config.center and card.config.center.key == "c_tdec_debugcard" then
+            remove_sell_button(m)
+        end
+        return m
+    end
+end
+
 SMODS.Consumable {
     atlas = "debugcard_atlas",
     unlocked = true, 
@@ -8,10 +32,10 @@ SMODS.Consumable {
     set = 'taintedcards',
     pos = { x = 0, y = 0 },
     eternal_compat = true,
+
     loc_vars = function(self, info_queue, card)
         return { vars = { roundkeeper } }
     end,
-
 
     keep_on_use = function(self, card)
         return true 
@@ -46,9 +70,7 @@ SMODS.Consumable {
 
         if context.end_of_round and context.main_eval and roundkeeper >= 3 and G.GAME.round ~= 1 then
             debugkeeper = false
-            return {
-                message = "ERRDEC? ACTIVE?"
-            }
+            return { message = "ERRDEC? ACTIVE?" }
         end
     end,
 
@@ -63,4 +85,3 @@ SMODS.Consumable {
         return false
     end
 }
-    
