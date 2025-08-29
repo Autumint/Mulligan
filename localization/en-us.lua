@@ -113,7 +113,10 @@ return {
             c_tdec_debugcard = {
                 name = "Debug Card",
                 text = {
-                    "{C:red}[!] OUTPUT: Defined_Global_Input Corrected{}"
+                    "{C:red}[!] OUTPUT: Defined_Global_Input Corrected{}",
+                    "{C:red}[!] DEBUG_JOKER when ?CHARGE? == 3",
+                    "{C:inactive}(Currently {X:mult,C:white} #1# {C:inactive} Charges)"
+                    
                 }
             },
             c_tdec_flip_card = {

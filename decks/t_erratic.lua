@@ -1,24 +1,25 @@
-SMODS.Back({
+SMODS.Back{
     original = "b_erratic",
     key = "tainted_erratic",
     atlas = "tainted_atlas", 
     pos = {x = 2, y = 1}, 
     unlocked = true,
     discovered = true,
-    config = {
-        joker_slot = 1
-    },
-    calculate = function(self, card, context)
-    if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
+    config = { joker_slot = 1, consumable_slot = 1 },
+
+    apply = function(self)
         G.E_MANAGER:add_event(Event({
-            func = function()
-                SMODS.add_card{ set = "DebugScript", key = "c_tdec_debugcard"}
-                return true
-            end
-        }))
+        trigger = 'after',
+        func = function()
+            local c = create_card("taintedcards", G.consumeables, nil, nil, nil, nil, "c_tdec_debugcard") 
+            c.ability.eternal = true
+            c:add_to_deck()
+            G.consumeables:emplace(c)  
+            return true
+        end}))
     end
-end
-})
+}
+
 
 function TDECKS.random_joker_center(_rarity)
     local center
