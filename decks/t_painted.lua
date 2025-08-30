@@ -92,7 +92,7 @@ SMODS.Sticker {
     end,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.perishable_rounds or 4, card.ability.perish_tally or G.GAME.perishable_rounds } }
+        return { vars = { card.ability.perishable_rounds or 5, card.ability.perish_tally or G.GAME.perishable_rounds } }
     end,
 
     calculate = function(self, card, context)

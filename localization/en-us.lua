@@ -119,7 +119,7 @@ return {
             tdec_Eroding = {
                 name = "Eroding",
                 text = {
-                    "Erodes over {C:attention}4{} Rounds",
+                    "Erodes over {C:attention}5{} Rounds",
                     "Becomes {C:red}Dried Joker{} after Eroding",
                     "{C:inactive}({C:attention}#2#{C:inactive} remaining)"
                 }
