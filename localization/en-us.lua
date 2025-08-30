@@ -78,7 +78,9 @@ return {
             b_tdec_tainted_painted = {
                 name = "Dried Deck",
                 text = {
-                    "{C:money}In The Making!{}"
+                    "Start run with the",
+                    "{C:money}Chisel{} and {C:money}Sketch{}",
+                    "{C:red}Eroding Destiny."
 
                 }
             },
@@ -92,7 +94,7 @@ return {
             b_tdec_tainted_erratic = {
                 name = "C@PRIC10US D?CK",
                 text = {
-                    "{C:red}ERR: ATT.GET ?JOKER?, GOT_NIL{}", 
+                    "{C:red}ST?RT RUN W_? DBG_CARD?{}", 
                     "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
                 }
             },
