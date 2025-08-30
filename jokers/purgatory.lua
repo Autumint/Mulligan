@@ -14,6 +14,10 @@ SMODS.Joker {
         return { vars = { card.ability.extra.Xmult_mod, card.ability.extra.Xmult } }
     end,
 
+    in_pool = function(self)
+        return false
+    end,
+
     calculate = function(self, card, context)
         if context.using_consumeable and not context.blueprint and context.consumeable.ability.set == 'Tarot' then
             card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_mod_tarot

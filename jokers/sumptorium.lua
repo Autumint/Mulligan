@@ -10,23 +10,27 @@ SMODS.Joker {
     pos = { x = 0, y = 0 },
     config = { extra = { h_plays = -2 } },
 
-calculate = function(self, card, context)
-    if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
-        if #SMODS.find_card('j_tdec_SumptoClot') < 3 then
-            play_sound('tdec_heart_out')
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    SMODS.add_card{ 
-                        set = "Joker", 
-                        key = "j_tdec_SumptoClot", 
-                        edition = "e_tdec_clotting", 
-                    }
-                    return true
-                end
-            }))
+    calculate = function(self, card, context)
+        if context.end_of_round and context.beat_boss and not context.individual and not context.repetition then
+            if #SMODS.find_card('j_tdec_SumptoClot') < 3 then
+                play_sound('tdec_heart_out')
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        SMODS.add_card{ 
+                            set = "Joker", 
+                            key = "j_tdec_SumptoClot", 
+                            edition = "e_tdec_clotting", 
+                        }
+                        return true
+                    end
+                }))
+            end
         end
-    end
-end,
+    end,
+
+    in_pool = function(self)
+        return false
+    end,
 
     add_to_deck = function(self, card, from_debuff)
         G.GAME.round_resets.hands = G.GAME.round_resets.hands + card.ability.extra.h_plays
