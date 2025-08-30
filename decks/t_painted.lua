@@ -46,6 +46,34 @@ SMODS.Back{
             G.consumeables:emplace(c)  
             return true
         end}))
+    end,
+
+    calculate = function(self, card, context)
+        local pool = {}
+
+        local has_sticker = false
+        for _, joker in ipairs(G.jokers.cards) do
+            if joker.ability and joker.ability.tdec_Eroding then
+                has_sticker = true
+                break
+            end
+        end
+
+        if not has_sticker then
+            for _, joker in ipairs(G.jokers.cards) do
+                if joker ~= card and joker.config.center.key ~= "j_tdec_dried_joker" then
+                    table.insert(pool, joker)
+                end
+            end
+
+            if context.end_of_round and not context.repetition and not context.individual and #pool > 0 then
+                local selected_joker = pseudorandom_element(pool, card.key)
+
+                if selected_joker then
+                    selected_joker:add_sticker("tdec_Eroding", true)
+                end
+            end
+        end
     end
 }
 
@@ -68,8 +96,6 @@ SMODS.Joker {
     in_pool = function(self)
         return false
     end,
-
-
 }
 
 SMODS.Sticker {
@@ -77,27 +103,20 @@ SMODS.Sticker {
     badge_colour = HEX '895129',
     pos = { x = 0, y = 2 },
 
-    should_apply = function(self, card, center, area, bypass_roll)
-        return card.ability
-            and card.ability.set == "Joker"
-            and G.GAME.selected_back
-            and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_painted"
-    end,
-
     apply = function(self, card, val)
         card.ability[self.key] = val
         if card.ability[self.key] then
-            card.ability.perish_tally = G.GAME.perishable_rounds
+            card.ability.perish_tally = 3
         end
     end,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.perishable_rounds or 5, card.ability.perish_tally or G.GAME.perishable_rounds } }
+        return { vars = { card.ability.perishable_tally or 3, card.ability.perish_tally } }
     end,
 
     calculate = function(self, card, context)
         if context.end_of_round and not context.repetition and not context.individual then
-            card.ability.perish_tally = (card.ability.perish_tally or G.GAME.perishable_rounds) - 1
+            card.ability.perish_tally = card.ability.perish_tally - 1
 
             if card.ability.perish_tally <= 0 then
                 G.E_MANAGER:add_event(Event({
@@ -109,17 +128,12 @@ SMODS.Sticker {
                 }))
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        if not G.GAME._tdec_erratic_sound_played then
-                            G.GAME._tdec_erratic_sound_played = true
-                        if card.ability and card.ability.tdec_Eroding then
-                            card.ability.tdec_Eroding = nil
-                        end
-                    end
+                        card:flip()
+                        card.ability.tdec_Eroding = nil
                         card:set_ability("j_tdec_dried_joker")
                         return true
                     end
                 }))
-                card.ability.perish_tally = G.GAME.perishable_rounds
             end
         end
     end
