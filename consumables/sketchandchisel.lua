@@ -93,7 +93,44 @@ SMODS.Consumable {
         end
     end,
 
-    in_pool = function(self) return false end,
+    use = function(self, card, area, copier)
+    ensure_CSData()
+    for _, j in ipairs(G.jokers.highlighted) do
+        if j.config and j.config.center and j.config.center.key ~= "j_tdec_dried_joker" then
+            G.GAME.CSData.sketched_joker_key = j.config.center.key
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card:juice_up()
+                    G.GAME.CSData.sroundkeeper = 0
+                    G.GAME.CSData.sketchrecordactive = true
+                    G.GAME.CSData.messagesketch = false
+                    return true
+                end
+            }))
+        end
+    end
+
+    if G.shop_jokers and G.shop_jokers.highlighted then
+        for _, j in ipairs(G.shop_jokers.highlighted) do
+            if j.config and j.config.center and j.config.center.key ~= "j_tdec_dried_joker" then
+                G.GAME.CSData.sketched_joker_key = j.config.center.key
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        card:juice_up()
+                        G.GAME.CSData.sroundkeeper = 0
+                        G.GAME.CSData.sketchrecordactive = true
+                        G.GAME.CSData.messagesketch = false
+                        return true
+                    end
+                }))
+            end
+        end
+    end
+end,
+
+    in_pool = function(self) 
+        return false 
+    end,
 
     calculate = function(self, card, context)
         ensure_CSData()
@@ -107,7 +144,9 @@ SMODS.Consumable {
     end,
 
     can_use = function(self, card)
-    ensure_CSData()
+        ensure_CSData()
+    
+
     if G.GAME.CSData.sroundkeeper >= 8 and #G.jokers.highlighted > 0 then
         for _, j in ipairs(G.jokers.highlighted) do
             if j.config and j.config.center and j.config.center.key ~= "j_tdec_dried_joker" then
@@ -115,6 +154,15 @@ SMODS.Consumable {
             end
         end
     end
+
+    if G.GAME.CSData.sroundkeeper >= 8 and G.shop_jokers and #G.shop_jokers.highlighted > 0 then
+        for _, j in ipairs(G.shop_jokers.highlighted) do
+            if j.config and j.config.center and j.config.center.key ~= "j_tdec_dried_joker" then
+                return true
+            end
+        end
+    end
+
     return false
 end
 }
@@ -159,7 +207,6 @@ SMODS.Consumable {
                     return true
                 end
             }))
-
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 func = function()
@@ -170,7 +217,10 @@ SMODS.Consumable {
         end
     end
 end,
-    in_pool = function(self) return false end,
+
+    in_pool = function(self) 
+        return false 
+    end,
 
     calculate = function(self, card, context)
         ensure_CSData()
