@@ -29,6 +29,13 @@ return {
                     "cards grant {X:mult,C:white}X0.5{} mult for the next played {C:blue}hand{}",
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
                 }
+            },
+            j_tdec_dried_joker = {
+                name = "Dried Joker",
+                text = {
+                    "Does Nothing. Consumed by {C:red}Erosion{}",
+                    "You can probably {C:attention}Reshape{} it?"
+                }
             }
         },
 
@@ -72,6 +79,7 @@ return {
                 name = "Dried Deck",
                 text = {
                     "{C:money}In The Making!{}"
+
                 }
             },
             b_tdec_tainted_anaglyph = {
@@ -100,10 +108,18 @@ return {
         },
 
         Other = {
-            tainted_perish = {
+            tdec_tainted_perish = {
                 name = "ERR_EVCHANGING",
                 text = {
                     "{C:red}dbg = nil{}",
+                }
+            },
+            tdec_Eroding = {
+                name = "Eroding",
+                text = {
+                    "Erodes over {C:attention}5{} Rounds",
+                    "Becomes {C:red}Dried Joker{} after Eroding",
+                    "{C:inactive}({C:attention}#2#{C:inactive} remaining)"
                 }
             }
         },
@@ -114,7 +130,7 @@ return {
                 text = {
                     "{C:red}[!] OUTPUT: Defined_Global_Input Corrected{}",
                     "{C:red}[!] DEBUG_JOKER when ?CHARGE? == 3",
-                    "{C:inactive}(Currently {X:mult,C:white} #1# {C:inactive} Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
                     
                 }
             },
@@ -128,6 +144,20 @@ return {
                 name = "Holy Card",
                 text = {
                     "Gain {C:blue}+1{} hand. If the extra hand is used, the effect is {C:red}lost{}"
+                }
+            },
+            c_tdec_thechisel = {
+                name = "Chisel",
+                text = {
+                    "Carve your {C:attention}Destiny.{}",
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
+                }
+            },
+            c_tdec_thesketch = {
+                name = "Sketch",
+                text = {
+                    "Write your {C:attention}Destiny.{}",
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/8 {C:inactive} Charges)"
                 }
             }
         },
@@ -145,6 +175,8 @@ return {
     misc = {
         labels = {
             tdec_clotting = "Clotting",
+            tdec_tainted_perish = "EVERCHANGING",
+            tdec_Eroding = "Eroding"
     }
 }
 

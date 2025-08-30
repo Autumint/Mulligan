@@ -29,6 +29,7 @@ local files = {
     "consumables/debugcard",
     "consumables/holycard",
     "consumables/flip",
+    "consumables/sketchandchisel",
 
     "jokers/sumptorium",
     "jokers/purgatory"
