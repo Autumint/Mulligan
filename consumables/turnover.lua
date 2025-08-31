@@ -31,13 +31,13 @@ SMODS.Consumable{
     eternal_compat = true,
 
     can_use = function(self, card)
-        if G.GAME.dollars >= 15 then
+        if G.GAME.dollars >= 10 and G.STATE == 7 or G.STATE == 1 then
             return true
         end
     end,
 
     use = function(self, card)
-        ease_dollars(-15)
+        ease_dollars(-10)
 
         G.E_MANAGER:add_event(Event({
             trigger = 'after',

@@ -5,7 +5,9 @@ SMODS.Back{
     pos = { x = 2, y = 0 },
     unlocked = true,
     discovered = true,
-    config = {},
+    config = {
+        extra_hand_bonus = 1, extra_discard_bonus = 1
+    },
     apply = function(self)
         G.GAME.modifiers.tainted_yellow = true
         G.E_MANAGER:add_event(Event({
