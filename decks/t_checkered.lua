@@ -2,15 +2,17 @@ function do_flip()
     play_sound('tdec_checkered_sound')
     G.GAME.TCFlip.swapped_this_round = true
 
-    local preserved = {}
+    local preserved = {} 
     for _, j in ipairs(G.jokers.cards) do
-        preserved[#preserved+1] = j:save()
+        if j.area == G.jokers and j.area ~= G.shop_jokers then
+            preserved[#preserved+1] = j:save()
+        end
     end
     G.GAME.TCFlip.preserved[G.GAME.TCFlip.state] = preserved
 
     local to_remove = {}
     for _, j in ipairs(G.jokers.cards) do
-        if not j.getting_sliced then
+        if j.area == G.jokers and j.area ~= G.shop_jokers and not j.getting_sliced then
             to_remove[#to_remove+1] = j
         end
     end
