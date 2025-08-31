@@ -106,12 +106,12 @@ SMODS.Sticker {
     apply = function(self, card, val)
         card.ability[self.key] = val
         if card.ability[self.key] then
-            card.ability.perish_tally = 3
+            card.ability.perish_tally = 2
         end
     end,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.perishable_tally or 3, card.ability.perish_tally } }
+        return { vars = { card.ability.perishable_tally or 2, card.ability.perish_tally } }
     end,
 
     calculate = function(self, card, context)
@@ -138,4 +138,3 @@ SMODS.Sticker {
         end
     end
 }
-

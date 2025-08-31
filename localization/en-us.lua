@@ -178,6 +178,12 @@ return {
                     "Write your {C:attention}Destiny.{}",
                     "{C:inactive}(Currently {X:mult,C:white} #1#/8 {C:inactive} Charges)"
                 }
+            },
+            c_tdec_turnover = {
+                name = "Turnover",
+                text = {
+                    "Spend {C:money}$15{} to open a {C:money}Shop{}"
+                }
             }
         },
 

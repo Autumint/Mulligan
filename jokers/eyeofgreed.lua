@@ -1,7 +1,6 @@
 -- THIS WILL BE THE TAINTED GREEN UNLOCK BTWW
 
 SMODS.Joker{
-    unlocked = false
     key = "eyeofgreed",
     atlas = "tainted_atlas",
     blueprint_compat = true,

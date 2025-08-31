@@ -39,17 +39,16 @@ function do_flip()
         end
     }))
 
-    for _, data in ipairs(spawn_data) do
+        for _, data in ipairs(spawn_data) do
         G.E_MANAGER:add_event(Event({
             func = function()
-                local new_card = SMODS.add_card{
-                    key = data.key,
-                    set = "Joker",
-                    no_juice = true
-                }
+                local new_card = create_card('Joker', G.jokers, nil, nil, true, nil, data.key)
                 if new_card then
+                    new_card.no_juice = true
                     new_card:load(data)
                     new_card:hard_set_T()
+                    G.jokers:emplace(new_card)
+                    new_card:add_to_deck()
                 end
                 return true
             end
@@ -106,12 +105,12 @@ SMODS.Back{
         }))
     end,
     calculate = function(self, card, context)
-        if context and context.setting_blind then
+        if context.setting_blind then
             G.GAME.TCFlip.swapped_this_round = false
             return
         end
 
-        if context and context.end_of_round
+        if context.end_of_round
         and not context.repetition
         and not G.GAME.TCFlip.swapped_this_round then
             return do_flip()

@@ -216,4 +216,3 @@ end
 if G.shop and math.abs(G.shop.T.y - G.shop.VT.y) < 3 then
 '''
 match_indent = true
-

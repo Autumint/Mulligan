@@ -64,7 +64,7 @@ calculate = function(self, card, context)
 end
 }
 
-SMODS.Back({
+SMODS.Back{
     original = "b_zodiac",
     key = "tainted_zodiac",
     atlas = "tainted_atlas", 
@@ -79,4 +79,4 @@ SMODS.Back({
     apply = function(self)
         SMODS.change_booster_limit(1)
     end
-})
+}

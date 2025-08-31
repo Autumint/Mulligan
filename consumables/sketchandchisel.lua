@@ -41,8 +41,7 @@ do
 
     function G.UIDEF.use_and_sell_buttons(card)
         local m = original_use_and_sell(card)
-        if card.config and card.config.center and 
-           (card.config.center.key == "c_tdec_thechisel" or card.config.center.key == "c_tdec_thesketch") then
+        if card.config and card.config.center and card.config.center.key == "c_tdec_thechisel" or card.config.center.key == "c_tdec_thesketch" or card.ability.tdec_Eroding then
             remove_sell_button(m)
         end
         return m

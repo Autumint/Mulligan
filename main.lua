@@ -17,8 +17,8 @@ local files = {
     "misc/hooks",
 
     "decks/t_checkered",
-    "decks/t_yellow",
     "decks/t_erratic",
+    "decks/t_yellow",
     "decks/t_green",
     "decks/t_painted",
     "decks/t_zodiac",
