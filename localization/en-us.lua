@@ -59,8 +59,8 @@ return {
             b_tdec_tainted_yellow = {
                 name = "Avarice Deck",
                 text = {
-                    "{C:money}Turnover{}",
-                    "{C:red}We're Closed.{}"
+                    "Start run with the {C:money}Turnover{}",
+                    "{C:red,E:2}Economic Wasteland.{}"
                 }
             },
             b_tdec_tainted_green = {
@@ -74,7 +74,7 @@ return {
                 name = "Phantasm Deck",
                 text = {
                     "{C:blue}Holier{} Cards",
-                    "{C:blue}1{} Hand"
+                    "{C:red,E:2}Last Purge.{}"
                 }
             },
             b_tdec_tainted_checkered = {
@@ -96,7 +96,7 @@ return {
                 text = {
                     "Start run with the",
                     "{C:money}Chisel{} and {C:money}Sketch{}",
-                    "{C:red}Destined To Erode."
+                    "{C:red,E:2}Destined To Erode."
 
                 }
             },
@@ -104,14 +104,14 @@ return {
                 name = "Dauntless Deck",
                 text = {
                     "{C:blue}Restless{}",
-                    "{C:red}No Skips.{}"
+                    "{C:red,E:2}No Skips.{}"
                 }
             },
             b_tdec_tainted_erratic = {
                 name = "C@PRIC10US D?CK",
                 text = {
                     "{C:red}ST?RT RUN W_? DBG_CARD?{}", 
-                    "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
+                    "{C:red,E:2}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
                 }
             },
             b_tdec_tainted_placeholder = {
