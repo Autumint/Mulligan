@@ -182,7 +182,7 @@ return {
             c_tdec_turnover = {
                 name = "Turnover",
                 text = {
-                    "Spend {C:money}$15{} to open a {C:money}Shop{}"
+                    "Spend {C:money}$10{} to open a {C:money}Shop{}"
                 }
             }
         },
