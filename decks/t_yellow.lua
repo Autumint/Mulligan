@@ -6,11 +6,16 @@ SMODS.Back{
     unlocked = true,
     discovered = true,
     config = {},
-
-    -- these are useless since we want to skip shops fully. I was just messing around
     apply = function(self)
-        change_shop_size(-2)
-        SMODS.change_booster_limit(-2)
-        SMODS.change_voucher_limit(-1)
+        G.GAME.modifiers.tainted_yellow = true
+        G.E_MANAGER:add_event(Event({
+        trigger = 'after',
+        func = function()
+            local c = create_card("taintedcards", G.consumeables, nil, nil, nil, nil, "c_tdec_turnover") 
+            c:add_to_deck()
+            G.consumeables:emplace(c)  
+            return true
+        end}))
     end
 }
+

@@ -31,6 +31,7 @@ local files = {
     "consumables/holycard",
     "consumables/flip",
     "consumables/sketchandchisel",
+    "consumables/turnover"
 
     "jokers/sumptorium",
     "jokers/purgatory",
