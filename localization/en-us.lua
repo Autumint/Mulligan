@@ -1,6 +1,15 @@
 return {
     descriptions = {
         Joker = {
+            j_tdec_eyeofgreed = {
+                name = "Eye of Greed",
+                text = {
+                    "Each played card costs {C:money}$1{}",
+                    "and grants {X:mult,C:white}0.5X{} mult",
+                    "For the played {C:blue}hand{}",
+                    "{C:inactive}(Starts at {X:mult,C:white}X1{C:inactive} Mult){}"
+                }
+            },
             j_tdec_tainted_madness = {
                 name = "Tainted Madness",
                 text = {
@@ -33,7 +42,7 @@ return {
             j_tdec_dried_joker = {
                 name = "Dried Joker",
                 text = {
-                    "Does Nothing. Consumed by {C:red}Erosion{}",
+                    "Does {C:red}Nothing{}. Consumed by {C:red}Erosion{}",
                     "You can probably {C:attention}Reshape{} it?"
                 }
             }
@@ -46,7 +55,14 @@ return {
                     "{C:red}Less{} is {C:blue}More{}",
                     "{C:blue}-2{} Hands"
                 }
-            },          
+            },     
+            b_tdec_tainted_yellow = {
+                name = "Avarice Deck",
+                text = {
+                    "{C:money}Turnover{}",
+                    "{C:red}We're Closed.{}"
+                }
+            },
             b_tdec_tainted_green = {
                 name = "Mi$er Deck",
                 text = {
@@ -80,7 +96,7 @@ return {
                 text = {
                     "Start run with the",
                     "{C:money}Chisel{} and {C:money}Sketch{}",
-                    "{C:red}Eroding Destiny."
+                    "{C:red}Destined To Erode."
 
                 }
             },
@@ -119,9 +135,10 @@ return {
             tdec_Eroding = {
                 name = "Eroding",
                 text = {
-                    "Erodes after {C:attention}3{} Rounds",
+                    "{C:red}Unsellable{}. Erodes over {C:attention}2{} Rounds",
                     "Becomes {C:red}Dried Joker{} after Eroding",
-                    "{C:inactive}({C:red}#2#{C:inactive} remaining)"
+
+                    "{C:inactive}({C:attention}#2#{C:inactive} remaining)"
                 }
             }
         },

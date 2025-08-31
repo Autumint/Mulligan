@@ -17,6 +17,7 @@ local files = {
     "misc/hooks",
 
     "decks/t_checkered",
+    "decks/t_yellow",
     "decks/t_erratic",
     "decks/t_green",
     "decks/t_painted",
@@ -32,7 +33,8 @@ local files = {
     "consumables/sketchandchisel",
 
     "jokers/sumptorium",
-    "jokers/purgatory"
+    "jokers/purgatory",
+    "jokers/eyeofgreed"
 }
 for i, v in pairs(files) do
     SMODS.load_file(v..".lua")()  
