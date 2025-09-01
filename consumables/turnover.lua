@@ -57,19 +57,19 @@ SMODS.Consumable{
     end,
 
     can_use = function(self, card)
-        if G.GAME.dollars >= 10 and G.STATE ~= 999 and G.STATE ~= 8 and G.GAME.TAINTED_SHOP_LEVEL ~= 3 then
+        if (G.GAME.dollars >= 10 and G.STATE ~= 999 and G.STATE ~= 8 and G.GAME.TAINTED_SHOP_LEVEL ~= 3) or (G.GAME.dollars >= 5 and G.GAME.TAINTED_SHOP_STATE and G.GAME.TAINTED_SHOP_LEVEL ~= 3) then
             return true
         end
     end,
 
     use = function(self, card)
-        ease_dollars(-10)
         if G.GAME.TAINTED_SHOP_STATE then
             G.GAME.TAINTED_SHOP_LEVEL = (G.GAME.TAINTED_SHOP_LEVEL or 0) + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 blockable = false,
                 func = function()
+                    ease_dollars(-5)
                     local lvl = G.GAME.TAINTED_SHOP_LEVEL
                     if lvl == 1 then
                         SMODS.change_booster_limit(1)
@@ -94,6 +94,7 @@ SMODS.Consumable{
             blocking = false,
             delay = 1,
             func = function()
+                ease_dollars(-10)
                 G.GAME.TAINTED_SHOP_STATE = G.STATE
                 G.GAME.TAINTED_SHOP_LEVEL = 0
                 G.STATE = G.STATES.SHOP
@@ -126,6 +127,7 @@ SMODS.Consumable{
                             func = function()
                                 SMODS.change_booster_limit((-(G.GAME.modifiers.extra_boosters or 0)-2)+1)
                                 change_shop_size((-G.GAME.shop.joker_max)+1)
+                                G.GAME.current_round.used_packs = nil
                                 G.shop:remove()
                                 G.shop = nil
                                 G.SHOP_SIGN:remove()

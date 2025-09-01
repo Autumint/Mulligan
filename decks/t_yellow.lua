@@ -6,9 +6,11 @@ SMODS.Back{
     unlocked = true,
     discovered = true,
     config = {
-		extra_hand_bonus = 1, extra_discard_bonus = 1
+		extra_hand_bonus = 1, extra_discard_bonus = 1, dollars = 6
 	},
     apply = function(self)
+        G.GAME.interest_amount = G.GAME.interest_amount + 1
+        G.GAME.banned_keys["v_overstock"] = true
 		SMODS.change_booster_limit(-1)
 		SMODS.change_voucher_limit(-1)
 		change_shop_size(-1)
@@ -23,3 +25,4 @@ SMODS.Back{
         end}))
     end
 }
+
