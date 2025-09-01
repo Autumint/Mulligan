@@ -70,6 +70,14 @@ return {
                     "{C:red,E:2}Chasing Wealth.{}"
                 }
             },
+            b_tdec_tainted_nebula = {
+                name = "Plagued Deck",
+                text = {
+                    "Start run with the {C:red}Abyss{}",
+                    "{C:red}It beckons..{}"
+                }
+
+            },
             b_tdec_tainted_ghost = {
                 name = "Phantasm Deck",
                 text = {
@@ -184,6 +192,14 @@ return {
                 text = {
                     "Spend {C:money}$10{} to open a {C:money}Shop{}",
                     "or {C:money}$5{} to {C:money}upgrade{} an existing {C:money}Shop{}",
+                }
+            },
+            c_tdec_abyss = {
+                name = "{C:red}Abyss{}",
+                text = {
+                    "Destroy a {C:attention}Consumable{} to",
+                    "Turn it into a {C:red}Locust{} with special {C:attention}effects{}",
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
                 }
             }
         },

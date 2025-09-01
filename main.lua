@@ -25,6 +25,7 @@ local files = {
     "decks/t_red",
     "decks/t_ghost",
     "decks/t_anaglyph",
+    "decks/t_nebula",
 
     "consumables/consumabletype",
     "consumables/debugcard",
@@ -32,6 +33,7 @@ local files = {
     "consumables/flip",
     "consumables/sketchandchisel",
     "consumables/turnover",
+    "consumables/abyss",
 
     "jokers/sumptorium",
     "jokers/purgatory",
