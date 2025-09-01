@@ -21,9 +21,11 @@ SMODS.Joker{
             for i = 1, played_count do
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        if G.play.cards[i] then
                         G.play.cards[i]:juice_up()
-                        return true
-                    end,
+                    end
+                    return true
+                end,
                 }))
                 ease_dollars(-1)
                 delay(0.23)

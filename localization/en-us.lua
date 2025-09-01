@@ -111,7 +111,7 @@ return {
                 name = "C@PRIC10US D?CK",
                 text = {
                     "{C:red}ST?RT RUN W_? DBG_CARD?{}", 
-                    "{C:red,E:2}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
+                    "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
                 }
             },
             b_tdec_tainted_placeholder = {
@@ -180,9 +180,10 @@ return {
                 }
             },
             c_tdec_turnover = {
-                name = "Turnover",
+                name = "{C:money}Turnover{}",
                 text = {
-                    "Spend {C:money}$10{} to open a {C:money}Shop{}"
+                    "Spend {C:money}$10{} to open a {C:money}Shop{}",
+                    "or {C:money}upgrade{} an existing {C:money}Shop{}",
                 }
             }
         },
