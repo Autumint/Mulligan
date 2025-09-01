@@ -73,14 +73,14 @@ SMODS.Consumable{
                     local lvl = G.GAME.TAINTED_SHOP_LEVEL
                     if lvl == 1 then
                         SMODS.change_booster_limit(1)
-                        SMODS.change_voucher_limit(1)
+                        SMODS.add_voucher_to_shop(nil, true)
                     elseif lvl == 2 then
                         SMODS.change_booster_limit(1)
                         change_shop_size(1)
                     elseif lvl == 3 then
                         change_shop_size(1)
                         SMODS.change_booster_limit(1)
-                        SMODS.change_voucher_limit(1)
+                        SMODS.add_voucher_to_shop(nil, true)
                     end
                     return true
                 end
