@@ -21,40 +21,5 @@ SMODS.Back{
             G.consumeables:emplace(c)  
             return true
         end}))
-    end,
-
-    calculate = function(self, back, context)
-        if context.skip_blind then
-			G.E_MANAGER:add_event(Event({
-				trigger = 'before', delay = 0.2,
-				func = function()
-				  G.blind_prompt_box.alignment.offset.y = -10
-				  G.blind_select.alignment.offset.y = 40
-				  G.blind_select.alignment.offset.x = 0
-				  return true
-			end}))
-			G.E_MANAGER:add_event(Event({
-			trigger = 'immediate',
-			func = function()
-				G.blind_select:remove()
-				G.blind_prompt_box:remove()
-				G.blind_select = nil
-				return true
-			end}))
-			G.E_MANAGER:add_event(Event({
-				trigger = "after",
-				delay = .9,
-				func = function()
-
-					G.GAME.current_round.jokers_purchased = 0
-					G.STATE = G.STATES.SHOP
-					G.GAME.shop_free = nil
-					G.GAME.shop_d6ed = nil
-					G.STATE_COMPLETE = false
-					
-					return true
-				end,
-			}))
-		end
-    end,
+    end
 }
