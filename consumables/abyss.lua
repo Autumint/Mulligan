@@ -1,24 +1,58 @@
+local function ensure_abyss()
+    if not G.GAME then return end
+    G.GAME.abyss = G.GAME.abyss or {
+        abyssround = 2,
+        abyssactive = false
+    }
+end
+
+
+local abyss_consumable_to_joker = {
+    c_heirophant   = "j_tdec_hierophant_locust",
+    c_magician = "j_tdec_lucky_locust"
+    -- this is where we'll store data for consumables and which locust it spawns. A lil rough but it's a pretty simple method :)
+}
 do
     local original_use_consumeable = Card.use_consumeable
 
     function Card:use_consumeable(area, copier)
         if G.GAME and G.GAME.abyss and G.GAME.abyss.abyssactive then
             if self.config and self.config.center then
-                G.GAME.abyss.last_consumable = self.config.center.key
+                local used_key = self.config.center.key
+                G.GAME.abyss.last_consumable = used_key
+                G.GAME.abyss.abyssactive = false
+
+                local spawn_key = abyss_consumable_to_joker[used_key]
+                if spawn_key then
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        func = function()
+                            local c = create_card('Joker', G.jokers, nil, nil, nil, nil, spawn_key)
+                            c:add_to_deck()
+                            G.jokers:emplace(c)
+                            c:juice_up(0.8, 0.8)
+                            return true
+                        end
+                    }))
+                end
             end
-            G.GAME.abyss.abyssactive = false
             return
         end
         return original_use_consumeable(self, area, copier)
     end
 end
 
-local function ensure_abyss()
-    if not G.GAME then return end
-    G.GAME.abyss = G.GAME.abyss or {
-        abyssround = 3,
-        abyssactive = false
-    }
+do
+    local original_can_use_consumeable = Card.can_use_consumeable
+
+    function Card:can_use_consumeable(area, copier)
+        if G.GAME and G.GAME.abyss and G.GAME.abyss.abyssactive then
+            if self.config and self.config.center and self.config.center.key ~= "c_tdec_abyss" then
+                return true
+            end
+        end
+        return original_can_use_consumeable(self, area, copier)
+    end
 end
 
 do
@@ -70,18 +104,16 @@ end,
 
     use = function(self, card, area, copier)
         ensure_abyss()
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                G.GAME.abyss.abyssround = 0
-                G.GAME.abyss.abyssactive = true
-                return true
-            end
-        }))
+        G.GAME.abyss.abyssround = 0
+        G.GAME.abyss.abyssactive = true
+        return {
+            message = "Consume"
+        }
     end,
 
     calculate = function(self, card, context)
         ensure_abyss()
-        if context.end_of_round and context.main_eval and G.GAME.abyss.abyssround  < 3 and not G.GAME.abyss.abyssactive then
+        if context.end_of_round and context.main_eval and G.GAME.abyss.abyssround  < 2 and not G.GAME.abyss.abyssactive then
             G.GAME.abyss.abyssround = G.GAME.abyss.abyssround + 1
         end
         if context.end_of_round and G.GAME.abyss.abyssactive then
@@ -89,14 +121,16 @@ end,
         end
     end,
 
+
     in_pool = function(self)
         return false
     end,
 
     can_use = function(self, card)
         ensure_abyss()
-        if G.GAME.abyss.abyssround == 3 then
+        if G.GAME.abyss.abyssround == 2 then
             return true
         end
     end
 }
+

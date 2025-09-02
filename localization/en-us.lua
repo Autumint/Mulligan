@@ -45,6 +45,21 @@ return {
                     "Does {C:red}Nothing{}. Consumed by {C:red}Erosion{}",
                     "You can probably {C:attention}Reshape{} it?"
                 }
+            },
+            j_tdec_hierophant_locust = {
+                name = "Bonus Locust",
+                text = {
+                    "Grants {C:blue}#2#{} chips."
+                }
+            },
+            j_tdec_lucky_locust = {
+                name = "Lucky Locust",
+                text = {
+                    "{C:green}#1# in #4#{} chance",
+                    "for {C:mult}+#3#{} Mult",
+                    "{C:green}#2# in #6#{} chance",
+                    "to win {C:money}$#5#",
+                }
             }
         },
 
@@ -199,7 +214,7 @@ return {
                 text = {
                     "Destroy a {C:attention}Consumable{} to",
                     "Turn it into a {C:red}Locust{} with special {C:attention}effects{}",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/2 {C:inactive} Charges)"
                 }
             }
         },
