@@ -71,7 +71,7 @@ return {
                 name = "Wealthy Locust",
                 text = {
                     "Grants {C:red}+#2# mult{} per {C:money}$#3#{} held",
-                    "and {C:money}$#5# at the end of a round.",
+                    "and {C:money}$#5#{} at the end of a round.",
                     "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)"
                 }
             },
