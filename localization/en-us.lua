@@ -70,7 +70,8 @@ return {
             j_tdec_wealthy_locust = {
                 name = "Wealthy Locust",
                 text = {
-                    "{C:red}+#2# mult{} per {C:money}$#3#{} held.",
+                    "Grants {C:red}+#2# mult{} per {C:money}$#3#{} held",
+                    "and {C:money}$#5# at the end of a round.",
                     "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)"
                 }
             },
@@ -78,6 +79,17 @@ return {
                 name = "Foolish Locust",
                 text = {
                     "Copies {C:money}ability{} of the {C:red}locust{} to the right."
+
+                }
+            },
+            j_tdec_powerful_locust = {
+                name = "Powerful Locust",
+                text = {
+                    "Grants {C:red}+#1# mult{} and {C:blue}+#2# chips{}",
+                    "per currently owned {C:red}Locust.{}",
+                    "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)",
+                    "{C:inactive}(Currently {X:blue,C:white} +#5# {C:inactive} Chips)"
+                    
 
                 }
             }

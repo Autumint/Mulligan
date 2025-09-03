@@ -30,13 +30,17 @@ end
     rarity = 1,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { size = 1, mult = 1, dollars = 10 }},
+    config = { extra = { size = 1, mult = 1, dollars = 10, dollareor = 1 }},
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.size, card.ability.extra.mult, card.ability.extra.dollars, card.ability.extra.mult * math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars) } }
+        return { vars = { card.ability.extra.size, card.ability.extra.mult, card.ability.extra.dollars, card.ability.extra.mult * math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars), card.ability.extra.dollareor } }
     end,
 
     in_pool = function(self) 
         return false 
+    end,
+
+    calc_dollar_bonus = function(self, card)
+        return card.ability.extra.dollareor
     end,
 
     add_to_deck = function(self, card, from_debuff)
