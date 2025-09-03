@@ -2,7 +2,8 @@ local function ensure_abyss()
     if not G.GAME then return end
     G.GAME.abyss = G.GAME.abyss or {
         abyssround = 2,
-        abyssactive = false
+        abyssactive = false,
+        abyssmessage = true
     }
 end
 
@@ -89,16 +90,23 @@ SMODS.Consumable{
     set = "taintedcards",
     pos = {x = 0, y = 0},
     eternal_compat = true,
-
-apply = function(self)
-    G.GAME.abyssroundkeeper = 1
-    return true
-end,
-
-loc_vars = function(self, info_queue, card)
+    loc_vars = function(self, info_queue, card)
     ensure_abyss()
     if not G.GAME then return { vars = {0}, main_end = {} } end
-    return { vars = { G.GAME.abyss.abyssround } }
+
+    local active = G.GAME.abyss.abyssactive
+    local status_text = active and "Ready To Consume" or "Dormant..."
+    local colour = active and G.C.GREEN or G.C.RED
+
+    local main_end = {
+        { n = G.UIT.C, config = { align = "bm", padding = 0.02 }, nodes = {
+            { n = G.UIT.C, config = { align = "m", colour = colour, r = 0.05, padding = 0.05 }, nodes = {
+                { n = G.UIT.T, config = { text = ' ' .. status_text .. ' ', colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
+            }}
+        }}
+    }
+
+    return { vars = { G.GAME.abyss.abyssround }, main_end = main_end }
 end,
 
     keep_on_use = function(self, card)
@@ -109,9 +117,16 @@ end,
         ensure_abyss()
         G.GAME.abyss.abyssround = 0
         G.GAME.abyss.abyssactive = true
-        return {
-            message = "Consume"
-        }
+        G.GAME.abyss.abyssmessage = false
+        card:juice_up(0.8, 0.8)
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = "Consume.."
+                })
+                return true
+            end
+        }))
     end,
 
     calculate = function(self, card, context)
@@ -119,10 +134,31 @@ end,
         if context.end_of_round and context.main_eval and G.GAME.abyss.abyssround  < 2 and not G.GAME.abyss.abyssactive then
             G.GAME.abyss.abyssround = G.GAME.abyss.abyssround + 1
         end
+        if context.end_of_round and G.GAME.abyss.abyssround == 2 and context.main_eval and not G.GAME.abyss.abyssmessage then
+            G.E_MANAGER:add_event(Event({
+            func = function()
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = "Ready.."
+                })
+                G.GAME.abyss.abyssmessage = true
+                return true
+            end
+        }))
+        end
         if context.end_of_round and G.GAME.abyss.abyssactive then
+            G.E_MANAGER:add_event(Event({
+            func = function()
+                card_eval_status_text(card, 'extra', nil, nil, nil, {
+                    message = "Enshadowed.."
+                })
+                return true
+            end
+        }))
             G.GAME.abyss.abyssactive = false
         end
     end,
+
+
 
 
     in_pool = function(self)
@@ -136,4 +172,3 @@ end,
         end
     end
 }
-
