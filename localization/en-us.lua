@@ -56,11 +56,32 @@ return {
                 name = "Lucky Locust",
                 text = {
                     "{C:green}#1# in #4#{} chance",
-                    "for {C:mult}+#3#{} Mult",
+                    "to grant {C:mult}+#3#{} Mult.",
                     "{C:green}#2# in #6#{} chance",
-                    "to win {C:money}$#5#",
+                    "to grant {C:money}$#5#{}.",
+                }
+            },
+            j_tdec_empress_locust = {
+                name = "Empress Locust",
+                text = {
+                    "Grants {C:red}+#2#{} mult."
+                }
+            },
+            j_tdec_wealthy_locust = {
+                name = "Wealthy Locust",
+                text = {
+                    "{C:red}+#2# mult{} per {C:money}$#3#{} held.",
+                    "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)"
+                }
+            },
+            j_tdec_foolish_locust = {
+                name = "Foolish Locust",
+                text = {
+                    "Copies {C:money}ability{} of the {C:red}locust{} to the right."
+
                 }
             }
+            
         },
 
         Back = {
