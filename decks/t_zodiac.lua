@@ -72,7 +72,7 @@ SMODS.Back{
     unlocked = true,
     discovered = true,
     config = {
-        jokers = { "j_tdec_taintedmadness" },
+        jokers = { "j_tdec_tainted_madness" },
         vouchers = { "v_overstock_norm", "v_reroll_surplus" },
         joker_slot = 1
     },
