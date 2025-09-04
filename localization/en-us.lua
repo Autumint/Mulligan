@@ -71,7 +71,7 @@ return {
                 name = "Wealthy Locust",
                 text = {
                     "Grants {C:red}+#2# mult{} per {C:money}$#3#{} held",
-                    "and {C:money}$#5#{} at the end of a round.",
+                    "and {C:money}$#5# at the end of a round.",
                     "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)"
                 }
             },
@@ -92,8 +92,16 @@ return {
                     
 
                 }
+            },
+            j_tdec_soulless_locust = {
+                name = "{C:dark_edition}Soulless Locust{}",
+                text = {
+                    "{C:green}#2# in #3#{} chance to invoke the effect of a",
+                    "random {C:purple,E:2}Legendary{} joker. After every",
+                    "{C:attention}#6#{} discards gain {X:mult,C:white}X#5#{} Mult.",
+                    "{C:inactive}(Currently {X:mult,C:white} X#14# {C:inactive} Mult)"
+                }
             }
-            
         },
 
         Back = {
@@ -238,8 +246,8 @@ return {
             c_tdec_turnover = {
                 name = "{C:money}Turnover{}",
                 text = {
-                    "Spend {C:money}$10{} to open a {C:money}Shop{}",
-                    "or {C:money}$5{} to {C:money}upgrade{} an existing {C:money}Shop{}",
+                    "Spend {C:money}$5{} to open a {C:money}Shop{}",
+                    "or to {C:money}upgrade{} an existing {C:money}Shop{}",
                 }
             },
             c_tdec_abyss = {
