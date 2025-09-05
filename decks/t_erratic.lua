@@ -5,7 +5,7 @@ SMODS.Back{
     pos = {x = 2, y = 1}, 
     unlocked = true,
     discovered = true,
-    config = { joker_slot = 1, consumable_slot = 1 },
+    config = { joker_slot = 1 },
 
     apply = function(self)
         G.E_MANAGER:add_event(Event({
