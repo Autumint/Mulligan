@@ -20,7 +20,7 @@ function Game:start_run(args)
                     { n = G.UIT.O, config = { object = self.pactive_area, draw_layer = 1 } }
                 }
             },
-            config = { align = 'cmi', offset = { x = 9, y = 5 }, major = self.jokers, bond = 'Weak' }
+            config = { align = 'cmi', offset = { x = 8.7, y = 5 }, major = self.jokers, bond = 'Weak' }
         }
         G.pactive_ui = self.pactive_ui
     end

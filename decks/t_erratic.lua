@@ -9,15 +9,21 @@ SMODS.Back{
 
     apply = function(self)
         G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        func = function()
-            local c = create_card("taintedcards", G.consumeables, nil, nil, nil, nil, "c_tdec_debugcard") 
-            c:add_to_deck()
-            G.consumeables:emplace(c)  
-            return true
-        end}))
+            trigger = 'after',
+            func = function()
+                if G.pactive_area then
+                    local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_debugcard")
+                    c:add_to_deck()
+                    table.insert(G.pactive_area.cards, c)
+                    c.area = G.pactive_area
+                    c:align()
+                end
+                return true
+            end
+        }))
     end
 }
+
 
 function TDECKS.random_joker_center(_rarity)
     local center
