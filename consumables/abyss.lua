@@ -13,8 +13,8 @@ local abyss_consumable_to_joker = {
     c_magician = "j_tdec_lucky_locust",
     c_empress = "j_tdec_empress_locust",
     c_hermit = "j_tdec_wealthy_locust",
-    c_fool = "j_tdec_foolish_locust"
-    c_strength = "j_tdec_powerful_locust"
+    c_fool = "j_tdec_foolish_locust",
+    c_strength = "j_tdec_powerful_locust",
     c_soul = "j_tdec_soulless_locust"
     -- this is where we'll store data for consumables and which locust it spawns. A lil rough but it's a pretty simple method :)
 }
