@@ -2,7 +2,7 @@ SMODS.Back{
     original = "b_nebula",
     key = "tainted_nebula",
     atlas = "tainted_atlas",
-    pos = {x = 2, y = 0},
+    pos = {x = 0, y = 3},
     unlocked = true,
     discovered = true,
     config = { consumable_slots = -1 },
