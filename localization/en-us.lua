@@ -122,14 +122,14 @@ return {
             b_tdec_tainted_green = {
                 name = "Mi$er Deck",
                 text = {
-                    "{C:attention}Greed{} is Good.",
+                    "{C:attention}Greed{} is Good",
                     "{C:red,E:2}Chasing Wealth.{}"
                 }
             },
             b_tdec_tainted_nebula = {
                 name = "Singularity Deck",
                 text = {
-                    "Start run with the {C:attention,T:c_tdec_abyss}Abyss{}.",
+                    "Start run with the {C:red,T:c_tdec_abyss}Abyss{}",
                     "{C:red}-1{} consumable slot"
                 }
 
@@ -137,7 +137,7 @@ return {
             b_tdec_tainted_ghost = {
                 name = "Phantasm Deck",
                 text = {
-                    "{C:blue}Holier{} Cards",
+                    "{C:blue,T:c_tdec_holy_card}Holier{} Cards",
                     "{C:red,E:2}Last Purge.{}"
                 }
             },
@@ -151,7 +151,7 @@ return {
             b_tdec_tainted_zodiac = {
                 name = "Benighted Deck",
                 text = {
-                    "Better {C:money}Shops.{}",
+                    "Better {C:money}Shops{}",
                     "{C:red,E:2}Repent for your Debt.{}"
                 }
             },
