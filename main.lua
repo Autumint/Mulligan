@@ -39,6 +39,7 @@ local files = {
     "jokers/sumptorium",
     "jokers/purgatory",
     "jokers/eyeofgreed",
+    "jokers/locusts/empress_locust",
     "jokers/locusts/hierophant_locust",
     "jokers/locusts/chariot_locust",
     "jokers/locusts/death_locust",
