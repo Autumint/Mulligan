@@ -115,7 +115,7 @@ return {
             b_tdec_tainted_yellow = {
                 name = "Avarice Deck",
                 text = {
-                    "Start run with the {C:money}Turnover{}",
+                    "Start run with the {C:money,T:c_tdec_turnover}Turnover{}",
                     "{C:red,E:2}Economic Wasteland.{}"
                 }
             },
@@ -127,10 +127,10 @@ return {
                 }
             },
             b_tdec_tainted_nebula = {
-                name = "Plagued Deck",
+                name = "Singularity Deck",
                 text = {
-                    "Start run with the {C:red}Abyss{}",
-                    "{C:red}It beckons..{}"
+                    "Start run with the {C:attention,T:c_tdec_abyss}Abyss{}.",
+                    "{C:red}-1{} consumable slot"
                 }
 
             },
@@ -159,7 +159,7 @@ return {
                 name = "Dried Deck",
                 text = {
                     "Start run with the",
-                    "{C:money}Chisel{} and {C:money}Sketch{}",
+                    "{C:money,T:c_tdec_thechisel}Chisel{} and {C:money,T:c_tdec_thesketch}Sketch{}",
                     "{C:red,E:2}Destined To Erode."
 
                 }
@@ -174,7 +174,7 @@ return {
             b_tdec_tainted_erratic = {
                 name = "C@PRIC10US D?CK",
                 text = {
-                    "{C:red}ST?RT RUN W_? DBG_CARD?{}", 
+                    "{C:red}ST?RT RUN W_?{} {C:red,T:c_tdec_debugcard}DBG_CARD?{}", 
                     "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
                 }
             },
