@@ -2,7 +2,7 @@ local start_run_ref = Game.start_run
 function Game:start_run(args)
     if not self.pactive_area then
         self.pactive_area = CardArea(
-            0, 0,
+            17.4, 5,
             self.CARD_W * 1,
             self.CARD_H * 1,
             { card_limit = 1, type = "jokers", highlight_limit = 1 }
