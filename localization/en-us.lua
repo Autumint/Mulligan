@@ -75,6 +75,13 @@ return {
                     "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)"
                 }
             },
+            j_tdec_executioner_locust = {
+                name = "Executioner Locust",
+                text = {
+                    "Grants {C:red}+#2# mult{} when {C:red}destroying{} a {C:attention}card{}",
+                    "{C:inactive}(Currently {X:mult,C:white} +#3# {C:inactive} Mult)"
+                }
+            },
             j_tdec_foolish_locust = {
                 name = "Foolish Locust",
                 text = {
