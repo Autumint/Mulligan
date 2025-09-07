@@ -64,6 +64,10 @@ SMODS.Joker{
         }}
     end,
 
+    in_pool = function(self)
+        return false
+    end,
+
     add_to_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.size
         if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then

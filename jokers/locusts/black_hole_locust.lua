@@ -15,7 +15,7 @@ do
 
     function G.UIDEF.use_and_sell_buttons(card)
         local m = original_use_and_sell(card)
-        if card.config and card.config.center and card.config.center.key == "j_tdec_executioner_locust" then
+        if card.config and card.config.center and card.config.center.key == "j_tdec_singularity_locust" then
             remove_sell_button(m)
         end
         return m
@@ -24,17 +24,16 @@ end
 
 
 SMODS.Joker{
-    key = "executioner_locust",
+    key = "singularity_locust",
     atlas = "tainted_atlas",
     blueprint_compat = true,
     perishable_compat = false,
-    rarity = 1,
+    rarity = 4,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { size = 1, mult = 2, mult_gain = 2 } },
-
+    config = { extra = { size = 1, used_this_round = false }},
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.size, card.ability.extra.mult_gain, card.ability.extra.mult } }
+        return { vars = { card.ability.extra.size } }
     end,
 
     add_to_deck = function(self, card, from_debuff)
@@ -46,19 +45,17 @@ SMODS.Joker{
     end,
 
     calculate = function(self, card, context)
-        if context.remove_playing_cards and not context.blueprint then
-            local removed_count = #context.removed
-            if removed_count > 0 then
-                card.ability.extra.mult = card.ability.extra.mult + removed_count * card.ability.extra.mult_gain
-                return { message = localize { type = 'variable', key = 'a_mult', vars = { card.ability.extra.mult } } }
-            end
-        end
-        if context.joker_main then
-            return { mult = card.ability.extra.mult }
+        if context.before and G.GAME.current_round.hands_played <= 0 then
+            return {
+                level_up = true,
+                message = localize('k_level_up_ex')
+            }
         end
     end,
+
 
     in_pool = function(self)
         return false
     end,
+
 }

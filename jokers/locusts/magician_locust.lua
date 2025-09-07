@@ -47,6 +47,10 @@ SMODS.Joker{
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.size
     end,
 
+    in_pool = function(self)
+        return false
+    end,
+
     calculate = function(self, card, context)
         if context.joker_main then
             local ret = {}

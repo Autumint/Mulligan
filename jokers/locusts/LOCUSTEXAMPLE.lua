@@ -15,7 +15,7 @@ do
 
     function G.UIDEF.use_and_sell_buttons(card)
         local m = original_use_and_sell(card)
-        if card.config and card.config.center and card.config.center.key == "c_tdec_[?]_locust" then
+        if card.config and card.config.center and card.config.center.key == "j_tdec_[?]_locust" then
             remove_sell_button(m)
         end
         return m
@@ -42,5 +42,9 @@ SMODS.Joker{
 
     remove_from_deck = function(self, card, from_debuff)
         G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.size
+    end,
+
+    in_pool = function(self)
+        return false
     end,
 }

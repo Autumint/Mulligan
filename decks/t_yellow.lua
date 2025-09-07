@@ -6,7 +6,7 @@ SMODS.Back{
     unlocked = true,
     discovered = true,
     config = {
-		extra_hand_bonus = 1, extra_discard_bonus = 1, dollars = 6, consumable_slots = 1
+		extra_hand_bonus = 1, extra_discard_bonus = 1, dollars = 6
 	},
     apply = function(self)
         G.GAME.interest_amount = G.GAME.interest_amount + 1

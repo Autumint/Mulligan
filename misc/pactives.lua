@@ -28,4 +28,22 @@ function Game:start_run(args)
     if G.consumeables and G.consumeables.config and G.consumeables.config.type then
         self.pactive_area.config.type = G.consumeables.config.type
     end
+
+local allowed_decks = {
+    "b_tdec_tainted_yellow",
+    "b_tdec_tainted_erratic",
+    "b_tdec_tainted_nebula"
+}
+
+local function is_allowed(key, list)
+    for _, v in ipairs(list) do
+        if key == v then return true end
+    end
+    return false
+end
+
+    if G.GAME.selected_back then
+        local key = G.GAME.selected_back.effect.center.key
+        G.pactive_area.states.visible = is_allowed(key, allowed_decks)
+    end
 end
