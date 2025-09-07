@@ -29,6 +29,56 @@ function Game:start_run(args)
         self.pactive_area.config.type = G.consumeables.config.type
     end
 
+        -- #ROMANIANPATCH #THISSHITBLOWS #TEMPORARYSOLUTION #IGNOREYOURPROBLEMSUNTILTHEYGETWORSE
+    if not CardArea.__pactive_patch then
+    CardArea.__pactive_patch = true
+
+    local old_update = CardArea.update
+    function CardArea:update(dt)
+        old_update(self, dt)
+
+        if self ~= G.pactive_area then return end
+
+        local booster_states = {
+            [G.STATES.TAROT_PACK] = true,
+            [G.STATES.SPECTRAL_PACK] = true,
+            [G.STATES.PLANET_PACK] = true,
+            [G.STATES.STANDARD_PACK] = true,
+            [G.STATES.BUFFOON_PACK] = true,
+            [G.STATES.SMODS_BOOSTER_OPENED] = true,
+        }
+
+        local booster_screen = booster_states[G.STATE]
+
+        if booster_screen and self.states.visible and G.consumeables ~= self then
+            if not G._pactive_backup then
+                G._pactive_backup = G.consumeables
+            end
+            G.consumeables = self
+            self.config.type = "consumeable"
+        end
+
+        if (not booster_screen or not self.states.visible) and G.consumeables == self then
+            if G._pactive_backup then
+                G.consumeables = G._pactive_backup
+                G._pactive_backup = nil
+            else
+                G.consumeables = nil
+            end
+        end
+    end
+
+    local old_draw = CardArea.draw
+    function CardArea:draw(...)
+        if self == G.pactive_area and self.config.type == "consumeable" then
+            if self.ARGS and self.ARGS.invisible_area_types then
+                self.ARGS.invisible_area_types.consumeable = nil
+            end
+        end
+        return old_draw(self, ...)
+    end
+end
+
 local allowed_decks = {
     "b_tdec_tainted_yellow",
     "b_tdec_tainted_erratic",
