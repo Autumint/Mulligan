@@ -70,13 +70,13 @@ SMODS.Joker{
 
     add_to_deck = function(self, card, from_debuff)
         if G and G.jokers and G.jokers.config then
-            G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.size
+            G.locust_area.config.card_limit = G.locust_area.config.card_limit + card.ability.extra.size
         end
     end,
 
     remove_from_deck = function(self, card, from_debuff)
         if G and G.jokers and G.jokers.config then
-            G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.size
+            G.locust_area.config.card_limit = G.locust_area.config.card_limit - card.ability.extra.size
         end
     end,
 }

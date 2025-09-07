@@ -69,7 +69,7 @@ SMODS.Joker{
     end,
 
     add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + card.ability.extra.size
+        G.locust_area.config.card_limit = G.locust_area.config.card_limit + card.ability.extra.size
         if G.GAME.blind and G.GAME.blind.boss and not G.GAME.blind.disabled then
             if SMODS.pseudorandom_probability(card, 'soulless_chicot_add', 1, card.ability.extra.chicot_odds) then
                 G.GAME.blind:disable()
@@ -80,7 +80,7 @@ SMODS.Joker{
     end,
 
     remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - card.ability.extra.size
+        G.locust_area.config.card_limit = G.locust_area.config.card_limit - card.ability.extra.size
     end,
 
     calculate = function(self, card, context)
