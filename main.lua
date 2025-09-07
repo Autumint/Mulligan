@@ -16,6 +16,7 @@ local files = {
     "misc/sounds",
     "misc/hooks",
     "misc/pactives",
+    "misc/larea",
 
     "decks/t_checkered",
     "decks/t_erratic",

@@ -37,9 +37,9 @@ do
                     G.E_MANAGER:add_event(Event({
                         trigger = 'after',
                         func = function()
-                            local c = create_card('Joker', G.jokers, nil, nil, nil, nil, spawn_key)
+                            local c = create_card('Joker', G.locust_area, nil, nil, nil, nil, spawn_key)
                             c:add_to_deck()
-                            G.jokers:emplace(c)
+                            G.locust_area:emplace(c)
                             c:juice_up(0.8, 0.8)
                             return true
                         end

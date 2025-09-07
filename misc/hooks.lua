@@ -123,3 +123,80 @@ G.FUNCS.change_viewed_back = function(args)
     G.viewed_deck = args.to_key
     G.PROFILES[G.SETTINGS.profile].MEMORY.deck_view = G.viewed_deck
 end
+
+local game_start_run_ref = Game.start_run
+function Game:start_run(args)
+    game_start_run_ref(self, args)
+    if G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_nebula" then
+        self.locust_buttons = UIBox {
+            definition = {
+                n = G.UIT.ROOT,
+                config = {
+                    align = "cm",
+                    minw = 1,
+                    minh = 0.3,
+                    padding = 0.15,
+                    r = 0.1,
+                    colour = G.C.CLEAR
+                },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = {
+                            align = "tm",
+                            minw = 2,
+                            padding = 0.1,
+                            r = 0.1,
+                            hover = true,
+                            colour = G.C.RED,
+                            shadow = true,
+                            button = "SwapSets"
+                        },
+                        nodes = {
+                            {
+                                n = G.UIT.R,
+                                config = { align = "bcm", padding = 0 },
+                                nodes = {
+                                    {
+                                        n = G.UIT.T,
+                                        config = {
+                                            text = "Swap",
+                                            scale = 0.35,
+                                            colour = G.C.UI.TEXT_LIGHT
+                                        }
+                                    }
+                                }
+                            },
+                        }
+                    }
+                }
+            },
+            config = {
+                align = "tr",
+                offset = { x = -7.3, y = 3.4 },
+                major = G.ROOM_ATTACH,
+                bond = 'Weak'
+            }
+        }
+    end
+
+    G.FUNCS.SwapSets = function(e)
+        G.E_MANAGER:add_event(Event({
+            trigger = 'immediate',
+            func = function()
+                if not G.locust_area or not G.jokers then return true end
+
+                if G.locust_area.states.visible == false then
+                    G.jokers.states.visible = false
+                    G.locust_area.states.visible = true
+                else
+                    G.jokers.states.visible = true
+                    G.locust_area.states.visible = false
+                end
+
+                return true
+            end
+        }))
+    end
+end
+
