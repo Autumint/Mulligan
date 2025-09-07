@@ -71,7 +71,7 @@ return {
                 name = "Wealthy Locust",
                 text = {
                     "Grants {C:red}+#2# mult{} per {C:money}$#3#{} held",
-                    "and {C:money}$#5# at the end of a round.",
+                    "and {C:money}$#5#{} at the end of a round.",
                     "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)"
                 }
             },
@@ -108,7 +108,26 @@ return {
                     "{C:attention}#6#{} discards gain {X:mult,C:white}X#5#{} Mult.",
                     "{C:inactive}(Currently {X:mult,C:white} X#14# {C:inactive} Mult)"
                 }
-            }
+            },
+            j_tdec_singularity_locust = {
+                name = "{C:dark_edition}Singularity Locust{}",
+                text = {
+                    "{C:green}Upgrade{} the level of the {C:attention}first played hand{}"
+                }
+            },
+            j_tdec_golden_locust = {
+                name = "Golden Locust",
+                text = {
+                    "Grants {C:money}$#2#{} at the end of a round.",
+                }
+            },
+            j_tdec_mitosis_locust = {
+                name = "Mitosis Locust",
+                text = {
+                    "Disappears and {C:attention}duplicates{} another {C:red}locust{} after {C:attention}#2#{} rounds",
+                    "{C:inactive}(Currently {X:mult,C:white} #3#/#2# {C:inactive} Rounds)"
+                }
+            },
         },
 
         Back = {
