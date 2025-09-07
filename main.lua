@@ -63,6 +63,8 @@ local files = {
     "jokers/locusts/tower_locust",
     "jokers/locusts/wheel_locust",
     "jokers/locusts/world_locust",
+    "jokers/locusts/talisman_locust",
+    "jokers/locusts/black_hole_locust",
 }
 for i, v in pairs(files) do
     SMODS.load_file(v..".lua")()  
