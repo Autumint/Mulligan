@@ -184,7 +184,9 @@ function Game:start_run(args)
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
-                if not G.locust_area or not G.jokers then return true end
+                if not G.locust_area or not G.jokers then 
+                    return
+                end
 
                 if G.locust_area.states.visible == false then
                     G.jokers.states.visible = false
@@ -199,4 +201,3 @@ function Game:start_run(args)
         }))
     end
 end
-
