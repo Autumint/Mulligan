@@ -300,7 +300,7 @@ G.FUNCS.can_use_pactive = function(e)
         end
     end
 
-    if G.consumeables and usable then
+    if usable then
         e.config.colour = G.C.RED
         e.config.button = "use_pactive"   
     else
