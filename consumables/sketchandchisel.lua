@@ -75,24 +75,6 @@ SMODS.Consumable {
     keep_on_use = function(self, card) return true end,
 
     use = function(self, card, area, copier)
-        ensure_CSData()
-        for _, j in ipairs(G.jokers.highlighted) do
-            if j.config and j.config.center and j.config.center.key ~= "j_tdec_dried_joker" then
-                G.GAME.CSData.sketched_joker_key = j.config.center.key
-                G.E_MANAGER:add_event(Event({
-                    func = function()
-                        card:juice_up()
-                        G.GAME.CSData.sroundkeeper = 0
-                        G.GAME.CSData.sketchrecordactive = true
-                        G.GAME.CSData.messagesketch = false
-                        return true
-                    end
-                }))
-            end
-        end
-    end,
-
-    use = function(self, card, area, copier)
     ensure_CSData()
     for _, j in ipairs(G.jokers.highlighted) do
         if j.config and j.config.center and j.config.center.key ~= "j_tdec_dried_joker" then
