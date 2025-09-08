@@ -63,13 +63,13 @@ SMODS.Consumable{
     end,
 
     use = function(self, card)
+        ease_dollars(-5)
         if G.GAME.TAINTED_SHOP_STATE then
             G.GAME.TAINTED_SHOP_LEVEL = (G.GAME.TAINTED_SHOP_LEVEL or 0) + 1
             G.E_MANAGER:add_event(Event({
                 trigger = 'after',
                 blockable = false,
                 func = function()
-                    ease_dollars(-5)
                     local lvl = G.GAME.TAINTED_SHOP_LEVEL
                     if lvl == 1 then
                         SMODS.change_booster_limit(1)
@@ -94,7 +94,6 @@ SMODS.Consumable{
             blocking = false,
             delay = 1,
             func = function()
-                ease_dollars(-10)
                 G.GAME.TAINTED_SHOP_STATE = G.STATE
                 G.GAME.TAINTED_SHOP_LEVEL = 0
                 G.STATE = G.STATES.SHOP
