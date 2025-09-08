@@ -420,6 +420,9 @@ G.FUNCS.can_use_pactive = function(e)
 end
 
 G.FUNCS.use_pactive = function(e)
+    if G.STATE == 999 then
+        G.GAME.pack_choices = G.GAME.pack_choices + 1
+    end
     if G.pactive_area and G.pactive_area.cards then
         for _, card in ipairs(G.pactive_area.cards) do
             if card:can_use_consumeable() then
@@ -492,3 +495,4 @@ G.FUNCS.use_sketch = function(e)
         end
     end
 end
+
