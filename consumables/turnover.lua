@@ -57,7 +57,7 @@ SMODS.Consumable{
     end,
 
     can_use = function(self, card)
-        if (G.GAME.dollars >= 10 and G.STATE ~= 999 and G.STATE ~= 8 and G.GAME.TAINTED_SHOP_LEVEL ~= 3) or (G.GAME.dollars >= 5 and G.GAME.TAINTED_SHOP_STATE and G.GAME.TAINTED_SHOP_LEVEL ~= 3) then
+        if (G.GAME.dollars >= 5 and G.STATE ~= 999 and G.STATE ~= 8 and G.GAME.TAINTED_SHOP_LEVEL ~= 3) or (G.GAME.dollars >= 5 and G.GAME.TAINTED_SHOP_STATE and G.GAME.TAINTED_SHOP_LEVEL ~= 3) then
             return true
         end
     end,
@@ -158,4 +158,5 @@ SMODS.Consumable{
     in_pool = function(self)
         return false
     end
+
 }
