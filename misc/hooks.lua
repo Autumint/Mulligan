@@ -239,7 +239,7 @@ function Game:start_run(args)
                     n = G.UIT.ROOT,
                     config = {
                         align = "cm",
-                        minw = 0.6,
+                        minw = 2,
                         minh = 0.3,
                         padding = 0.15,
                         r = 0.1,
@@ -249,8 +249,8 @@ function Game:start_run(args)
                         {
                             n = G.UIT.C,
                             config = {
-                                align = "tm",
-                                minw = 1.2,
+                                align = "cm",
+                                minw = 2,
                                 padding = 0.1,
                                 r = 0.1,
                                 hover = true,
@@ -286,8 +286,118 @@ function Game:start_run(args)
                 }
             }
         end
+        if G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_painted" then
+            self.chisel_button = UIBox {
+                definition = {
+                    n = G.UIT.ROOT,
+                    config = {
+                        align = "cm",
+                        minw = 0.6,
+                        minh = 1,
+                        padding = 0.15,
+                        r = 0.1,
+                        colour = G.C.CLEAR
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = {
+                                align = "cm",
+                                minw = 1.5,
+                                minh = 1,
+                                maxw = 1.5,
+                                padding = 0.1,
+                                r = 0.1,
+                                hover = true,
+                                colour = G.C.RED,
+                                shadow = true,
+                                button = "use_chisel",
+                                func = "can_use_chisel"
+                            },
+                            nodes = {
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "bcm", padding = 0 },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.T,
+                                            config = {
+                                                text = "Use Chisel",
+                                                scale = 0.35,
+                                                colour = G.C.UI.TEXT_LIGHT
+                                            }
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                config = {
+                    align = "tr",
+                    offset = { x = 0.05, y = 1.3 }, 
+                    major = G.pactive_area,
+                    bond = 'Weak'
+                }
+            }
+
+            self.sketch_button = UIBox {
+                definition = {
+                    n = G.UIT.ROOT,
+                    config = {
+                        align = "cm",
+                        minw = 0.6,
+                        minh = 1,
+                        padding = 0.15,
+                        r = 0.1,
+                        colour = G.C.CLEAR
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = {
+                                align = "cm",
+                                minw = 1.5,
+                                minh = 1,
+                                maxw = 1.5,
+                                padding = 0.1,
+                                r = 0.1,
+                                hover = true,
+                                colour = G.C.RED,
+                                shadow = true,
+                                button = "use_sketch",
+                                func = "can_use_sketch"
+                            },
+                            nodes = {
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "bcm", padding = 0 },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.T,
+                                            config = {
+                                                text = "Use Sketch",
+                                                scale = 0.35,
+                                                colour = G.C.UI.TEXT_LIGHT
+                                            }
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                config = {
+                    align = "tr",
+                    offset = { x = 0.05, y = 2.5 }, 
+                    major = G.pactive_area,
+                    bond = 'Weak'
+                }
+            }
+        end
     end
 end
+
 
 G.FUNCS.can_use_pactive = function(e)
     local usable = false
@@ -313,6 +423,69 @@ G.FUNCS.use_pactive = function(e)
     if G.pactive_area and G.pactive_area.cards then
         for _, card in ipairs(G.pactive_area.cards) do
             if card:can_use_consumeable() then
+                G.FUNCS.use_card{ config = { ref_table = card } }
+                return
+            end
+        end
+    end
+end
+
+G.FUNCS.can_use_chisel = function(e)
+    local chiselusable = false
+    if G.pactive_area and G.pactive_area.cards then
+        for _, card in ipairs(G.pactive_area.cards) do
+            if card.config.center.key == "c_tdec_thechisel" and card:can_use_consumeable() then
+                chiselusable = true
+                break
+            end
+        end
+    end
+
+
+    if chiselusable then
+        e.config.colour = G.C.RED
+        e.config.button = "use_chisel"
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    end
+end
+
+G.FUNCS.use_chisel = function(e)
+    if G.pactive_area and G.pactive_area.cards then
+        for _, card in ipairs(G.pactive_area.cards) do
+            if card.config.center.key == "c_tdec_thechisel" and card:can_use_consumeable() then
+                G.FUNCS.use_card{ config = { ref_table = card } }
+                return
+            end
+        end
+    end
+end
+
+G.FUNCS.can_use_sketch = function(e)
+    local sketchusable = false
+    if G.pactive_area and G.pactive_area.cards then
+        for _, card in ipairs(G.pactive_area.cards) do
+            if card.config.center.key == "c_tdec_thesketch" and card:can_use_consumeable() then
+                sketchusable = true
+                break
+            end
+        end
+    end
+
+    if sketchusable then
+        e.config.colour = G.C.RED
+        e.config.button = "use_sketch"
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil
+    end
+end
+
+G.FUNCS.use_sketch = function(e)
+    if G.pactive_area and G.pactive_area.cards then
+        for _, card in ipairs(G.pactive_area.cards) do
+            if card.config.center.key == "c_tdec_thesketch" and card:can_use_consumeable() then
                 G.FUNCS.use_card{ config = { ref_table = card } }
                 return
             end

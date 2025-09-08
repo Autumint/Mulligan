@@ -1,5 +1,46 @@
 local start_run_ref = Game.start_run
 function Game:start_run(args)
+    if not CardArea.__pactive_counter_patch then
+        CardArea.__pactive_counter_patch = true
+
+        local old_draw = CardArea.draw
+        function CardArea:draw(...)
+            if not self.states.visible then return end
+
+            if self == G.pactive_area then
+                if not self.children.area_uibox then
+                    self.children.area_uibox = UIBox{
+                        definition = {
+                            n=G.UIT.ROOT,
+                            config={align='cm', colour=G.C.CLEAR},
+                            nodes={
+                                {n=G.UIT.R, config={
+                                    minw=self.T.w, minh=self.T.h,
+                                    align="cm", padding=0.1, mid=true, r=0.1,
+                                    colour={0,0,0,0.1}, ref_table=self
+                                }}
+                            }
+                        },
+                        config={align='cm', offset={x=0,y=0}, major=self, parent=self}
+                    }
+                end
+
+                self.children.area_uibox:draw()
+
+                self:draw_boundingrect()
+                add_to_drawhash(self)
+                for _,v in ipairs(self.ARGS.draw_layers or {'shadow','card'}) do
+                    for _,card in ipairs(self.cards) do
+                        if card ~= G.CONTROLLER.dragging.target then card:draw(v) end
+                    end
+                end
+                return
+            end
+
+            return old_draw(self, ...)
+        end
+    end
+
     if not self.pactive_area then
         self.pactive_area = CardArea(
             17.4, 5,
@@ -91,7 +132,8 @@ end
 local allowed_decks = {
     "b_tdec_tainted_yellow",
     "b_tdec_tainted_erratic",
-    "b_tdec_tainted_nebula"
+    "b_tdec_tainted_nebula",
+    "b_tdec_tainted_painted"
 }
 
 local function is_allowed(key, list)

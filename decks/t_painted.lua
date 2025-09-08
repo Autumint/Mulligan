@@ -30,20 +30,21 @@ SMODS.Back{
     config = { joker_slot = -2, consumable_slot = 2 },
 
     apply = function(self)
+        G.GAME.modifiers.tainted_painted = true
         G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
-            local c = create_card("taintedcards", G.consumeables, nil, nil, nil, nil, "c_tdec_thechisel") 
+            local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_thechisel") 
             c:add_to_deck()
-            G.consumeables:emplace(c)  
+            G.pactive_area:emplace(c)  
             return true
         end}))
      G.E_MANAGER:add_event(Event({
         trigger = 'after',
         func = function()
-            local c = create_card("taintedcards", G.consumeables, nil, nil, nil, nil, "c_tdec_thesketch") 
+            local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_thesketch") 
             c:add_to_deck()
-            G.consumeables:emplace(c)  
+            G.pactive_area:emplace(c)  
             return true
         end}))
     end,
