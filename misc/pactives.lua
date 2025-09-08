@@ -5,7 +5,7 @@ function Game:start_run(args)
             17.4, 5,
             self.CARD_W * 1,
             self.CARD_H * 1,
-            { card_limit = 1, type = "jokers", highlight_limit = 1 }
+            { card_limit = 1, type = "consumeable", highlight_limit = 1 }
         )
     end
     G.pactive_area = self.pactive_area
@@ -29,8 +29,8 @@ function Game:start_run(args)
         self.pactive_area.config.type = G.consumeables.config.type
     end
 
-        -- #ROMANIANPATCH #THISSHITBLOWS #TEMPORARYSOLUTION #IGNOREYOURPROBLEMSUNTILTHEYGETWORSE
-    if not CardArea.__pactive_patch then
+    -- #ROMANIANPATCH #THISSHITBLOWS #TEMPORARYSOLUTION #IGNOREYOURPROBLEMSUNTILTHEYGETWORSE
+if not CardArea.__pactive_patch then
     CardArea.__pactive_patch = true
 
     local old_update = CardArea.update
@@ -68,6 +68,14 @@ function Game:start_run(args)
         end
     end
 
+local old_can_highlight = CardArea.can_highlight
+function CardArea:can_highlight(card)
+    if self == G.pactive_area then
+        return false
+    end
+    return old_can_highlight(self, card)
+end
+
     local old_draw = CardArea.draw
     function CardArea:draw(...)
         if self == G.pactive_area and self.config.type == "consumeable" then
@@ -78,6 +86,7 @@ function Game:start_run(args)
         return old_draw(self, ...)
     end
 end
+
 
 local allowed_decks = {
     "b_tdec_tainted_yellow",

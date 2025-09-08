@@ -150,7 +150,8 @@ function Game:start_run(args)
                             hover = true,
                             colour = G.C.RED,
                             shadow = true,
-                            button = "SwapSets"
+                            button = "SwapSets",
+                            func = "can_swap_sets"
                         },
                         nodes = {
                             {
@@ -199,5 +200,122 @@ function Game:start_run(args)
                 return true
             end
         }))
+    end
+end
+
+G.FUNCS.can_swap_sets = function(e)
+    if G.STATE ~= G.STATES.ROUND_EVAL then
+        e.config.colour = G.C.RED
+        e.config.button = "SwapSets"   
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil            
+    end
+end
+
+local allowed_decks = {
+    "b_tdec_tainted_yellow",
+    "b_tdec_tainted_erratic",
+    "b_tdec_tainted_nebula"
+}
+
+local function is_allowed(key, list)
+    for _, v in ipairs(list) do
+        if key == v then return true end
+    end
+    return false
+end
+
+local game_start_run_ref = Game.start_run
+function Game:start_run(args)
+    game_start_run_ref(self, args)
+
+    if G.GAME and G.pactive_area and G.pactive_area.states.visible then
+        local back = G.GAME.selected_back
+        local key = back and back.effect and back.effect.center and back.effect.center.key
+        if key and is_allowed(key, allowed_decks) then
+            self.pactive_button = UIBox {
+                definition = {
+                    n = G.UIT.ROOT,
+                    config = {
+                        align = "cm",
+                        minw = 0.6,
+                        minh = 0.3,
+                        padding = 0.15,
+                        r = 0.1,
+                        colour = G.C.CLEAR
+                    },
+                    nodes = {
+                        {
+                            n = G.UIT.C,
+                            config = {
+                                align = "tm",
+                                minw = 1.2,
+                                padding = 0.1,
+                                r = 0.1,
+                                hover = true,
+                                colour = G.C.RED,
+                                shadow = true,
+                                button = "use_pactive",
+                                func = "can_use_pactive"
+                            },
+                            nodes = {
+                                {
+                                    n = G.UIT.R,
+                                    config = { align = "bcm", padding = 0 },
+                                    nodes = {
+                                        {
+                                            n = G.UIT.T,
+                                            config = {
+                                                text = "Use",
+                                                scale = 0.35,
+                                                colour = G.C.UI.TEXT_LIGHT
+                                            }
+                                        }
+                                    }
+                                },
+                            }
+                        }
+                    }
+                },
+                config = {
+                    align = "tr",
+                    offset = { x = -2.1, y = 3.5 },
+                    major = G.pactive_area,
+                    bond = 'Weak'
+                }
+            }
+        end
+    end
+end
+
+G.FUNCS.can_use_pactive = function(e)
+    local usable = false
+    if G.pactive_area and G.pactive_area.cards then
+        for _, card in ipairs(G.pactive_area.cards) do
+            if card:can_use_consumeable() then
+                usable = true
+                break
+            end
+        end
+    end
+
+    if G.consumeables and usable then
+        e.config.colour = G.C.RED
+        e.config.button = "use_pactive"   
+    else
+        e.config.colour = G.C.UI.BACKGROUND_INACTIVE
+        e.config.button = nil            
+    end
+end
+
+G.FUNCS.use_pactive = function(e)
+    if G.pactive_area and G.pactive_area.cards then
+        for _, card in ipairs(G.pactive_area.cards) do
+            if card:can_use_consumeable() then
+                G.FUNCS.use_card{ config = { ref_table = card } }
+                return
+            end
+        end
     end
 end
