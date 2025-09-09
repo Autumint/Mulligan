@@ -496,3 +496,25 @@ G.FUNCS.use_sketch = function(e)
     end
 end
 
+function update_tcheck_backs()
+    for i, self in pairs(G.I.CARD) do
+        if self.children.back then 
+            self.children.back:remove()
+            self.children.back = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["tdec_tainted_checkered"], G.P_CENTERS['b_tdec_tainted_checkered'].pos)
+            self.children.back.states.hover = self.states.hover
+            self.children.back.states.click = self.states.click
+            self.children.back.states.drag = self.states.drag
+            self.children.back.states.collide.can = false
+            self.children.back:set_role({major = self, role_type = 'Glued', draw_major = self})
+        end
+    end
+end
+
+function TDECKS.get_bg_colour()
+    if G.GAME.TCFlip and G.GAME.TCFlip.is_active then
+        return G.GAME.TCFlip.state == "Dead" and HEX("4f6367") or HEX("8baeca")
+    end
+    return G.C.BLIND['Small']
+end
+
+
