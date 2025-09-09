@@ -517,4 +517,40 @@ function TDECKS.get_bg_colour()
     return G.C.BLIND['Small']
 end
 
+local old_update_shop = Game.update_shop
+
+function Game:update_shop(dt)
+    old_update_shop(self, dt)
+
+    if not G.GAME.insert_photo
+    and G.GAME.round_resets.ante == 8
+    and G.GAME.round_resets.blind_states.Small == 'Upcoming'
+    and G.shop_jokers then
+        
+        G.GAME.insert_photo = true
+
+        local card = SMODS.create_card{
+            set  = "Joker",
+            area = G.shop_jokers,
+            key  = "j_tdec_photoquestion"
+        }
+
+        create_shop_card_ui(card, 'Joker', G.shop_jokers)
+        card.states.visible = false
+
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            delay = 0.2,
+            func = function()
+                card:start_materialize()
+                card.ability.couponed = true
+                card:set_cost()
+                return true
+            end
+        }))
+
+        G.shop_jokers:emplace(card)
+    end
+end
+
 

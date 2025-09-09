@@ -10,6 +10,12 @@ return {
                     "{C:inactive}(Starts at {X:mult,C:white}X1{C:inactive} Mult){}"
                 }
             },
+            j_tdec_photoquestion = {
+                name = "Faded Photograph?",
+                text = {
+                    "I remember {C:attention}this{} one!"
+                }
+            },
             j_tdec_tainted_madness = {
                 name = "Tainted Madness",
                 text = {
@@ -194,7 +200,7 @@ return {
                 name = "Dauntless Deck",
                 text = {
                     "{C:blue}Restless{}",
-                    "{C:red,E:2}No Skips.{}"
+                    "{C:red,E:2}Fervency.{}"
                 }
             },
             b_tdec_tainted_erratic = {

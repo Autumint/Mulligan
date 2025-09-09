@@ -60,3 +60,10 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
+
+SMODS.Atlas{
+    key = "Photo_Atlas",
+    path = "tattered_photo2.png",
+    px = 71,
+    py = 95
+}

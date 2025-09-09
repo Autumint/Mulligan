@@ -171,7 +171,7 @@ pattern = '''
 '''
 position = "at"
 payload = '''
-{n=G.UIT.T, config={text = G.GAME.modifiers.tainted_anaglyph and localize('Select', 'blind_states') or localize('b_skip_blind'), scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
+{n=G.UIT.T, config={text = G.GAME.modifiers.tainted_anaglyph and "Challenge" or localize('b_skip_blind'), scale = 0.4, colour = G.C.UI.TEXT_INACTIVE}}
 '''
 match_indent = true
 
@@ -252,3 +252,32 @@ payload = '''
 if G.pactive_area and G.pactive_area.cards then table.insert(t, G.pactive_area) end
 if G.locust_area and G.locust_area.cards then table.insert(t, 1, G.locust_area) end
 '''
+
+[[patches]]
+[patches.pattern]
+target = "functions/UI_definitions.lua"
+pattern = '''
+UIBox_button({button = 'exit_overlay_menu', label = {localize('b_endless')}, minw = 6.5, maxw = 5, minh = 1.2, scale = 0.7, shadow = true, colour = G.C.BLUE, focus_args = {nav = 'wide', button = 'x',set_button_pip = true}}),
+'''
+position = "at"
+payload = '''
+UIBox_button({
+    button = 'exit_overlay_menu',
+    label = (function()
+        local found = false
+        if G.jokers.cards then
+            for _, j in ipairs(G.jokers.cards) do
+                if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                    found = true
+                    break
+                end
+            end
+        end
+        return found and {"Ascend?"} or {localize('b_endless')}
+    end)(),
+    minw = 6.5, maxw = 5, minh = 1.2, scale = 0.7,
+    shadow = true, colour = G.C.BLUE,
+    focus_args = {nav = 'wide', button = 'x', set_button_pip = true}
+}),
+'''
+match_indent = true
