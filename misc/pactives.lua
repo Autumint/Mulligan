@@ -88,20 +88,6 @@ function Game:start_run(args)
         self.pactive_area.config.type = G.consumeables.config.type
     end
 
-    local set_state_ref = Game.set_state
-    function Game:set_state(new_state, ...)
-        if new_state == G.STATES.PACK_SELECT then
-            if G.pactive_area then
-                G.pactive_area.config.type = "pack_blocked" 
-            end
-        elseif new_state ~= G.STATES.PACK_SELECT then
-            if G.pactive_area then
-                G.pactive_area.config.type = "consumeable"
-            end
-        end
-        return set_state_ref(self, new_state, ...)
-    end
-
     if G.GAME and G.GAME.selected_back then
         local allowed_decks = {
             "b_tdec_tainted_yellow",

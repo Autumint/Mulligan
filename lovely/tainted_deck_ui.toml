@@ -249,6 +249,6 @@ pattern = "-- TARGET: add your own CardAreas for joker evaluation"
 position = 'before'
 match_indent = true
 payload = '''
-if G.pactive_area then table.insert(t, G.pactive_area) end
-if G.locust_area then table.insert(t, 1, G.locust_area) end
+if G.pactive_area and G.pactive_area.cards then table.insert(t, G.pactive_area) end
+if G.locust_area and G.locust_area.cards then table.insert(t, 1, G.locust_area) end
 '''

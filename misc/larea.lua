@@ -25,11 +25,11 @@ function Game:start_run(args)
         G.locust_area.states.visible = false
         self.locust_area.config.type = G.jokers.config.type
     end
-
-    if G.STATE == -1 then
-        G.locust_ui:remove()
-        G.locust_area:remove()
-        G.locust_ui = nil
-        G.locust_area = nil
+        local old_can_highlight = CardArea.can_highlight
+        function CardArea:can_highlight(card)
+            if self == G.locust_area then
+                return false
+            end
+            return old_can_highlight(self, card)
+        end
     end
-end
