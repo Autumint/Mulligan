@@ -22,7 +22,7 @@ SMODS.Consumable {
             G.GAME.FervencyCounter = G.GAME.FervencyCounter - 2
         end
 
-        if context.before or context.discard and not G.GAME.ChallengedBlind then
+        if (context.before or context.discard) and not G.GAME.ChallengedBlind then
             G.GAME.FervencyCounter = G.GAME.FervencyCounter - 1
         end
 

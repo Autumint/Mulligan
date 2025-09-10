@@ -34,6 +34,9 @@ local skip_blind_ref = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     G.GAME.ChallengedBlind = true
     G.GAME.FervencyCounter = G.GAME.FervencyCounter + 20
+    if G.GAME.FervencyCounter > 100 then
+        G.GAME.FervencyCounter = 100
+    end
     if G.GAME and G.GAME.selected_back and G.GAME.modifiers.tainted_anaglyph then
         e.config.ref_table = e.UIBox:get_UIE_by_ID('select_blind_button').config.ref_table
         G.GAME.skips = (G.GAME.skips or 0) + 1
