@@ -5,13 +5,35 @@ SMODS.Back{
     pos   = { x = 5, y = 1 },
     unlocked = true,
     discovered = true,
-    apply = function()
+    apply = function(self)
         G.GAME.modifiers.tainted_anaglyph = true
+        G.GAME.FervencyCounter = 100
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                if G.pactive_area then
+                    local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_fervency")
+                    c:add_to_deck()
+                    table.insert(G.pactive_area.cards, c)
+                    c.area = G.pactive_area
+                    c:align()
+                end
+                return true
+            end
+        }))
     end,
+
+    calculate = function(self, context)
+        if context.starting_shop then
+            G.GAME.ChallengedBlind = false
+        end
+    end
 }
 
 local skip_blind_ref = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
+    G.GAME.ChallengedBlind = true
+    G.GAME.FervencyCounter = G.GAME.FervencyCounter + 20
     if G.GAME and G.GAME.selected_back and G.GAME.modifiers.tainted_anaglyph then
         e.config.ref_table = e.UIBox:get_UIE_by_ID('select_blind_button').config.ref_table
         G.GAME.skips = (G.GAME.skips or 0) + 1

@@ -25,3 +25,17 @@ SMODS.Sound({
     key = "heart_out",
     path = "heart_out.ogg",
 })
+
+SMODS.Sound({
+    vol = 1.0,
+    pitch = 1,
+    key = "hbeat1",
+    path = "heartbeat.ogg",
+})
+
+SMODS.Sound({
+    vol = 1.0,
+    pitch = 1,
+    key = "hbeat2",
+    path = "heartbeatfast.ogg",
+})

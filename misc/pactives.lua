@@ -93,7 +93,8 @@ function Game:start_run(args)
             "b_tdec_tainted_yellow",
             "b_tdec_tainted_erratic",
             "b_tdec_tainted_nebula",
-            "b_tdec_tainted_painted"
+            "b_tdec_tainted_painted",
+            "b_tdec_tainted_anaglyph"
         }
 
         local function is_allowed(key, list)

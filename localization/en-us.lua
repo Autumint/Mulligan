@@ -261,6 +261,16 @@ return {
                     "Gain {C:blue}+1{} hand. If the extra hand is used, the effect is {C:red}lost{}"
                 }
             },
+            c_tdec_fervency = {
+                name = "Fervency",
+                text = {
+                    "{C:red}Fervency{} is lost passively through various {C:attention}actions{}",
+                    "Going below {C:attention}50{} {C:red}Fervency{} will slowly reduce {X:mult,C:white}Xmult{}",
+                    "Losing all {C:red}Fervency{} will immediately {C:red}end{} the run",
+                    "Gain {C:red}Fervency{} by {C:attention}challenging{} blinds",
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/100 {C:inactive} Fervency)"
+                }
+            },
             c_tdec_thechisel = {
                 name = "Chisel",
                 text = {

@@ -516,18 +516,22 @@ function TDECKS.get_bg_colour()
     end
     return G.C.BLIND['Small']
 end
-
+-- Uncomment when the ascent is done
+--[[
 local old_update_shop = Game.update_shop
 
 function Game:update_shop(dt)
     old_update_shop(self, dt)
 
-    if not G.GAME.insert_photo
+    if not G.GAME.injected_photojoker
+    and G.GAME
+    and G.GAME.round_resets
     and G.GAME.round_resets.ante == 8
+    and G.GAME.round_resets.blind_states
     and G.GAME.round_resets.blind_states.Small == 'Upcoming'
     and G.shop_jokers then
         
-        G.GAME.insert_photo = true
+        G.GAME.injected_photojoker = true
 
         local card = SMODS.create_card{
             set  = "Joker",
@@ -552,5 +556,5 @@ function Game:update_shop(dt)
         G.shop_jokers:emplace(card)
     end
 end
-
+]]
 
