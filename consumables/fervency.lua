@@ -34,6 +34,9 @@ SMODS.Consumable {
             local xmultred = 0.5 + (G.GAME.FervencyCounter * 0.01)
             return { xmult = xmultred }
         end
+        if context.starting_shop then
+            G.GAME.ChallengedBlind = false
+        end
     end
 }
 

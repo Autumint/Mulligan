@@ -22,12 +22,6 @@ SMODS.Back{
             end
         }))
     end,
-
-    calculate = function(self, context)
-        if context.starting_shop then
-            G.GAME.ChallengedBlind = false
-        end
-    end
 }
 
 local skip_blind_ref = G.FUNCS.skip_blind
