@@ -18,7 +18,7 @@ SMODS.Consumable {
             G.GAME.FervencyCounter = G.GAME.FervencyCounter - 5
         end
 
-        if context.buying_card or context.reroll_shop or context.open_booster and not G.GAME.ChallengedBlind then
+        if context.buying_card or context.reroll_shop or context.open_booster then
             G.GAME.FervencyCounter = G.GAME.FervencyCounter - 2
         end
 
@@ -27,21 +27,35 @@ SMODS.Consumable {
         end
 
         if G.GAME.FervencyCounter <= 0 then
-            G.STATE = G.STATES.GAME_OVER
+            G.E_MANAGER:add_event(Event({
+                blockable = false,
+                trigger = 'after',
+                func = function()
+                    G.STATE = G.STATES.GAME_OVER
+                    if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 
+                        G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
+                    end
+                    G:save_settings()
+                    G.FILE_HANDLER.force = true
+                    G.STATE_COMPLETE = false
+                    G.SETTINGS.paused = false
+                    return true
+                end
+            }))
         end
 
         if context.final_scoring_step and G.GAME.FervencyCounter <= 50 then
             local xmultred = 0.5 + (G.GAME.FervencyCounter * 0.01)
             return { xmult = xmultred }
         end
+
         if context.starting_shop then
             G.GAME.ChallengedBlind = false
         end
     end
 }
 
-
-local timer1, timer2, timer3 = 0, 0, 0
+local timer1, timer2 = 0, 0
 local old_update = Game.update
 
 function Game:update(dt)
