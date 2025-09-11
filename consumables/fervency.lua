@@ -52,16 +52,6 @@ SMODS.Consumable {
         if context.starting_shop then
             G.GAME.ChallengedBlind = false
         end
-        
-        if G.GAME.FervencyCounter <= 50 then
-            if not G.GAME.Fjiggling then
-                G.GAME.Fjiggling = true
-                local eval = function(c) return G.GAME.FervencyCounter <= 50 end
-                juice_card_until(card, eval, true)
-            end
-        else
-            G.GAME.Fjiggling = false
-        end
     end
 }
 
@@ -87,4 +77,10 @@ function Game:update(dt)
             end
         end
     end
+end
+
+local start_run_refferv = Game.start_run
+function Game:start_run(args)
+    G.GAME.FervencyCounter = 100
+    start_run_refferv(self, args)
 end
