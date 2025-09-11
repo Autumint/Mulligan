@@ -6,6 +6,7 @@ SMODS.Back{
     unlocked = true,
     discovered = true,
     apply = function(self)
+        G.GAME.banned_keys["tag_boss"] = true
         G.GAME.modifiers.tainted_anaglyph = true
         G.GAME.FervencyCounter = 100
         G.E_MANAGER:add_event(Event({
