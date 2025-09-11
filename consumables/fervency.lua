@@ -32,7 +32,7 @@ SMODS.Consumable {
                 trigger = 'after',
                 func = function()
                     G.STATE = G.STATES.GAME_OVER
-                    if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then 
+                    if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then
                         G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
                     end
                     G:save_settings()
@@ -51,6 +51,16 @@ SMODS.Consumable {
 
         if context.starting_shop then
             G.GAME.ChallengedBlind = false
+        end
+        
+        if G.GAME.FervencyCounter <= 50 then
+            if not G.GAME.Fjiggling then
+                G.GAME.Fjiggling = true
+                local eval = function(c) return G.GAME.FervencyCounter <= 50 end
+                juice_card_until(card, eval, true)
+            end
+        else
+            G.GAME.Fjiggling = false
         end
     end
 }
