@@ -6,7 +6,6 @@ SMODS.Back{
     unlocked = true,
     discovered = true,
     apply = function(self)
-        G.GAME.banned_keys["tag_boss"] = true
         G.GAME.modifiers.tainted_anaglyph = true
         G.GAME.FervencyCounter = 100
         G.E_MANAGER:add_event(Event({
@@ -27,11 +26,13 @@ SMODS.Back{
 
 local skip_blind_ref = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
+if G.GAME and G.GAME.selected_back and G.GAME.modifiers.tainted_anaglyph then
     G.GAME.ChallengedBlind = true
     G.GAME.FervencyCounter = G.GAME.FervencyCounter + 20
     if G.GAME.FervencyCounter > 100 then
         G.GAME.FervencyCounter = 100
     end
+end
     if G.GAME and G.GAME.selected_back and G.GAME.modifiers.tainted_anaglyph then
         e.config.ref_table = e.UIBox:get_UIE_by_ID('select_blind_button').config.ref_table
         G.GAME.skips = (G.GAME.skips or 0) + 1
