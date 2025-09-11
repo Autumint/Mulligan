@@ -7,7 +7,7 @@ SMODS.Back {
     discovered = true,
     apply      = function(self)
         G.GAME.modifiers.tainted_anaglyph = true
-        G.GAME.FervencyCounter = 100
+        G.GAME.FervencyCounter = 0
         G.E_MANAGER:add_event(Event({
             trigger = 'after',
             func = function()
@@ -28,9 +28,9 @@ local skip_blind_ref = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     if G.GAME and G.GAME.selected_back and G.GAME.modifiers.tainted_anaglyph then
         G.GAME.ChallengedBlind = true
-        G.GAME.FervencyCounter = G.GAME.FervencyCounter + 20
-        if G.GAME.FervencyCounter > 100 then
-            G.GAME.FervencyCounter = 100
+        G.GAME.FervencyCounter = G.GAME.FervencyCounter - 20
+        if G.GAME.FervencyCounter < 0 then
+            G.GAME.FervencyCounter = 0
         end
     end
     if G.GAME and G.GAME.selected_back and G.GAME.modifiers.tainted_anaglyph then

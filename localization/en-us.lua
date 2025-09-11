@@ -264,10 +264,10 @@ return {
             c_tdec_fervency = {
                 name = "Fervency",
                 text = {
-                    "{C:red}Fervency{} is lost passively through various {C:attention}actions{}",
-                    "Going below {C:attention}50{} {C:red}Fervency{} will slowly reduce {X:mult,C:white}Xmult{}",
-                    "Losing all {C:red}Fervency{} will immediately {C:red}end{} the run",
-                    "Gain {C:red}Fervency{} by {C:attention}challenging{} blinds",
+                    "{C:red}Fervency{} is {C:red}increased{} when {C:attention}actions{} are taken",
+                    "and {C:green}reduced{} when {C:attention}challenging{} blinds",
+                    "{C:red}Fervency{} exceeding {C:attention}50{} reduces {X:mult,C:white}Xmult{}",
+                    "Reaching {C:attention}100{} {C:red}Fervency{} {C:red}ends{} the run",
                     "{C:inactive}(Currently {X:mult,C:white} #1#/100 {C:inactive} Fervency)"
                 }
             },

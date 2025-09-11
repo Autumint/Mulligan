@@ -6,7 +6,7 @@ SMODS.Consumable {
     pos = { x = 5, y = 1 },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.FervencyCounter or 100 } }
+        return { vars = { G.GAME.FervencyCounter or 0 } }
     end,
 
     in_pool = function(self)
@@ -15,18 +15,19 @@ SMODS.Consumable {
 
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and not G.GAME.ChallengedBlind then
-            G.GAME.FervencyCounter = G.GAME.FervencyCounter - 5
+            G.GAME.FervencyCounter = G.GAME.FervencyCounter + 5
         end
 
         if context.buying_card or context.reroll_shop or context.open_booster then
-            G.GAME.FervencyCounter = G.GAME.FervencyCounter - 2
+            G.GAME.FervencyCounter = G.GAME.FervencyCounter + 2
         end
 
         if (context.before or context.discard) and not G.GAME.ChallengedBlind then
-            G.GAME.FervencyCounter = G.GAME.FervencyCounter - 1
+            G.GAME.FervencyCounter = G.GAME.FervencyCounter + 1
         end
 
-        if G.GAME.FervencyCounter <= 0 then
+        if G.GAME.FervencyCounter >= 100 then
+            G.GAME.FervencyCounter = 100
             G.E_MANAGER:add_event(Event({
                 blockable = false,
                 trigger = 'after',
@@ -44,8 +45,8 @@ SMODS.Consumable {
             }))
         end
 
-        if context.final_scoring_step and G.GAME.FervencyCounter <= 50 then
-            local xmultred = 0.5 + (G.GAME.FervencyCounter * 0.01)
+        if context.final_scoring_step and G.GAME.FervencyCounter > 50 then
+            local xmultred = 1 - ((G.GAME.FervencyCounter - 50) * 0.01)
             return { xmult = xmultred }
         end
 
@@ -62,14 +63,14 @@ function Game:update(dt)
     old_update(self, dt)
 
     if G.GAME.FervencyCounter then
-        if G.GAME.FervencyCounter <= 50 and G.GAME.FervencyCounter > 20 then
+        if G.GAME.FervencyCounter > 50 and G.GAME.FervencyCounter <= 80 then
             timer1 = timer1 + dt
-            if timer1 >= 1 then
+            if timer1 >= 0.8 then
                 play_sound('tdec_hbeat1')
                 timer1 = 0
             end
         end
-        if G.GAME.FervencyCounter <= 20 then
+        if G.GAME.FervencyCounter > 80 then
             timer2 = timer2 + dt
             if timer2 >= 0.4 then
                 play_sound('tdec_hbeat2')
@@ -81,6 +82,6 @@ end
 
 local start_run_refferv = Game.start_run
 function Game:start_run(args)
-    G.GAME.FervencyCounter = 100
+    G.GAME.FervencyCounter = 0
     start_run_refferv(self, args)
 end
