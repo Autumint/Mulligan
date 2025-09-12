@@ -19,7 +19,6 @@ function do_flip()
 
     local flipcolor = (G.GAME.TCFlip.state == 'Alive') and G.C.ORANGE or G.C.BLUE
 
-
     for _, j in ipairs(to_remove) do
         j.getting_sliced = true
         G.E_MANAGER:add_event(Event({
@@ -30,8 +29,14 @@ function do_flip()
         }))
     end
 
-    G.GAME.TCFlip.state = (G.GAME.TCFlip.state == 'Alive') and 'Dead' or 'Alive'
-    local spawn_data = G.GAME.TCFlip.preserved[G.GAME.TCFlip.state] or {}
+    local old_state = G.GAME.TCFlip.state
+    local new_state = (old_state == 'Alive') and 'Dead' or 'Alive'
+
+    G.GAME.TCFlip.money[old_state] = G.GAME.dollars
+    G.GAME.TCFlip.state = new_state
+    G.GAME.dollars = G.GAME.TCFlip.money[new_state]
+
+    local spawn_data = G.GAME.TCFlip.preserved[new_state] or {}
 
     G.E_MANAGER:add_event(Event({
         func = function()
@@ -39,7 +44,7 @@ function do_flip()
         end
     }))
 
-        for _, data in ipairs(spawn_data) do
+    for _, data in ipairs(spawn_data) do
         G.E_MANAGER:add_event(Event({
             func = function()
                 local new_card = create_card('Joker', G.jokers, nil, nil, true, nil, data.key)
@@ -67,11 +72,7 @@ SMODS.Back{
     key = "tainted_checkered",
     atlas = "tainted_checkered",
     pos = { x = 0, y = 0 },
-    config = {
-        extra_hand_bonus = 2,
-        extra_discard_bonus = 2,
-        dollars = 6
-    },
+    config = {},
     loc_vars = function(self, info_queue, back)
         return {
             vars = {
@@ -85,12 +86,28 @@ SMODS.Back{
         }
     end,
     apply = function(self, back)
+        G.GAME.modifiers.tainted_checkered = true
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                if G.pactive_area then
+                    local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_flip_card")
+                    c:add_to_deck()
+                    table.insert(G.pactive_area.cards, c)
+                    c.area = G.pactive_area
+                    c:align()
+                end
+                return true
+            end
+        }))
         G.GAME.TCFlip = {
             state = 'Alive',
             preserved = { Alive = {}, Dead = {} },
+            money = { Alive = 4, Dead = 4 },
             swapped_this_round = false,
+            is_active = true,
         }
-        G.GAME.TCFlip.is_active = true
+        G.GAME.dollars = G.GAME.TCFlip.money.Alive
         G.E_MANAGER:add_event(Event({
             func = function()
                 for k, v in pairs(G.playing_cards) do
@@ -100,6 +117,7 @@ SMODS.Back{
                     if v.base.suit == 'Hearts' then
                         v:change_suit('Diamonds')
                     end
+                    G.GAME.FlippedSuits = true
                 end
                 return true
             end
@@ -111,10 +129,20 @@ SMODS.Back{
             return
         end
 
-        if context.end_of_round
+        if context.starting_shop
         and not context.repetition
         and not G.GAME.TCFlip.swapped_this_round then
             return do_flip()
         end
     end
 }
+
+local smods_add_to_pool_ref = SMODS.add_to_pool
+function SMODS.add_to_pool(prototype_obj, args)
+    if prototype_obj.suit_nominal and G.GAME.FlippedSuits then 
+        if prototype_obj.key == "Hearts" or prototype_obj.key == "Spades" then
+            return false
+        end
+    end
+    return smods_add_to_pool_ref(prototype_obj, args)
+end

@@ -1,13 +1,34 @@
-SMODS.Consumable{
+SMODS.Consumable {
+    atlas = "tainted_atlas",
+    pos = { x = 1, y = 1 },
     unlocked = true,
     key = "flip_card",
     set = "taintedcards",
     cost = 4,
     rarity = 1,
-    can_use = function(self, card)
+    loc_vars = function(self, info_queue, card)
+        return { vars = { G.GAME.FlipCharges or 0 } }
+    end,
+    calculate = function(self, card, context)
+        if context.end_of_round and context.main_eval and G.GAME.FlipCharges ~= 5 then
+            G.GAME.FlipCharges = G.GAME.FlipCharges + 1
+        end
+        if context.end_of_round and G.GAME.FlipCharges == 5 and not G.GAME.FlipMessageCheck then
+            G.GAME.FlipMessageCheck = true
+            return {
+                message = "Resurrection?"
+            }
+        end
+    end,
+    keep_on_use = function(self)
         return true
     end,
+    can_use = function(self, card)
+        return G.GAME.FlipCharges >= 5
+    end,
     use = function(self, card, area, copier)
+        G.GAME.FlipMessageCheck = false
+        G.GAME.FlipCharges = 0
         return do_flip()
     end,
     in_pool = function(self)
@@ -15,25 +36,14 @@ SMODS.Consumable{
     end
 }
 
-local t_check_dt = 0
-local update_ref = Game.update
-function Game:update(dt)
-    update_ref(self, dt)
-    t_check_dt = t_check_dt + dt
-    if G.GAME.TCFlip and G.P_CENTERS and G.P_CENTERS.b_tdec_tainted_checkered and t_check_dt > 0.1 then
-		t_check_dt = 0
-		local obj = G.P_CENTERS.b_tdec_tainted_checkered
-		if G.GAME.TCFlip.state ~= "Alive" then
-            obj.pos.x = obj.pos.x + 1
-            if obj.pos.x > 6 then obj.pos.x = 6 else
-                update_tcheck_backs()
-            end
-		else
-            obj.pos.x = obj.pos.x - 1
-            if obj.pos.x < 0 then obj.pos.x = 0 else
-                update_tcheck_backs()
-            end
-		end
-        G.P_CENTERS.b_tdec_tainted_checkered = obj
-	end
+local start_run_refflip = Game.start_run
+function Game:start_run(args)
+    start_run_refflip(self, args)
+    G.E_MANAGER:add_event(Event({
+        func = function()
+            G.GAME.FlipCharges = 1
+            G.GAME.FlipMessageCheck = false
+            return true
+        end
+    }))
 end

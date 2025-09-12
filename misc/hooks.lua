@@ -216,7 +216,8 @@ end
 local allowed_decks = {
     "b_tdec_tainted_yellow",
     "b_tdec_tainted_erratic",
-    "b_tdec_tainted_nebula"
+    "b_tdec_tainted_nebula",
+    "b_tdec_tainted_checkered"
 }
 
 local function is_allowed(key, list)
@@ -515,6 +516,29 @@ function TDECKS.get_bg_colour()
         return G.GAME.TCFlip.state == "Dead" and HEX("4f6367") or HEX("8baeca")
     end
     return G.C.BLIND['Small']
+end
+
+local t_check_dt = 0
+local update_ref = Game.update
+function Game:update(dt)
+    update_ref(self, dt)
+    t_check_dt = t_check_dt + dt
+    if G.GAME.TCFlip and G.P_CENTERS and G.P_CENTERS.b_tdec_tainted_checkered and t_check_dt > 0.1 then
+		t_check_dt = 0
+		local obj = G.P_CENTERS.b_tdec_tainted_checkered
+		if G.GAME.TCFlip.state ~= "Alive" then
+            obj.pos.x = obj.pos.x + 1
+            if obj.pos.x > 6 then obj.pos.x = 6 else
+                update_tcheck_backs()
+            end
+		else
+            obj.pos.x = obj.pos.x - 1
+            if obj.pos.x < 0 then obj.pos.x = 0 else
+                update_tcheck_backs()
+            end
+		end
+        G.P_CENTERS.b_tdec_tainted_checkered = obj
+	end
 end
 -- Uncomment when the ascent is done
 --[[
