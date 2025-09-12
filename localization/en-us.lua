@@ -264,11 +264,11 @@ return {
             c_tdec_fervency = {
                 name = "Fervency",
                 text = {
-                    "{C:red}Fervency{} is {C:red}increased{} when {C:attention}actions{} are taken",
-                    "and {C:green}reduced{} when {C:attention}challenging{} blinds",
-                    "{C:red}Fervency{} exceeding {C:attention}50{} reduces {X:mult,C:white}Xmult{}",
-                    "Reaching {C:attention}100{} {C:red}Fervency{} {C:red}ends{} the run",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/100 {C:inactive} Fervency)"
+                    "Going below {C:attention}40{} or above {C:attention}60{} {C:red}Fervency{} reduces {X:mult,C:white}Xmult{}",
+                    "{C:attention}Challenging{} blinds swaps between {C:red}Heating{} and {C:blue}Cooling{}",
+                    "{C:attention}Actions{} {C:red}increase{}/{C:blue}decrease{} {C:red}Fervency{} depending on the state",
+                    "Reaching {C:attention}0{} or {C:attention}100{} {C:red}Fervency ends{} the run",
+                    "{C:inactive}(Currently {X:attention,C:white} #1#/100 {C:inactive} Fervency)"
                 }
             },
             c_tdec_thechisel = {

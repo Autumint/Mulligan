@@ -6,28 +6,66 @@ SMODS.Consumable {
     pos = { x = 5, y = 1 },
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.FervencyCounter or 0 } }
+        if not G.GAME then
+            return { vars = { 50 }, main_end = {} }
+        end
+
+        local state = G.GAME.FervencyState or "Cooling"
+        local colour = (state == "Cooling") and G.C.BLUE or G.C.RED
+
+        local nodes = {
+            {
+                n = G.UIT.C,
+                config = { align = "cm", colour = colour, r = 0.02, padding = 0.1 },
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = {
+                            text = state,
+                            colour = G.C.UI.TEXT_LIGHT,
+                            scale = 0.3,
+                            shadow = true
+                        }
+                    }
+                }
+            },
+        }
+
+        return {
+            vars = { G.GAME.FervencyCounter or 50 },
+            main_end = {
+                { n = G.UIT.C, config = { align = "bm", padding = 0.02 }, nodes = nodes }
+            }
+        }
     end,
 
-    in_pool = function(self)
-        return false
-    end,
+    in_pool = function(self) return false end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval and not G.GAME.ChallengedBlind then
-            G.GAME.FervencyCounter = G.GAME.FervencyCounter + 5
+        if context.end_of_round and context.main_eval then
+            if G.GAME.FervencyState == "Cooling" then
+                G.GAME.FervencyCounter = G.GAME.FervencyCounter - 5
+            else
+                G.GAME.FervencyCounter = G.GAME.FervencyCounter + 5
+            end
         end
-
         if context.buying_card or context.reroll_shop or context.open_booster then
-            G.GAME.FervencyCounter = G.GAME.FervencyCounter + 2
+            if G.GAME.FervencyState == "Cooling" then
+                G.GAME.FervencyCounter = G.GAME.FervencyCounter - 2
+            else
+                G.GAME.FervencyCounter = G.GAME.FervencyCounter + 2
+            end
+        end
+        if context.before or context.discard then
+            if G.GAME.FervencyState == "Cooling" then
+                G.GAME.FervencyCounter = G.GAME.FervencyCounter - 1
+            else
+                G.GAME.FervencyCounter = G.GAME.FervencyCounter + 1
+            end
         end
 
-        if (context.before or context.discard) and not G.GAME.ChallengedBlind then
-            G.GAME.FervencyCounter = G.GAME.FervencyCounter + 1
-        end
-
-        if G.GAME.FervencyCounter >= 100 then
-            G.GAME.FervencyCounter = 100
+        if G.GAME.FervencyCounter <= 0 or G.GAME.FervencyCounter >= 100 then
+            G.GAME.FervencyCounter = math.max(0, math.min(G.GAME.FervencyCounter, 100))
             G.E_MANAGER:add_event(Event({
                 blockable = false,
                 trigger = 'after',
@@ -44,44 +82,70 @@ SMODS.Consumable {
                 end
             }))
         end
-
-        if context.final_scoring_step and G.GAME.FervencyCounter > 50 then
-            local xmultred = 1 - ((G.GAME.FervencyCounter - 50) * 0.01)
+        if context.final_scoring_step and (G.GAME.FervencyCounter < 40 or G.GAME.FervencyCounter > 60) then
+            local xmultred = 1 -
+            (((G.GAME.FervencyCounter < 40) and (40 - G.GAME.FervencyCounter) or (G.GAME.FervencyCounter - 60)) * 0.015)
             return { xmult = xmultred }
         end
-
         if context.starting_shop then
             G.GAME.ChallengedBlind = false
         end
     end
 }
 
-local timer1, timer2 = 0, 0
+local start_run_refferv = Game.start_run
+function Game:start_run(args)
+    G.GAME.FervencyCounter = 50
+    G.GAME.FervencyState = "Cooling"
+    start_run_refferv(self, args)
+end
+
+local ferv_timer1, ferv_timer2 = 0, 0
+local old_update = Game.update
+
+
+local timer1, timer2, timer3, timer4 = 0, 0, 0, 0
 local old_update = Game.update
 
 function Game:update(dt)
     old_update(self, dt)
 
     if G.GAME.FervencyCounter then
-        if G.GAME.FervencyCounter > 50 and G.GAME.FervencyCounter <= 80 then
+        if G.GAME.FervencyCounter <= 40 and G.GAME.FervencyCounter > 20 then
             timer1 = timer1 + dt
-            if timer1 >= 0.8 then
+            if timer1 >= 1 then
                 play_sound('tdec_hbeat1')
                 timer1 = 0
             end
         end
-        if G.GAME.FervencyCounter > 80 then
+        if G.GAME.FervencyCounter <= 20 then
             timer2 = timer2 + dt
-            if timer2 >= 0.4 then
+            if timer2 >= 0.45 then
                 play_sound('tdec_hbeat2')
                 timer2 = 0
             end
         end
+        if G.GAME.FervencyCounter then
+            if G.GAME.FervencyCounter >= 60 and G.GAME.FervencyCounter < 80 then
+                timer3 = timer3 + dt
+                if timer3 >= 1 then
+                    play_sound('tdec_hbeat1')
+                    timer3 = 0
+                end
+            end
+            if G.GAME.FervencyCounter >= 80 then
+                timer4 = timer4 + dt
+                if timer4 >= 0.45 then
+                    play_sound('tdec_hbeat2')
+                    timer4 = 0
+                end
+            end
+        end
     end
 end
-
 local start_run_refferv = Game.start_run
 function Game:start_run(args)
-    G.GAME.FervencyCounter = 0
+    G.GAME.FervencyCounter = 50
+    G.GAME.FervencyState = "Cooling"
     start_run_refferv(self, args)
 end
