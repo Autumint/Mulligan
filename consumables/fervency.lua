@@ -56,7 +56,7 @@ SMODS.Consumable {
                 G.GAME.FervencyCounter = G.GAME.FervencyCounter + 2
             end
         end
-        if context.before or context.discard then
+        if context.before or (context.discard and context.other_card == context.full_hand[#context.full_hand]) then
             if G.GAME.FervencyState == "Cooling" then
                 G.GAME.FervencyCounter = G.GAME.FervencyCounter - 1
             else
