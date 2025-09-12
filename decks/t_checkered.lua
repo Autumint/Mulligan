@@ -48,6 +48,7 @@ function do_flip()
                     new_card:load(data)
                     new_card:hard_set_T()
                     G.jokers:emplace(new_card)
+                    new_card.added_to_deck = false
                     new_card:add_to_deck()
                 end
                 return true
