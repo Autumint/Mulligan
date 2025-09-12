@@ -14,6 +14,10 @@ SMODS.Joker{
         return { vars = { card.ability.extra.moneygive, card.ability.extra.xmult } }
     end,
 
+    in_pool = function(self)
+        return false
+    end,
+
     calculate = function(self, card, context)
         if context.after then
             local played_count = #G.play.cards

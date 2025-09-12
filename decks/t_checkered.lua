@@ -72,7 +72,8 @@ SMODS.Back{
     key = "tainted_checkered",
     atlas = "tainted_checkered",
     pos = { x = 0, y = 0 },
-    config = {},
+    config = { extra_hand_bonus = 1 },
+    
     loc_vars = function(self, info_queue, back)
         return {
             vars = {
@@ -123,19 +124,27 @@ SMODS.Back{
             end
         }))
     end,
-    calculate = function(self, card, context)
-        if context.setting_blind then
-            G.GAME.TCFlip.swapped_this_round = false
-            return
-        end
-
-        if context.starting_shop
-        and not context.repetition
-        and not G.GAME.TCFlip.swapped_this_round then
-            return do_flip()
-        end
+calculate = function(self, card, context)
+    if context.setting_blind then
+        G.GAME.TCFlip.swapped_this_round = false
+        return
     end
+
+    if context.starting_shop
+    and not context.repetition
+    and not G.GAME.TCFlip.swapped_this_round then
+        return do_flip()
+    end
+
+    if context.end_of_round and context.main_eval then
+
+        local inactive = (G.GAME.TCFlip.state == "Alive") and "Dead" or "Alive"
+        local reward = G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind.dollars or 0
+        G.GAME.TCFlip.money[inactive] = (G.GAME.TCFlip.money[inactive] or 0) + reward
+    end
+end
 }
+
 
 local smods_add_to_pool_ref = SMODS.add_to_pool
 function SMODS.add_to_pool(prototype_obj, args)

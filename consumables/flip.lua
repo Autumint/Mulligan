@@ -2,13 +2,47 @@ SMODS.Consumable {
     atlas = "tainted_atlas",
     pos = { x = 1, y = 1 },
     unlocked = true,
+    discovered = true,
     key = "flip_card",
     set = "taintedcards",
     cost = 4,
     rarity = 1,
+
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.FlipCharges or 0 } }
+        if not G.GAME or not G.GAME.TCFlip then
+            return { vars = { 0 }, main_end = {} }
+        end
+
+        local inactive = (G.GAME.TCFlip.state == "Alive") and "Dead" or "Alive"
+        local money = G.GAME.TCFlip.money[inactive] or 0
+        local colour = (inactive == "Alive") and G.C.ORANGE or G.C.BLUE
+
+        local nodes = {
+            {
+                n = G.UIT.C,
+                config = { align = "cm", colour = colour, r = 0.02, padding = 0.1 },
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = {
+                            text = inactive .. ": $" .. tostring(money),
+                            colour = G.C.UI.TEXT_LIGHT,
+                            scale = 0.3,
+                            shadow = true
+                        }
+                    }
+                }
+            },
+        }
+
+        return {
+            vars = { G.GAME.FlipCharges or 0 },
+            main_end = {
+                { n = G.UIT.C, config = { align = "bm", padding = 0.02 }, nodes = nodes }
+            }
+        }
     end,
+
     calculate = function(self, card, context)
         if context.end_of_round and context.main_eval and G.GAME.FlipCharges ~= 5 then
             G.GAME.FlipCharges = G.GAME.FlipCharges + 1
@@ -20,17 +54,21 @@ SMODS.Consumable {
             }
         end
     end,
-    keep_on_use = function(self)
-        return true
-    end,
+
+    keep_on_use = function(self) return true end,
+
     can_use = function(self, card)
-        return G.GAME.FlipCharges >= 5
+        if G.GAME.FlipCharges >= 5 then
+            return true
+        end
     end,
+
     use = function(self, card, area, copier)
         G.GAME.FlipMessageCheck = false
         G.GAME.FlipCharges = 0
         return do_flip()
     end,
+
     in_pool = function(self)
         return false
     end
