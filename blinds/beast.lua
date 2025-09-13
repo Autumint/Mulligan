@@ -114,3 +114,26 @@ function change_phase()
         return true
     end}))
 end
+
+TDECKS.ENDLESSBUTTON = function()
+    if G.GAME.round_resets.ante == 0 then return {} else return {
+        UIBox_button({
+    button = 'exit_overlay_menu',
+    label = (function()
+        local found = false
+        if G.jokers.cards then
+            for _, j in ipairs(G.jokers.cards) do
+                if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                    found = true
+                    break
+                end
+            end
+        end
+        return found and {"Ascend?"} or {localize('b_endless')}
+    end)(),
+    minw = 6.5, maxw = 5, minh = 1.2, scale = 0.7,
+    shadow = true, colour = G.C.BLUE,
+    focus_args = {nav = 'wide', button = 'x', set_button_pip = true}
+}),
+      } end
+end
