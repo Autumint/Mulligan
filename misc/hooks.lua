@@ -587,11 +587,12 @@ function get_new_boss(self)
         for _, j in ipairs(G.jokers.cards) do
             if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
                 if G.GAME.round_resets.ante == 0 then
-                    return "bl_tdec_beast"
+                    return "bl_tdec_famine"
                 end
             end
         end
     end
     return old_get_new_boss(self)
 end
+
 

@@ -38,8 +38,6 @@ SMODS.Joker {
 
     apply = function(self, card)
         G.GAME.modifiers.ascent_started = true
-        G.GAME.round_resets.blind_states["Small"] = "Hide"
-        G.GAME.round_resets.blind_states["Big"] = "Hide"
     end,
 
     calculate = function(self, card, context)

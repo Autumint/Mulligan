@@ -1,5 +1,37 @@
 return {
     descriptions = {
+        Blind = {
+            bl_tdec_famine = {
+                name = "{C:red}The Famine{}",
+                text = {
+                    "“Behold, a black horse! And its rider had a pair of scales in his hand.”"
+                }
+            },
+            bl_tdec_pestilence = {
+                name = "{C:red}The Pestilence{}",
+                text = {
+                    "“Behold, a green horse! Its rider had a bow, and a crown was given to him.”"
+                }
+            },
+            bl_tdec_war = {
+                name = "{C:red}The War{}",
+                text = {
+                    "“Out came another horse, bright red. Its rider was permitted to take peace from the earth … and he was given a great sword.”"
+                }
+            },
+            bl_tdec_death = {
+                name = "{C:red}The Death{}",
+                text = {
+                    "“Behold, a pale horse! Its rider’s name was Death, and Hades followed him.”"
+                }
+            },
+            bl_tdec_beast = {
+                name = "{C:red}The Beast{}",
+                text = {
+                    "“And I saw a beast rising out of the sea, with ten horns and seven heads.”"
+                }
+            },
+        },
         Joker = {
             j_tdec_eyeofgreed = {
                 name = "Eye of Greed",
@@ -102,7 +134,7 @@ return {
                     "per currently owned {C:red}Locust.{}",
                     "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)",
                     "{C:inactive}(Currently {X:blue,C:white} +#5# {C:inactive} Chips)"
-                    
+
 
                 }
             },
@@ -143,7 +175,7 @@ return {
                     "{C:red}Less{} is {C:blue}More{}",
                     "{C:blue}-2{} Hands"
                 }
-            },     
+            },
             b_tdec_tainted_yellow = {
                 name = "Avarice Deck",
                 text = {
@@ -206,7 +238,7 @@ return {
             b_tdec_tainted_erratic = {
                 name = "C@PRIC10US D?CK",
                 text = {
-                    "{C:red}ST?RT RUN W_?{} {C:red,T:c_tdec_debugcard}DBG_CARD?{}", 
+                    "{C:red}ST?RT RUN W_?{} {C:red,T:c_tdec_debugcard}DBG_CARD?{}",
                     "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
                 }
             },
@@ -246,7 +278,7 @@ return {
                     "{C:red}[!] OUTPUT: Defined_Global_Input Corrected{}",
                     "{C:red}[!] DEBUG_JOKER when ?CHARGE? == 3",
                     "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
-                    
+
                 }
             },
             c_tdec_flip_card = {
@@ -318,7 +350,7 @@ return {
             tdec_clotting = "Clotting",
             tdec_tainted_perish = "EVERCHANGING",
             tdec_Eroding = "Eroding"
+        }
     }
-}
 
 }

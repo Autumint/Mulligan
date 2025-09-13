@@ -1,20 +1,72 @@
 SMODS.Blind {
-    key = "beast",
-    pos = { x = 0, y = 2 },
+    key = "famine",
+    pos = { x = 0, y = 25 },
+    mult = 2550,
     boss = { min = 1 },
-    boss_colour = HEX("b95b08"),
-    loc_vars = function(self)
-        return { vars = {} }
-    end,
+    boss_colour = HEX("675b5b"),
+    tdecks_next_phase = "bl_tdec_pestilence",
 
     in_pool = function(self)
-        return true
+        return false
     end
 }
 
+SMODS.Blind {
+    key = "pestilence",
+    pos = { x = 0, y = 25 },
+    mult = 2570,
+    boss = { min = 1 },
+    boss_colour = HEX("008000"),
+    tdecks_next_phase = "bl_tdec_war",
+
+    in_pool = function(self)
+        return false
+    end
+}
+
+SMODS.Blind {
+    key = "war",
+    pos = { x = 0, y = 25 },
+    mult = 2600,
+    boss = { min = 1 },
+    boss_colour = HEX("ff000d"),
+    tdecks_next_phase = "bl_tdec_death",
+
+    in_pool = function(self)
+        return false
+    end
+}
+
+SMODS.Blind {
+    key = "death",
+    pos = { x = 0, y = 25 },
+    mult = 2650,
+    boss = { min = 1 },
+    boss_colour = HEX("fbfbfd"),
+    tdecks_next_phase = "bl_tdec_beast",
+
+    in_pool = function(self)
+        return false
+    end
+}
+
+SMODS.Blind {
+    key = "beast",
+    pos = { x = 0, y = 25 },
+    mult = 2700,
+    boss = { min = 1 },
+    boss_colour = HEX("a84024"),
+
+    in_pool = function(self)
+        return false
+    end,
+}
 
 local end_roundref = end_round
 function end_round()
+    if G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+        win_game()
+    end
     if G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind.tdecks_next_phase then
         G.GAME.chips = 0
         G.GAME.round_resets.lost = true
