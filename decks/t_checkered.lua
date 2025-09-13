@@ -138,10 +138,14 @@ SMODS.Back {
 
         if context.end_of_round and context.main_eval then
             local inactive = (G.GAME.TCFlip.state == "Alive") and "Dead" or "Alive"
-            local reward = G.GAME.blind.config.blind.dollars or 0
+            local reward = G.GAME.blind.config.blind.dollars
 
-            if not G.GAME.blind:get_type() == 'Small' and G.GAME.stake == 2 then
-                G.GAME.TCFlip.money[inactive] = (G.GAME.TCFlip.money[inactive] or 0) + reward
+            if not (G.GAME.blind:get_type() == 'Small' and G.GAME.stake == 2) then
+                local hands_remaining = G.GAME.current_round.hands_left
+                G.GAME.TCFlip.money[inactive] = G.GAME.TCFlip.money[inactive] + reward + hands_remaining
+                return {
+                    message = "+$" .. reward + hands_remaining
+                }
             end
         end
     end

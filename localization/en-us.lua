@@ -253,7 +253,7 @@ return {
                 name = "Flip?",
                 text = {
                     "Swap between the {C:blue}Alive{} and {C:attention}Dead{} state.",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/5 {C:inactive} Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
                 }
             },
             c_tdec_holy_card = {

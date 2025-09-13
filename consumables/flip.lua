@@ -42,10 +42,10 @@ SMODS.Consumable {
     end,
 
     calculate = function(self, card, context)
-        if context.end_of_round and context.main_eval and G.GAME.FlipCharges ~= 5 then
+        if context.end_of_round and context.main_eval and G.GAME.FlipCharges ~= 3 then
             G.GAME.FlipCharges = G.GAME.FlipCharges + 1
         end
-        if context.end_of_round and G.GAME.FlipCharges == 5 and not G.GAME.FlipMessageCheck then
+        if context.end_of_round and G.GAME.FlipCharges == 3 and not G.GAME.FlipMessageCheck then
             G.GAME.FlipMessageCheck = true
             return {
                 message = "Resurrection?"
@@ -56,7 +56,7 @@ SMODS.Consumable {
     keep_on_use = function(self) return true end,
 
     can_use = function(self, card)
-        if G.GAME.FlipCharges >= 5 then
+        if G.GAME.FlipCharges >= 3 then
             return true
         end
     end,
@@ -77,9 +77,10 @@ function Game:start_run(args)
     start_run_refflip(self, args)
     G.E_MANAGER:add_event(Event({
         func = function()
-            G.GAME.FlipCharges = 1
+            G.GAME.FlipCharges = 2
             G.GAME.FlipMessageCheck = false
             return true
         end
     }))
 end
+
