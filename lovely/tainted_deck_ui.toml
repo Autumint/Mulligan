@@ -294,3 +294,45 @@ UIBox_button({
 }),
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.round_resets.blind_states.Small = 'Upcoming'"
+position = "at"
+payload = '''
+G.GAME.round_resets.blind_states.Small = (function()
+    local found = false
+    if G.jokers.cards then
+        for _, j in ipairs(G.jokers.cards) do
+            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                found = true
+                break
+            end
+        end
+    end
+    return (found and G.GAME.round_resets.ante == 0) and 'Hide' or 'Upcoming'
+end)()
+'''
+match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/common_events.lua"
+pattern = "G.GAME.round_resets.blind_states.Big = 'Upcoming'"
+position = "at"
+payload = '''
+G.GAME.round_resets.blind_states.Big = (function()
+    local found = false
+    if G.jokers.cards then
+        for _, j in ipairs(G.jokers.cards) do
+            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                found = true
+                break
+            end
+        end
+    end
+    return (found and G.GAME.round_resets.ante == 0) and 'Hide' or 'Upcoming'
+end)()
+'''
+match_indent = true

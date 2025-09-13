@@ -5,7 +5,7 @@ return {
                 name = "Eye of Greed",
                 text = {
                     "Each played card costs {C:money}$1{}",
-                    "and grants {X:mult,C:white}0.5X{} mult",
+                    "and grants {X:mult,C:white}0.5X{} Mult",
                     "For the played {C:blue}hand{}",
                     "{C:inactive}(Starts at {X:mult,C:white}X1{C:inactive} Mult){}"
                 }
@@ -34,14 +34,14 @@ return {
                 name = "Clot",
                 text = {
                     "Summoned by {C:red}Sumptorium{}",
-                    "Provides {X:mult,C:white}X1.5{} mult"
+                    "Provides {X:mult,C:white}X1.5{} Mult"
                 }
             },
             j_tdec_purgatory = {
                 name = "Purgatory",
                 text = {
-                    "{C:blue}Spectral{} cards grant {X:mult,C:white}X1{} mult and {C:purple}Tarot{}",
-                    "cards grant {X:mult,C:white}X0.5{} mult for the next played {C:blue}hand{}",
+                    "{C:blue}Spectral{} cards grant {X:mult,C:white}X1{} Mult and {C:purple}Tarot{}",
+                    "cards grant {X:mult,C:white}X0.5{} Mult for the next played {C:blue}hand{}",
                     "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
                 }
             },

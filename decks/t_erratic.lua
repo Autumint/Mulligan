@@ -24,7 +24,6 @@ SMODS.Back{
     end
 }
 
-
 function TDECKS.random_joker_center(_rarity)
     local center
     local _pool, _pool_key = get_current_pool("Joker", _rarity, false, "tdeck_erratic")
@@ -53,50 +52,45 @@ SMODS.Sticker{
     apply = function(self, card, val)
         card.ability[self.key] = val
     end,
-
+    
     calculate = function(self, card, context)
-        if not card.ability[self.key] then return end
+    if not card.ability[self.key] then return end
 
-        if context.check_eternal and card.ability._tdec_force_eternal then
-            return { no_destroy = { override_compat = true } }
-        end
-
-        if context.setting_blind and not card.ability._tdec_triggered then
-            card.ability._tdec_triggered = true
-
-            G.E_MANAGER:add_event(Event({
-                trigger = "before",
-                func = function()
-                    card:flip()
-                    return true
-                end
-            }))
-            G.E_MANAGER:add_event(Event({
-                func = function()
-                    if not G.GAME._tdec_erratic_sound_played then
-                        play_sound('tdec_erratic_bug2')
-                        G.GAME._tdec_erratic_sound_played = true
-                    end
-                    card:set_ability(TDECKS.random_joker_center())
-                    return true
-                end
-            }))
-
-            G.E_MANAGER:add_event(Event({
-                trigger = "after",
-                func = function()
-                    card:flip()
-                    return true
-                end
-            }))
-        end
-
-        if not context.setting_blind then
-            card.ability._tdec_triggered = false
-        end
-
-        if G.STATE == G.STATES.SHOP then
-            G.GAME._tdec_erratic_sound_played = false
-        end
+    if context.check_eternal and card.ability._tdec_force_eternal then
+        return { no_destroy = { override_compat = true } }
     end
+
+    if context.ending_shop then
+        G.E_MANAGER:add_event(Event({
+            trigger = "before",
+            func = function()
+                card:flip()
+                return true
+            end
+        }))
+
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                if not G.GAME._tdec_erratic_sound_played then
+                    play_sound('tdec_erratic_bug2')
+                    G.GAME._tdec_erratic_sound_played = true
+                end
+                card:set_ability(TDECKS.random_joker_center())
+                return true
+            end
+        }))
+
+        G.E_MANAGER:add_event(Event({
+            trigger = "after",
+            func = function()
+                card:flip()
+                return true
+            end
+        }))
+    end
+
+    if context.setting_blind then
+        G.GAME._tdec_erratic_sound_played = false
+    end
+end
 }
