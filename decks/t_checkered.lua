@@ -2,10 +2,10 @@ function do_flip()
     play_sound('tdec_checkered_sound')
     G.GAME.TCFlip.swapped_this_round = true
 
-    local preserved = {} 
+    local preserved = {}
     for _, j in ipairs(G.jokers.cards) do
         if j.area == G.jokers and j.area ~= G.shop_jokers then
-            preserved[#preserved+1] = j:save()
+            preserved[#preserved + 1] = j:save()
         end
     end
     G.GAME.TCFlip.preserved[G.GAME.TCFlip.state] = preserved
@@ -13,7 +13,7 @@ function do_flip()
     local to_remove = {}
     for _, j in ipairs(G.jokers.cards) do
         if j.area == G.jokers and j.area ~= G.shop_jokers and not j.getting_sliced then
-            to_remove[#to_remove+1] = j
+            to_remove[#to_remove + 1] = j
         end
     end
 
@@ -67,13 +67,13 @@ function do_flip()
     }
 end
 
-SMODS.Back{
+SMODS.Back {
     original = "b_checkered",
     key = "tainted_checkered",
     atlas = "tainted_checkered",
     pos = { x = 0, y = 0 },
     config = { extra_hand_bonus = 1 },
-    
+
     loc_vars = function(self, info_queue, back)
         return {
             vars = {
@@ -124,31 +124,32 @@ SMODS.Back{
             end
         }))
     end,
-calculate = function(self, card, context)
-    if context.setting_blind then
-        G.GAME.TCFlip.swapped_this_round = false
-        return
-    end
+    calculate = function(self, card, context)
+        if context.setting_blind then
+            G.GAME.TCFlip.swapped_this_round = false
+            return
+        end
 
-    if context.starting_shop
-    and not context.repetition
-    and not G.GAME.TCFlip.swapped_this_round then
-        return do_flip()
-    end
+        if context.starting_shop
+            and not context.repetition
+            and not G.GAME.TCFlip.swapped_this_round then
+            return do_flip()
+        end
 
-    if context.end_of_round and context.main_eval then
+        if context.end_of_round and context.main_eval then
+            local inactive = (G.GAME.TCFlip.state == "Alive") and "Dead" or "Alive"
+            local reward = G.GAME.blind.config.blind.dollars or 0
 
-        local inactive = (G.GAME.TCFlip.state == "Alive") and "Dead" or "Alive"
-        local reward = G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind.dollars or 0
-        G.GAME.TCFlip.money[inactive] = (G.GAME.TCFlip.money[inactive] or 0) + reward
+            if not G.GAME.blind:get_type() == 'Small' and G.GAME.stake == 2 then
+                G.GAME.TCFlip.money[inactive] = (G.GAME.TCFlip.money[inactive] or 0) + reward
+            end
+        end
     end
-end
 }
-
 
 local smods_add_to_pool_ref = SMODS.add_to_pool
 function SMODS.add_to_pool(prototype_obj, args)
-    if prototype_obj.suit_nominal and G.GAME.FlippedSuits then 
+    if prototype_obj.suit_nominal and G.GAME.FlippedSuits then
         if prototype_obj.key == "Hearts" or prototype_obj.key == "Spades" then
             return false
         end
