@@ -541,7 +541,7 @@ function Game:update(dt)
 	end
 end
 -- Uncomment when the ascent is done
---[[
+
 local old_update_shop = Game.update_shop
 
 function Game:update_shop(dt)
@@ -580,5 +580,18 @@ function Game:update_shop(dt)
         G.shop_jokers:emplace(card)
     end
 end
-]]
+
+local old_get_new_boss = get_new_boss
+function get_new_boss(self)
+    if G.jokers and G.jokers.cards then
+        for _, j in ipairs(G.jokers.cards) do
+            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                if G.GAME.round_resets.ante == 0 then
+                    return "bl_tdec_beast"
+                end
+            end
+        end
+    end
+    return old_get_new_boss(self)
+end
 
