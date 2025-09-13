@@ -2,13 +2,13 @@ SMODS.Consumable {
     atlas = "debugcard_atlas",
     pos = { x = 0, y = 0 },
     unlocked = true,
+    discovered = true,
     key = "debugcard",
     set = "taintedcards",
     eternal_compat = true,
-    rarity = 1,
 
     loc_vars = function(self, info_queue, card)
-        return { vars = { G.GAME.DebugRounds } }
+        return { vars = { G.GAME.DebugRounds or 0 } }
     end,
 
     calculate = function(self, card, context)

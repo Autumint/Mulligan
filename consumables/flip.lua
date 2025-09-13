@@ -5,8 +5,6 @@ SMODS.Consumable {
     discovered = true,
     key = "flip_card",
     set = "taintedcards",
-    cost = 4,
-    rarity = 1,
 
     loc_vars = function(self, info_queue, card)
         if not G.GAME or not G.GAME.TCFlip then
