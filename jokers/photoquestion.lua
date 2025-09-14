@@ -15,7 +15,7 @@ do
 
     function G.UIDEF.use_and_sell_buttons(card)
         local m = original_use_and_sell(card)
-        if G.GAME.round_resets.ante ~= 0 and card.config and card.config.center and card.config.center.key == "j_tdec_photoquestion" then
+        if card.config and card.config.center and card.config.center.key == "j_tdec_photoquestion" then
             remove_sell_button(m)
         end
         return m

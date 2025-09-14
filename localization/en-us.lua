@@ -3,33 +3,18 @@ return {
         Blind = {
             bl_tdec_famine = {
                 name = "{C:red}The Famine{}",
-                text = {
-                    "“Behold, a black horse! And its rider had a pair of scales in his hand.”"
-                }
             },
             bl_tdec_pestilence = {
                 name = "{C:red}The Pestilence{}",
-                text = {
-                    "“Behold, a green horse! Its rider had a bow, and a crown was given to him.”"
-                }
             },
             bl_tdec_war = {
                 name = "{C:red}The War{}",
-                text = {
-                    "“Out came another horse, bright red. Its rider was permitted to take peace from the earth … and he was given a great sword.”"
-                }
             },
             bl_tdec_death = {
                 name = "{C:red}The Death{}",
-                text = {
-                    "“Behold, a pale horse! Its rider’s name was Death, and Hades followed him.”"
-                }
             },
             bl_tdec_beast = {
                 name = "{C:red}The Beast{}",
-                text = {
-                    "“And I saw a beast rising out of the sea, with ten horns and seven heads.”"
-                }
             },
         },
         Joker = {

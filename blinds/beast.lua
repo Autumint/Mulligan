@@ -14,7 +14,7 @@ SMODS.Blind {
 SMODS.Blind {
     key = "pestilence",
     pos = { x = 0, y = 25 },
-    mult = 2570,
+    mult = 2550,
     boss = { min = 1 },
     boss_colour = HEX("008000"),
     tdecks_next_phase = "bl_tdec_war",
@@ -27,7 +27,7 @@ SMODS.Blind {
 SMODS.Blind {
     key = "war",
     pos = { x = 0, y = 25 },
-    mult = 2600,
+    mult = 2550,
     boss = { min = 1 },
     boss_colour = HEX("ff000d"),
     tdecks_next_phase = "bl_tdec_death",
@@ -40,7 +40,7 @@ SMODS.Blind {
 SMODS.Blind {
     key = "death",
     pos = { x = 0, y = 25 },
-    mult = 2650,
+    mult = 2550,
     boss = { min = 1 },
     boss_colour = HEX("fbfbfd"),
     tdecks_next_phase = "bl_tdec_beast",
@@ -53,7 +53,7 @@ SMODS.Blind {
 SMODS.Blind {
     key = "beast",
     pos = { x = 0, y = 25 },
-    mult = 2700,
+    mult = 3500,
     boss = { min = 1 },
     boss_colour = HEX("a84024"),
 
@@ -61,6 +61,24 @@ SMODS.Blind {
         return false
     end,
 }
+
+local update_ref = Game.update
+function Game:update(dt)
+    update_ref(self, dt)
+
+    if G.GAME.round_resets.ante == 0 and G.jokers and G.jokers.cards then
+        for _, j in ipairs(G.jokers.cards) do
+            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                if G.GAME.blind.config.blind.key == "bl_tdec_famine" or G.GAME.blind.config.blind.key == "bl_tdec_pestilence" or G.GAME.blind.config.blind.key == "bl_tdec_war" or G.GAME.blind.config.blind.key == "bl_tdec_death" or G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+                    local blind_def = G.GAME.blind.config.blind
+                    if blind_def.boss_colour then
+                        ease_background_colour { new_colour = blind_def.boss_colour, contrast = 1 }
+                    end
+                end
+            end
+        end
+    end
+end
 
 local end_roundref = end_round
 function end_round()
