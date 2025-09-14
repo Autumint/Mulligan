@@ -36,15 +36,26 @@ SMODS.Joker {
         return false
     end,
 
+    add_to_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit + 1
+    end,
+
+    remove_from_deck = function(self, card, from_debuff)
+        G.jokers.config.card_limit = G.jokers.config.card_limit - 1
+    end,
+
     apply = function(self, card)
         G.GAME.modifiers.ascent_started = true
     end,
 
     calculate = function(self, card, context)
-        if context.check_eternal and context.other_card == card then return {no_destroy  = true} end
+        if context.check_eternal and context.other_card == card then 
+            return { no_destroy = true } 
+        end
         if context.modify_ante then
             print("att")
             return { modify = -2 }
         end
     end
 }
+

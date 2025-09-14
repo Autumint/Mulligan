@@ -208,7 +208,8 @@ G.STATE = G.STATES.SHOP
 position = "at"
 payload = '''
 G.STATE = (
-    (function()
+    G.GAME.modifiers.tainted_yellow
+    or (function()
         local found = false
         if G.jokers.cards then
             for _, j in ipairs(G.jokers.cards) do
@@ -218,9 +219,8 @@ G.STATE = (
                 end
             end
         end
-        return found
+        return found and (G.GAME.round_resets.ante ~= 8)
     end)()
-    and (G.GAME.round_resets.ante ~= 8)
 ) and G.STATES.BLIND_SELECT or G.STATES.SHOP
 '''
 match_indent = true

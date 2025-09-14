@@ -92,7 +92,9 @@ SMODS.Joker {
     end,
 
     calculate = function(self, context)
-        if context.check_eternal and context.other_card == card then return {no_destroy  = true} end
+        if context.check_eternal and context.other_card == card then 
+            return {no_destroy  = true} 
+        end
     end,
 
     add_to_deck = function(self, card, from_debuff)

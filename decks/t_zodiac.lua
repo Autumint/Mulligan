@@ -38,7 +38,9 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
-        if context.check_eternal and context.other_card == card then return { no_destroy = true } end
+        if context.check_eternal and context.other_card == card then 
+            return { no_destroy = true } 
+        end
         if (G.GAME.round_resets and G.GAME.round_resets.ante or 0) < 2 then
             return {}
         end
