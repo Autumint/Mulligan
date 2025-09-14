@@ -2,7 +2,10 @@ return {
     descriptions = {
         Blind = {
             bl_tdec_famine = {
-                name = "{C:red}The Famine{}",
+                name = "???",
+                text = {
+                    "???"
+                }
             },
             bl_tdec_pestilence = {
                 name = "{C:red}The Pestilence{}",

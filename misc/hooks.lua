@@ -601,4 +601,29 @@ function get_new_boss(self)
     return old_get_new_boss(self)
 end
 
+local old_get_blind_amount = get_blind_amount
+function get_blind_amount(ante)
+    if G.jokers and G.jokers.cards then
+        for _, j in ipairs(G.jokers.cards) do
+            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                if ante == 0 then
+                    return old_get_blind_amount(9)
+                end
+            end
+        end
+    end
+    return old_get_blind_amount(ante)
+end
 
+local set_textref = Blind.set_text
+function Blind:set_text()
+    set_textref(self)
+    if self.config.blind.hidden then 
+        self.loc_name = "The Famine" 
+        self.loc_debuff_lines = {
+            "-1 Hand Size",
+            "-1 Discard Limit"
+        }
+        self.loc_debuff_text = "-1 Hand Size, -1 Discard Limit"
+    end
+end
