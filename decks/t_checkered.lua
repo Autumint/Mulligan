@@ -5,7 +5,11 @@ function do_flip()
     local preserved = {}
     for _, j in ipairs(G.jokers.cards) do
         if j.area == G.jokers and j.area ~= G.shop_jokers then
-            preserved[#preserved + 1] = j:save()
+            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+
+            else
+                preserved[#preserved + 1] = j:save()
+            end
         end
     end
     G.GAME.TCFlip.preserved[G.GAME.TCFlip.state] = preserved
@@ -13,7 +17,9 @@ function do_flip()
     local to_remove = {}
     for _, j in ipairs(G.jokers.cards) do
         if j.area == G.jokers and j.area ~= G.shop_jokers and not j.getting_sliced then
-            to_remove[#to_remove + 1] = j
+            if not (j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion") then
+                to_remove[#to_remove + 1] = j
+            end
         end
     end
 
@@ -40,7 +46,12 @@ function do_flip()
 
     G.E_MANAGER:add_event(Event({
         func = function()
-            return #G.jokers.cards == 0
+            for _, j in ipairs(G.jokers.cards) do
+                if not (j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion") then
+                    return false 
+                end
+            end
+            return true
         end
     }))
 

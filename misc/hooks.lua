@@ -595,4 +595,14 @@ function get_new_boss(self)
     return old_get_new_boss(self)
 end
 
+local old_check_for_buy_space = G.FUNCS.check_for_buy_space
+function G.FUNCS.check_for_buy_space(card)
+    if
+        card.config and card.config.center and card.config.center.key == "j_tdec_photoquestion"
+    then
+        return true
+    end
+    return old_check_for_buy_space(card)
+end
+
 
