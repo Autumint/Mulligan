@@ -44,8 +44,7 @@ SMODS.Joker {
         if context.check_eternal then return {no_destroy  = true} end
         if context.modify_ante then
             print("att")
-            table.insert(result, { modify = -2 })
+            return { modify = -2 }
         end
     end
-
 }
