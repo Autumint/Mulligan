@@ -15,7 +15,7 @@ do
 
     function G.UIDEF.use_and_sell_buttons(card)
         local m = original_use_and_sell(card)
-        if card.config and card.config.center and card.config.center.key == "j_tdec_dried_joker" then
+        if (card.config and card.config.center and card.config.center.key == "j_tdec_dried_joker") or card.ability.tdec_Eroding then
             remove_sell_button(m)
         end
         return m
@@ -89,6 +89,10 @@ SMODS.Joker {
     config = { extra = { size = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.size } }
+    end,
+
+    calculate = function(self, context)
+        if context.check_eternal then return {no_destroy  = true} end
     end,
 
     add_to_deck = function(self, card, from_debuff)

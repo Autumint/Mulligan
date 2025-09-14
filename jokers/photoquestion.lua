@@ -41,9 +41,11 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
+        if context.check_eternal then return {no_destroy  = true} end
         if context.modify_ante then
             print("att")
-            return { modify = -2 }
+            table.insert(result, { modify = -2 })
         end
     end
+
 }
