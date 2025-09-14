@@ -627,3 +627,21 @@ function Blind:set_text()
         self.loc_debuff_text = "-1 Hand Size, -1 Discard Limit"
     end
 end
+
+local update_ref = Game.update
+function Game:update(dt)
+    update_ref(self, dt)
+
+    if G.GAME.round_resets.ante == 0 and G.jokers and G.jokers.cards then
+        for _, j in ipairs(G.jokers.cards) do
+            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
+                if G.GAME.blind.config.blind.key == "bl_tdec_famine" or G.GAME.blind.config.blind.key == "bl_tdec_pestilence" or G.GAME.blind.config.blind.key == "bl_tdec_war" or G.GAME.blind.config.blind.key == "bl_tdec_death" or G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+                    local blind_def = G.GAME.blind.config.blind
+                    if blind_def.boss_colour then
+                        ease_background_colour { new_colour = blind_def.boss_colour, contrast = 1 }
+                    end
+                end
+            end
+        end
+    end
+end

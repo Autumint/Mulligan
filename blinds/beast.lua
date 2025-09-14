@@ -8,18 +8,10 @@ SMODS.Blind {
     hidden = true,
 
     calculate = function(self, blind, context)
-        if not blind.disabled then
-            if context.setting_blind then
-                G.hand:change_size(-1)
-                SMODS.change_discard_limit(-1)
-            end
-        end
-    end,
-
-    defeat = function(self, blind)
-        if not G.GAME.blind.disabled then
-            G.hand:change_size(1)
-            SMODS.change_discard_limit(1)
+        if context.setting_blind then
+            G.hand:change_size(-1)
+            SMODS.change_discard_limit(-1)
+            blind._famine_applied = (blind._famine_applied or 0) + 1
         end
     end,
 
@@ -51,6 +43,56 @@ SMODS.Blind {
 
     in_pool = function(self)
         return false
+    end,
+
+    calculate = function(self, blind, context)
+        if context.press_play then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local _cards = {}
+                    for _, playing_card in ipairs(G.hand.cards) do
+                        _cards[#_cards + 1] = playing_card
+                    end
+                    for i = 1, 3 do
+                        if #_cards > 0 then
+                            local selected_card, card_index = pseudorandom_element(_cards, 'tdec_war')
+                            G.E_MANAGER:add_event(Event({
+                                trigger = 'after',
+                                delay = (i - 1) * 0.5,
+                                func = function()
+                                    selected_card:start_dissolve(nil, true)
+                                    play_sound('card1', 1)
+                                    return true
+                                end
+                            }))
+
+                            table.remove(_cards, card_index)
+                        end
+                    end
+                    return true
+                end
+            }))
+            blind.triggered = true
+            delay(0.7)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = (function()
+                    SMODS.juice_up_blind()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.06 * G.SETTINGS.GAMESPEED,
+                        blockable = false,
+                        blocking = false,
+                        func = function()
+                            play_sound('tarot2', 0.76, 0.4); return true
+                        end
+                    }))
+                    play_sound('tarot2', 1, 0.4)
+                    return true
+                end)
+            }))
+            delay(0.4)
+        end
     end
 }
 
@@ -79,24 +121,6 @@ SMODS.Blind {
     end,
 }
 
-local update_ref = Game.update
-function Game:update(dt)
-    update_ref(self, dt)
-
-    if G.GAME.round_resets.ante == 0 and G.jokers and G.jokers.cards then
-        for _, j in ipairs(G.jokers.cards) do
-            if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
-                if G.GAME.blind.config.blind.key == "bl_tdec_famine" or G.GAME.blind.config.blind.key == "bl_tdec_pestilence" or G.GAME.blind.config.blind.key == "bl_tdec_war" or G.GAME.blind.config.blind.key == "bl_tdec_death" or G.GAME.blind.config.blind.key == "bl_tdec_beast" then
-                    local blind_def = G.GAME.blind.config.blind
-                    if blind_def.boss_colour then
-                        ease_background_colour { new_colour = blind_def.boss_colour, contrast = 1 }
-                    end
-                end
-            end
-        end
-    end
-end
-
 local end_roundref = end_round
 function end_round()
     if G.GAME.blind.config.blind.key == "bl_tdec_beast" then
@@ -108,6 +132,18 @@ function end_round()
         G.GAME.round_resets.lost = true
         G.E_MANAGER:add_event(Event({
             func = function()
+                local fam_blind = G.GAME.blind
+                if fam_blind and fam_blind.config and fam_blind.config.blind and fam_blind.config.blind.key == "bl_tdec_famine" then
+                    local applied = fam_blind._famine_applied or 0
+                    if applied > 0 then
+                        for i = 1, applied do
+                            G.hand:change_size(1)
+                            SMODS.change_discard_limit(1)
+                        end
+                        fam_blind._famine_applied = 0
+                    end
+                end
+
                 G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.config.blind.tdecks_next_phase])
                 change_phase()
                 G.GAME.blind:juice_up()
