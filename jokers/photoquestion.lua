@@ -28,20 +28,13 @@ SMODS.Joker {
     perishable_compat = false,
     rarity = 1,
     cost = 1,
+    config = { extra_slots_used = -1 },
     atlas = "Photo_Atlas",
     pos = { x = 0, y = 0 },
     pixel_size = { h = 95 / 1.2 },
 
     in_pool = function(self, args)
         return false
-    end,
-
-    add_to_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit + 1
-    end,
-
-    remove_from_deck = function(self, card, from_debuff)
-        G.jokers.config.card_limit = G.jokers.config.card_limit - 1
     end,
 
     apply = function(self, card)

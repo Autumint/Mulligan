@@ -2,39 +2,42 @@ G.FUNCS.stupidfailurebutton = function() end
 
 local old_run_setup = G.UIDEF.run_setup
 G.UIDEF.run_setup = function(run_type, saved_game)
-  local ui = old_run_setup(run_type, saved_game)
+    local ui = old_run_setup(run_type, saved_game)
 
-  if ui and ui.nodes then
-    local play_row = ui.nodes[#ui.nodes-1]
-    if play_row and play_row.n == G.UIT.R and play_row.nodes then
-      table.insert(play_row.nodes, {
-        n = G.UIT.C,
-        config = {
-          align     = "cm",
-          minw      = 1.0,  
-          minh      = 1.0,  
-          maxw      = 1.0,  
-          maxh      = 1.0,  
-          r         = 0.2,
-          emboss    = 0.1,
-          colour    = G.C.PURPLE,
-          button    = "toggle_tainted",
-          func = "can_toggle_tainted",
-          shadow    = true,
-          no_fill   = false,  
-        },
-        nodes = {
-          { n = G.UIT.T, config = {
-              text   = ">",
-              scale  = 0.45,
-              colour = G.C.UI.TEXT_LIGHT,
-          }}
-        }
-      })
+    if ui and ui.nodes then
+        local play_row = ui.nodes[#ui.nodes - 1]
+        if play_row and play_row.n == G.UIT.R and play_row.nodes then
+            table.insert(play_row.nodes, {
+                n = G.UIT.C,
+                config = {
+                    align   = "cm",
+                    minw    = 1.0,
+                    minh    = 1.0,
+                    maxw    = 1.0,
+                    maxh    = 1.0,
+                    r       = 0.2,
+                    emboss  = 0.1,
+                    colour  = G.C.PURPLE,
+                    button  = "toggle_tainted",
+                    func    = "can_toggle_tainted",
+                    shadow  = true,
+                    no_fill = false,
+                },
+                nodes = {
+                    {
+                        n = G.UIT.T,
+                        config = {
+                            text   = ">",
+                            scale  = 0.45,
+                            colour = G.C.UI.TEXT_LIGHT,
+                        }
+                    }
+                }
+            })
+        end
     end
-  end
 
-  return ui
+    return ui
 end
 
 G.FUNCS.can_toggle_tainted = function(e)
@@ -45,7 +48,7 @@ end
 G.FUNCS.toggle_tainted = function(e)
     G.TAINTED_ENABLED = not G.TAINTED_ENABLED
     G.FORCE_NEW_RUN = true
-    G.FUNCS.setup_run({config = {id = "from_game_over"}})
+    G.FUNCS.setup_run({ config = { id = "from_game_over" } })
     G.FORCE_NEW_RUN = nil
 end
 
@@ -59,7 +62,7 @@ function get_decks_centers()
     local pool = {}
     for i, v in pairs(SMODS.collection_pool(G.P_CENTER_POOLS.Back)) do
         if not v.original and not v.hidden then
-            pool[#pool+1] = v
+            pool[#pool + 1] = v
         end
     end
     if G.TAINTED_ENABLED then
@@ -73,24 +76,23 @@ end
 function G.FUNCS.get_decks_tainted()
     local names = {}
     for i, v in pairs(get_decks_centers()) do
-        names[#names+1] = v
+        names[#names + 1] = v
     end
     return names
 end
 
-
 G.FUNCS.change_viewed_back = function(args)
-  G.viewed_stake = G.viewed_stake or 1
-  local deck_pool = get_decks_centers()
-  G.GAME.viewed_back:change_to(deck_pool[args.to_key])
-  if G.sticker_card then G.sticker_card.sticker = get_deck_win_sticker(G.GAME.viewed_back.effect.center) end
-  local max_stake = get_deck_win_stake(G.GAME.viewed_back.effect.center.key) or 0
-  G.viewed_stake = math.min(G.viewed_stake, max_stake + 1)
-  G.PROFILES[G.SETTINGS.profile].MEMORY.deck = args.to_val
-  for key, val in pairs(G.sticker_card.area.cards) do
-  	val.children.back = false
-  	val:set_ability(val.config.center, true)
-  end
+    G.viewed_stake = G.viewed_stake or 1
+    local deck_pool = get_decks_centers()
+    G.GAME.viewed_back:change_to(deck_pool[args.to_key])
+    if G.sticker_card then G.sticker_card.sticker = get_deck_win_sticker(G.GAME.viewed_back.effect.center) end
+    local max_stake = get_deck_win_stake(G.GAME.viewed_back.effect.center.key) or 0
+    G.viewed_stake = math.min(G.viewed_stake, max_stake + 1)
+    G.PROFILES[G.SETTINGS.profile].MEMORY.deck = args.to_val
+    for key, val in pairs(G.sticker_card.area.cards) do
+        val.children.back = false
+        val:set_ability(val.config.center, true)
+    end
 end
 
 function get_viewed_back()
@@ -99,7 +101,7 @@ function get_viewed_back()
         G.PROFILES[G.SETTINGS.profile].MEMORY.deck = get_deck_from_name(G.PROFILES[G.SETTINGS.profile].MEMORY.deck)
         v = G.PROFILES[G.SETTINGS.profile].MEMORY.deck
     end
-    if v then 
+    if v then
         if not ((G.TAINTED_ENABLED and (v.original or not can_be_tainted(v))) or (not v.original and not G.TAINTED_ENABLED)) then
             v = can_be_tainted(v)
         end
@@ -185,7 +187,7 @@ function Game:start_run(args)
         G.E_MANAGER:add_event(Event({
             trigger = 'immediate',
             func = function()
-                if not G.locust_area or not G.jokers then 
+                if not G.locust_area or not G.jokers then
                     return
                 end
 
@@ -206,10 +208,10 @@ end
 G.FUNCS.can_swap_sets = function(e)
     if G.STATE ~= G.STATES.ROUND_EVAL then
         e.config.colour = G.C.RED
-        e.config.button = "SwapSets"   
+        e.config.button = "SwapSets"
     else
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil            
+        e.config.button = nil
     end
 end
 
@@ -336,7 +338,7 @@ function Game:start_run(args)
                 },
                 config = {
                     align = "tr",
-                    offset = { x = 0.05, y = 1.3 }, 
+                    offset = { x = 0.05, y = 1.3 },
                     major = G.pactive_area,
                     bond = 'Weak'
                 }
@@ -390,7 +392,7 @@ function Game:start_run(args)
                 },
                 config = {
                     align = "tr",
-                    offset = { x = 0.05, y = 2.5 }, 
+                    offset = { x = 0.05, y = 2.5 },
                     major = G.pactive_area,
                     bond = 'Weak'
                 }
@@ -398,7 +400,6 @@ function Game:start_run(args)
         end
     end
 end
-
 
 G.FUNCS.can_use_pactive = function(e)
     local usable = false
@@ -413,10 +414,10 @@ G.FUNCS.can_use_pactive = function(e)
 
     if usable then
         e.config.colour = G.C.RED
-        e.config.button = "use_pactive"   
+        e.config.button = "use_pactive"
     else
         e.config.colour = G.C.UI.BACKGROUND_INACTIVE
-        e.config.button = nil            
+        e.config.button = nil
     end
 end
 
@@ -427,7 +428,7 @@ G.FUNCS.use_pactive = function(e)
     if G.pactive_area and G.pactive_area.cards then
         for _, card in ipairs(G.pactive_area.cards) do
             if card:can_use_consumeable() then
-                G.FUNCS.use_card{ config = { ref_table = card } }
+                G.FUNCS.use_card { config = { ref_table = card } }
                 return
             end
         end
@@ -459,7 +460,7 @@ G.FUNCS.use_chisel = function(e)
     if G.pactive_area and G.pactive_area.cards then
         for _, card in ipairs(G.pactive_area.cards) do
             if card.config.center.key == "c_tdec_thechisel" and card:can_use_consumeable() then
-                G.FUNCS.use_card{ config = { ref_table = card } }
+                G.FUNCS.use_card { config = { ref_table = card } }
                 return
             end
         end
@@ -490,7 +491,7 @@ G.FUNCS.use_sketch = function(e)
     if G.pactive_area and G.pactive_area.cards then
         for _, card in ipairs(G.pactive_area.cards) do
             if card.config.center.key == "c_tdec_thesketch" and card:can_use_consumeable() then
-                G.FUNCS.use_card{ config = { ref_table = card } }
+                G.FUNCS.use_card { config = { ref_table = card } }
                 return
             end
         end
@@ -499,14 +500,15 @@ end
 
 function update_tcheck_backs()
     for i, self in pairs(G.I.CARD) do
-        if self.children.back then 
+        if self.children.back then
             self.children.back:remove()
-            self.children.back = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["tdec_tainted_checkered"], G.P_CENTERS['b_tdec_tainted_checkered'].pos)
+            self.children.back = Sprite(self.T.x, self.T.y, self.T.w, self.T.h, G.ASSET_ATLAS["tdec_tainted_checkered"],
+                G.P_CENTERS['b_tdec_tainted_checkered'].pos)
             self.children.back.states.hover = self.states.hover
             self.children.back.states.click = self.states.click
             self.children.back.states.drag = self.states.drag
             self.children.back.states.collide.can = false
-            self.children.back:set_role({major = self, role_type = 'Glued', draw_major = self})
+            self.children.back:set_role({ major = self, role_type = 'Glued', draw_major = self })
         end
     end
 end
@@ -524,22 +526,27 @@ function Game:update(dt)
     update_ref(self, dt)
     t_check_dt = t_check_dt + dt
     if G.GAME.TCFlip and G.P_CENTERS and G.P_CENTERS.b_tdec_tainted_checkered and t_check_dt > 0.1 then
-		t_check_dt = 0
-		local obj = G.P_CENTERS.b_tdec_tainted_checkered
-		if G.GAME.TCFlip.state ~= "Alive" then
+        t_check_dt = 0
+        local obj = G.P_CENTERS.b_tdec_tainted_checkered
+        if G.GAME.TCFlip.state ~= "Alive" then
             obj.pos.x = obj.pos.x + 1
-            if obj.pos.x > 6 then obj.pos.x = 6 else
+            if obj.pos.x > 6 then
+                obj.pos.x = 6
+            else
                 update_tcheck_backs()
             end
-		else
+        else
             obj.pos.x = obj.pos.x - 1
-            if obj.pos.x < 0 then obj.pos.x = 0 else
+            if obj.pos.x < 0 then
+                obj.pos.x = 0
+            else
                 update_tcheck_backs()
             end
-		end
+        end
         G.P_CENTERS.b_tdec_tainted_checkered = obj
-	end
+    end
 end
+
 -- Uncomment when the ascent is done
 
 local old_update_shop = Game.update_shop
@@ -548,16 +555,15 @@ function Game:update_shop(dt)
     old_update_shop(self, dt)
 
     if not G.GAME.injected_photojoker
-    and G.GAME
-    and G.GAME.round_resets
-    and G.GAME.round_resets.ante == 8
-    and G.GAME.round_resets.blind_states
-    and G.GAME.round_resets.blind_states.Small == 'Upcoming'
-    and G.shop_jokers then
-        
+        and G.GAME
+        and G.GAME.round_resets
+        and G.GAME.round_resets.ante == 8
+        and G.GAME.round_resets.blind_states
+        and G.GAME.round_resets.blind_states.Small == 'Upcoming'
+        and G.shop_jokers then
         G.GAME.injected_photojoker = true
 
-        local card = SMODS.create_card{
+        local card = SMODS.create_card {
             set  = "Joker",
             area = G.shop_jokers,
             key  = "j_tdec_photoquestion"
@@ -593,16 +599,6 @@ function get_new_boss(self)
         end
     end
     return old_get_new_boss(self)
-end
-
-local old_check_for_buy_space = G.FUNCS.check_for_buy_space
-function G.FUNCS.check_for_buy_space(card)
-    if
-        card.config and card.config.center and card.config.center.key == "j_tdec_photoquestion"
-    then
-        return true
-    end
-    return old_check_for_buy_space(card)
 end
 
 
