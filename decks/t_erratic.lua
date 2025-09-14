@@ -46,6 +46,7 @@ SMODS.Sticker{
     should_apply = function(self, card)
         return card.ability
            and card.ability.set == "Joker"
+           and card.config.center.key ~= "j_tdec_photoquestion"
            and G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_erratic"
     end,
 

@@ -62,7 +62,7 @@ SMODS.Back{
 
         if not has_sticker then
             for _, joker in ipairs(G.jokers.cards) do
-                if joker ~= card and joker.config.center.key ~= "j_tdec_dried_joker" then
+                if joker ~= card and joker.config.center.key ~= "j_tdec_dried_joker" and joker.config.center.key ~= "j_tdec_photoquestion" then
                     table.insert(pool, joker)
                 end
             end
@@ -92,9 +92,7 @@ SMODS.Joker {
     end,
 
     calculate = function(self, context)
-        if context.check_eternal and context.other_card == card then 
-            return {no_destroy  = true} 
-        end
+        if context.check_eternal and context.other_card == card then return {no_destroy  = true} end
     end,
 
     add_to_deck = function(self, card, from_debuff)
