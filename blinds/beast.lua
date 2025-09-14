@@ -84,6 +84,7 @@ local end_roundref = end_round
 function end_round()
     if G.GAME.blind.config.blind.key == "bl_tdec_beast" then
         win_game()
+        remove_save()
     end
     if G.GAME.blind and G.GAME.blind.config and G.GAME.blind.config.blind.tdecks_next_phase then
         G.GAME.chips = 0
