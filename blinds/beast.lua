@@ -30,8 +30,9 @@ SMODS.Blind {
 
     in_pool = function(self)
         return false
-    end
+    end,
 }
+
 
 SMODS.Blind {
     key = "war",
@@ -123,6 +124,23 @@ SMODS.Blind {
 
 local end_roundref = end_round
 function end_round()
+    if G.GAME.current_round.hands_left == 0 and G.GAME.chips < G.GAME.blind.chips then
+        G.E_MANAGER:add_event(Event({
+            blockable = false,
+            trigger = 'after',
+            func = function()
+                G.STATE = G.STATES.GAME_OVER
+                if not G.GAME.won and not G.GAME.seeded and not G.GAME.challenge then
+                    G.PROFILES[G.SETTINGS.profile].high_scores.current_streak.amt = 0
+                end
+                G:save_settings()
+                G.FILE_HANDLER.force = true
+                G.STATE_COMPLETE = false
+                G.SETTINGS.paused = false
+                return true
+            end
+        }))
+    end
     if G.GAME.blind.config.blind.key == "bl_tdec_beast" then
         win_game()
         remove_save()

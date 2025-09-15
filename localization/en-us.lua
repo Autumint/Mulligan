@@ -8,20 +8,20 @@ return {
                 }
             },
             bl_tdec_pestilence = {
-                name = "{C:red}The Pestilence{}",
+                name = "The Pestilence",
             },
             bl_tdec_war = {
-                name = "{C:red}The War{}",
+                name = "The War",
                 text = {
                     "Destroy 3 random",
                     "cards per hand played",
                 }
             },
             bl_tdec_death = {
-                name = "{C:red}The Death{}",
+                name = "The Death",
             },
             bl_tdec_beast = {
-                name = "{C:red}The Beast{}",
+                name = "The Beast",
             },
         },
         Joker = {
