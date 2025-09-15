@@ -42,11 +42,26 @@ SMODS.Joker {
     end,
 
     calculate = function(self, card, context)
-        if context.check_eternal and context.other_card == card then 
-            return { no_destroy = true } 
+        if G.GAME.round_resets.ante == 0 and context.setting_blind then
+            G.GAME.modifiers.photoq_switch = true
+
+            G.GAME.round_resets.hands = G.GAME.round_resets.hands + 2
+            ease_hands_played(2)
+            return {
+                message = "+2 hands",
+                colour = G.C.BLUE
+            }
         end
+
+        if G.GAME.round_resets.ante == 0 and context.joker_main then
+            return { xmult = 2 }
+        end
+
+        if context.check_eternal and context.other_card == card then
+            return { no_destroy = true }
+        end
+
         if context.modify_ante then
-            print("att")
             return { modify = -2 }
         end
     end

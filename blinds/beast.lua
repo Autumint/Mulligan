@@ -105,10 +105,21 @@ SMODS.Blind {
     boss_colour = HEX("fbfbfd"),
     tdecks_next_phase = "bl_tdec_beast",
 
-    in_pool = function(self)
-        return false
+    in_pool = function(self) return false end,
+
+    calculate = function(self, blind, context)
+        if context.post_trigger then
+            if SMODS.pseudorandom_probability(self, 'ghostly', 1, 3) then
+                context.other_ret.jokers = {}
+                return {
+                    message = "Fading",
+                    colour = G.C.WHITE
+                }
+            end
+        end
     end
 }
+
 
 SMODS.Blind {
     key = "beast",

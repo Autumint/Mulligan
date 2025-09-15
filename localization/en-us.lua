@@ -1,5 +1,14 @@
 return {
     descriptions = {
+        Enhanced = {
+            m_tdec_pestilence = {
+                name = "Pestilence Card",
+                text = {
+                    "Card consumed by {C:green}Pestilence{}",
+                    "Doesn't score"
+                }       
+            }
+        },
         Blind = {
             bl_tdec_famine = {
                 name = "???",
@@ -8,7 +17,7 @@ return {
                 }
             },
             bl_tdec_pestilence = {
-                name = "The Pestilence",
+                name = "The Pestilence"
             },
             bl_tdec_war = {
                 name = "The War",
@@ -19,9 +28,13 @@ return {
             },
             bl_tdec_death = {
                 name = "The Death",
+                text = {
+                    "1 in 3 chance",
+                    "for jokers to not trigger"
+                }
             },
             bl_tdec_beast = {
-                name = "The Beast",
+                name = "The Beast"
             },
         },
         Joker = {
@@ -334,14 +347,56 @@ return {
                     "{C:blue}+1{} Joker Slot, {C:red}Removed{}",
                     "if {C:red}Sumptorium{} isn't present"
                 }
+            },
+            e_tdec_ghostly = {
+                name = "Dead",
+                text = {
+                    "{C:green}#1# in #2#{} chance to {C:attention}trigger{} the joker's effect and {}remove{} itself"
+                }
             }
         }
     },
     misc = {
+            achievement_names={
+            ach_tdec_beast_red       = "The Curdled",
+            ach_tdec_beast_blue      = "The Drowned",
+            ach_tdec_beast_yellow    = "The Monopoly",
+            ach_tdec_beast_green     = "The Hoarder",
+            ach_tdec_beast_black     = "??? ???",
+            ach_tdec_beast_magic     = "The Twisted",
+            ach_tdec_beast_nebula    = "The Plagued",
+            ach_tdec_beast_ghost     = "The Baleful",
+            ach_tdec_beast_abandoned = "??? ???",
+            ach_tdec_beast_checkered = "The Liminal",
+            ach_tdec_beast_zodiac    = "The Unforgiven",
+            ach_tdec_beast_painted   = "The Crumbled",
+            ach_tdec_beast_anaglyph  = "The Flatline",
+            ach_tdec_beast_plasma    = "??? ???",
+            ach_tdec_beast_erratic   = "TH$_; CRRPTD_#$_$o$u$op(_){$?",
+        },
+        achievement_descriptions={
+            ach_tdec_beast_red       = "Defeat ??? with the Red Deck",
+            ach_tdec_beast_blue      = "Defeat ??? with the Blue Deck",
+            ach_tdec_beast_yellow    = "Defeat ??? with the Yellow Deck",
+            ach_tdec_beast_green     = "Defeat ??? with the Green Deck",
+            ach_tdec_beast_black     = "Defeat ??? with the Black Deck",
+            ach_tdec_beast_magic     = "Defeat ??? with the Magic Deck",
+            ach_tdec_beast_nebula    = "Defeat ??? with the Nebula Deck",
+            ach_tdec_beast_ghost     = "Defeat ??? with the Ghost Deck",
+            ach_tdec_beast_abandoned = "Defeat ??? with the Abandoned Deck",
+            ach_tdec_beast_checkered = "Defeat ??? with the Checkered Deck",
+            ach_tdec_beast_zodiac    = "Defeat ??? with the Zodiac Deck",
+            ach_tdec_beast_painted   = "Defeat ??? with the Painted Deck",
+            ach_tdec_beast_anaglyph  = "Defeat ??? with the Anaglyph Deck",
+            ach_tdec_beast_plasma    = "Defeat ??? with the Plasma Deck",
+            ach_tdec_beast_erratic   = "Defeat ??? with the Erratic Deck",
+            
+        },
         labels = {
             tdec_clotting = "Clotting",
             tdec_tainted_perish = "EVERCHANGING",
-            tdec_Eroding = "Eroding"
+            tdec_Eroding = "Eroding",
+            tdec_ghostly = "Ghostly"
         }
     }
 

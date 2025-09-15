@@ -1,4 +1,9 @@
 TDECKS = SMODS.current_mod
+SMODS.current_mod.optional_features = function()
+    return {
+        post_trigger = true
+    }
+end
 
 SMODS.Back({
     key = "tainted_placeholder",
@@ -68,7 +73,11 @@ local files = {
     "jokers/locusts/talisman_locust",
     "jokers/locusts/black_hole_locust",
 
-    "blinds/beast"
+    "blinds/beast",
+
+    "achievements/taintedunlocks",
+
+    "effects/death"
 }
 for i, v in pairs(files) do
     SMODS.load_file(v..".lua")()  
