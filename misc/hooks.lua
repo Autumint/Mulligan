@@ -547,46 +547,6 @@ function Game:update(dt)
     end
 end
 
--- Uncomment when the ascent is done
-
-local old_update_shop = Game.update_shop
-
-function Game:update_shop(dt)
-    old_update_shop(self, dt)
-
-    if not G.GAME.injected_photojoker
-        and G.GAME
-        and G.GAME.round_resets
-        and G.GAME.round_resets.ante == 8
-        and G.GAME.round_resets.blind_states
-        and G.GAME.round_resets.blind_states.Small == 'Upcoming'
-        and G.shop_jokers then
-        G.GAME.injected_photojoker = true
-
-        local card = SMODS.create_card {
-            set  = "Joker",
-            area = G.shop_jokers,
-            key  = "j_tdec_photoquestion"
-        }
-
-        create_shop_card_ui(card, 'Joker', G.shop_jokers)
-        card.states.visible = false
-
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            delay = 0.2,
-            func = function()
-                card:start_materialize()
-                card.ability.couponed = true
-                card:set_cost()
-                return true
-            end
-        }))
-
-        G.shop_jokers:emplace(card)
-    end
-end
-
 local old_get_new_boss = get_new_boss
 function get_new_boss(self)
     if G.jokers and G.jokers.cards then
