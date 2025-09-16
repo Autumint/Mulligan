@@ -105,16 +105,22 @@ SMODS.Blind {
     boss_colour = HEX("fbfbfd"),
     tdecks_next_phase = "bl_tdec_beast",
 
-    in_pool = function(self) return false end,
+    in_pool = function(self) 
+        return false 
+    end,
 
     calculate = function(self, blind, context)
         if context.post_trigger then
-            if SMODS.pseudorandom_probability(self, 'ghostly', 1, 3) then
-                context.other_ret.jokers = {}
-                return {
-                    message = "Fading",
-                    colour = G.C.WHITE
-                }
+            if not context.other_context.mod_probability and not context.other_context.fix_probability then
+                if SMODS.pseudorandom_probability(self, 'ghostly', 1, 3) then
+                    if context.other_card.config.center ~= G.P_CENTERS.j_tdec_photoquestion then
+                        context.other_ret.jokers = {}
+                        return {
+                            message = "Fading",
+                            colour = G.C.WHITE
+                        }
+                    end
+                end
             end
         end
     end
