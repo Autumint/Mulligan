@@ -1,5 +1,16 @@
 return {
     descriptions = {
+        Mod = {
+            TaintedDecks = {
+                name = "Tainted Decks",
+                text = {
+                    "- Adds tainted decks, inspired by TBOI, implemented by",
+                    "{C:attention}Autumint{} and {C:attention}lord.ruby{}.",
+                    "- Featuring sprites from {C:attention}lord.ruby{}",
+                    "- {C:blue}Abyss Card{} and {C:blue}Flip Card{} sprites by {C:attention}danihunn{}"
+                }
+            }
+        },
         Enhanced = {
             m_tdec_pestilence = {
                 name = "Pestilence Card",

@@ -3,7 +3,7 @@
 	"name": "TaintedDeckAddition",
 	"display_name": "Tainted Decks",
 	"author": ["Autumint", "lord.ruby"],
-	"description": "Adds tainted decks, inspired by TBOI and implemented by Autumint. The New UI was implemented by lord.ruby ! <3",
+	"description": "",
 	"prefix": "tdec",
 	"main_file": "main.lua"
 }
