@@ -187,13 +187,78 @@ SMODS.Blind {
     end
 }
 
+local function beast_damage_card()
+    G.GAME.current_round.tdec_beast_card = { rank = 'Ace' }
+    local valid_damage_cards = {}
+    for _, playing_card in ipairs(G.playing_cards) do
+        if not SMODS.has_no_suit(playing_card) and not SMODS.has_no_rank(playing_card) then
+            valid_damage_cards[#valid_damage_cards + 1] = playing_card
+        end
+    end
+    local damage_card = pseudorandom_element(valid_damage_cards, 'tdec_beast' .. G.GAME.round_resets.ante)
+    if damage_card then
+        G.GAME.current_round.tdec_beast_card.rank = damage_card.base.value
+        G.GAME.current_round.tdec_beast_card.id = damage_card.base.id
+        attention_text({
+            text = "Picked " .. damage_card.base.value,
+            scale = 0.8,
+            hold = 15,
+            major = G.play,
+            colour = G.C.ATTENTION,
+            align = 'cm',
+            offset = { x = 0, y = -2 },
+            silent = true
+        })
+    end
+end
 
 SMODS.Blind {
     key = "beast",
     pos = { x = 0, y = 25 },
-    mult = 2.5,
+    mult = 10,
     boss = { min = 1 },
     boss_colour = HEX("a84024"),
+
+    calculate = function(self, blind, context)
+        if context.discard then
+            G.FUNCS.draw_from_discard_to_deck()
+        end
+        if context.after then
+            G.FUNCS.draw_from_discard_to_deck()
+            beast_damage_card()
+        end
+        if context.before then
+            if G.GAME.current_round.tdec_beast_card and G.GAME.current_round.tdec_beast_card.id then
+                for _, card in ipairs(context.scoring_hand) do
+                    if card:get_id() == G.GAME.current_round.tdec_beast_card.id then
+                        if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+                            if not G.GAME.blind.starting_chips then
+                                G.GAME.blind.starting_chips = G.GAME.blind.chips
+                                G.GAME.blind.reduction_amount = math.floor(G.GAME.blind.starting_chips * 0.02)
+                            end
+
+                            G.GAME.blind.chips = G.GAME.blind.chips - G.GAME.blind.reduction_amount
+
+                            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
+                            G.HUD_blind:recalculate()
+                            G.GAME.blind:juice_up()
+
+                            attention_text({
+                                text = 'Damaged',
+                                scale = 1.4,
+                                hold = 1.5,
+                                major = G.play,
+                                colour = G.C.RED,
+                                align = 'cm',
+                                offset = { x = 0, y = -2.7 },
+                                silent = true
+                            })
+                        end
+                    end
+                end
+            end
+        end
+    end,
 
     in_pool = function(self)
         return false
@@ -241,6 +306,12 @@ function end_round()
                 end
 
                 G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.config.blind.tdecks_next_phase])
+
+                if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+                    ease_hands_played(4)
+                    beast_damage_card()
+                end
+
                 change_phase()
                 G.GAME.blind:juice_up()
                 ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_left)

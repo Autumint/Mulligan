@@ -49,7 +49,9 @@ return {
                 }
             },
             bl_tdec_beast = {
-                name = "The Beast"
+                name = "The Beast",
+                text = {
+                }
             },
         },
         Joker = {
@@ -154,8 +156,6 @@ return {
                     "per currently owned {C:red}Locust.{}",
                     "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)",
                     "{C:inactive}(Currently {X:blue,C:white} +#5# {C:inactive} Chips)"
-
-
                 }
             },
             j_tdec_soulless_locust = {
