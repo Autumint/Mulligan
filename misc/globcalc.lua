@@ -10,6 +10,7 @@ SMODS.current_mod.calculate = function(self, context)
             card.ability.couponed = true
             card:set_cost()
             create_shop_card_ui(card, 'Joker', G.shop_jokers)
+            G.shop_jokers.T.w = math.min((G.GAME.shop.joker_max+1)*1.02*G.CARD_W,4.08*G.CARD_W); G.shop:recalculate()
         end
     end
 end
