@@ -47,9 +47,9 @@ SMODS.Joker {
 
     calculate = function(self, card, context)
         local other_joker
-        for i = 1, #G.jokers.cards do
-            if G.jokers.cards[i] == card then
-                other_joker = G.jokers.cards[i + 1]
+        for i = 1, #G.locust_area.cards do
+            if G.locust_area.cards[i] == card then
+                other_joker = G.locust_area.cards[i + 1]
                 break
             end
         end

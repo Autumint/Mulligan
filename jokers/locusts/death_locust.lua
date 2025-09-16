@@ -52,7 +52,7 @@ calculate = function(self, card, context)
 
         if card.ability.extra.invis_rounds >= card.ability.extra.total_rounds then
             local locusts = {}
-            for _, joker in ipairs(G.jokers.cards) do
+            for _, joker in ipairs(G.locust_area.cards) do
                 if joker ~= card
                 and joker.config
                 and joker.config.center
@@ -67,7 +67,7 @@ calculate = function(self, card, context)
                 local copied_joker = copy_card(chosen_joker, nil, nil, nil,
                     chosen_joker.edition and chosen_joker.edition.negative)
                 copied_joker:add_to_deck()
-                G.jokers:emplace(copied_joker)
+                G.locust_area:emplace(copied_joker)
             end
 
             card:start_dissolve()

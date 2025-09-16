@@ -37,8 +37,8 @@ SMODS.Joker{
     calculate = function(self, card, context)
         if context.joker_main then
             local count = 0
-            if G and G.jokers and G.jokers.cards then
-                for _, j in ipairs(G.jokers.cards) do
+            if G.locust_area and G.locust_area.cards then
+                for _, j in ipairs(G.locust_area.cards) do
                     if j.config and j.config.center and j.config.center.key
                        and j.config.center.key:match("^j_tdec.*locust$") then
                         count = count + 1
@@ -56,8 +56,8 @@ SMODS.Joker{
 
     loc_vars = function(self, info_queue, card)
         local count = 0
-        if G and G.jokers and G.jokers.cards then
-            for _, j in ipairs(G.jokers.cards) do
+        if G.jokers and G.locust_area then
+            for _, j in ipairs(G.locust_area.cards) do
                 if j.config and j.config.center and j.config.center.key
                    and j.config.center.key:match("^j_tdec.*locust$") then
                     count = count + 1
@@ -80,3 +80,4 @@ SMODS.Joker{
         end
     end,
 }
+
