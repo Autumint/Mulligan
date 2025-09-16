@@ -17,7 +17,11 @@ return {
                 }
             },
             bl_tdec_pestilence = {
-                name = "The Pestilence"
+                name = "The Pestilence",
+                text = {
+                    "Debuff cards depending on",
+                    "deck size per hand played"
+                }
             },
             bl_tdec_war = {
                 name = "The War",

@@ -28,11 +28,72 @@ SMODS.Blind {
     boss_colour = HEX("008000"),
     tdecks_next_phase = "bl_tdec_war",
 
+    calculate = function(self, blind, context)
+        if context.press_play then
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    local candidates = {}
+                    for _, card in ipairs(G.deck.cards) do
+                        if not card.debuff then
+                            table.insert(candidates, card)
+                        end
+                    end
+                    for _, card in ipairs(G.hand.cards) do
+                        if not card.debuff then
+                            table.insert(candidates, card)
+                        end
+                    end
+
+                    pseudoshuffle(candidates)
+                    local half_size = math.floor((#G.deck.cards + #G.hand.cards) / 10)
+
+                    for i = 1, math.min(half_size, #candidates) do
+                        local selected_card = candidates[i]
+                        G.E_MANAGER:add_event(Event({
+                            trigger = 'after',
+                            func = function()
+                                play_sound('tarot2', 1, 0.4)
+                                selected_card:juice_up(0.5, 0.5)
+                                selected_card.debuff = true
+                                return true
+                            end
+                        }))
+                    end
+
+                    return true
+                end
+            }))
+
+            blind.triggered = true
+            G.E_MANAGER:add_event(Event({
+                trigger = 'immediate',
+                func = (function()
+                    SMODS.juice_up_blind()
+                    G.E_MANAGER:add_event(Event({
+                        trigger = 'after',
+                        delay = 0.06 * G.SETTINGS.GAMESPEED,
+                        blockable = false,
+                        blocking = false,
+                        func = function()
+                            play_sound('tarot2', 0.76, 0.4); return true
+                        end
+                    }))
+                    play_sound('tarot2', 1, 0.4)
+                    return true
+                end)
+            }))
+            delay(0.4)
+        end
+
+        if context.debuff_card and context.debuff_card.debuff then
+            return { debuff = true }
+        end
+    end,
+
     in_pool = function(self)
         return false
     end,
 }
-
 
 SMODS.Blind {
     key = "war",
@@ -105,8 +166,8 @@ SMODS.Blind {
     boss_colour = HEX("fbfbfd"),
     tdecks_next_phase = "bl_tdec_beast",
 
-    in_pool = function(self) 
-        return false 
+    in_pool = function(self)
+        return false
     end,
 
     calculate = function(self, blind, context)
