@@ -50,7 +50,7 @@ do
 end
 
 SMODS.Consumable {
-    atlas = "tainted_atlas",
+    atlas = "Echo_Atlas",
     pos = { x = 0, y = 0 },
     unlocked = true,
     discovered = true,

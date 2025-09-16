@@ -67,3 +67,10 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
+
+SMODS.Atlas{
+    key = "Echo_Atlas",
+    path = "abyss.png",
+    px = 71,
+    py = 95
+}
