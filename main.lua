@@ -76,7 +76,7 @@ local files = {
 
     "blinds/beast",
 
-    "achievements/taintedunlocks",
+    "achievements/tainted_unlocks",
 
     "effects/death"
 }
