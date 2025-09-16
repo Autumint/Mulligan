@@ -199,16 +199,6 @@ local function beast_damage_card()
     if damage_card then
         G.GAME.current_round.tdec_beast_card.rank = damage_card.base.value
         G.GAME.current_round.tdec_beast_card.id = damage_card.base.id
-        attention_text({
-            text = "Picked " .. damage_card.base.value,
-            scale = 0.8,
-            hold = 15,
-            major = G.play,
-            colour = G.C.ATTENTION,
-            align = 'cm',
-            offset = { x = 0, y = -2 },
-            silent = true
-        })
     end
 end
 
@@ -220,6 +210,39 @@ SMODS.Blind {
     boss_colour = HEX("a84024"),
 
     calculate = function(self, blind, context)
+        if G.hand and #G.hand.highlighted > 0 then
+            if G.GAME.current_round.tdec_beast_card and not self.boss_warning_text then
+                self.boss_warning_text = UIBox {
+                    definition =
+                    { n = G.UIT.ROOT, config = { align = 'cm', colour = G.C.CLEAR, padding = 0.2 }, nodes = {
+                        { n = G.UIT.R, config = { align = 'cm', maxw = 1 }, nodes = {
+                            { n = G.UIT.O, config = { object = DynaText({
+                                scale = 0.7,
+                                string = "{C:red}Selected Rank:{} " .. G.GAME.current_round.tdec_beast_card.rank,
+                                maxw = 9,
+                                colours = { G.C.WHITE },
+                                float = true,
+                                shadow = true,
+                                silent = true,
+                                pop_in = 0,
+                                pop_in_rate = 6
+                            }) } },
+                        } },
+                    } },
+                    config = {
+                        align = 'cm',
+                        offset = { x = 0, y = -3.1 },
+                        major = G.play,
+                    }
+                }
+            end
+        else
+            if self.boss_warning_text then
+                self.boss_warning_text:remove()
+                self.boss_warning_text = nil
+            end
+        end
+
         if context.discard then
             G.FUNCS.draw_from_discard_to_deck()
         end
@@ -234,7 +257,7 @@ SMODS.Blind {
                         if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
                             if not G.GAME.blind.starting_chips then
                                 G.GAME.blind.starting_chips = G.GAME.blind.chips
-                                G.GAME.blind.reduction_amount = math.floor(G.GAME.blind.starting_chips * 0.02)
+                                G.GAME.blind.reduction_amount = math.floor(G.GAME.blind.starting_chips * 0.03)
                             end
 
                             G.GAME.blind.chips = G.GAME.blind.chips - G.GAME.blind.reduction_amount
