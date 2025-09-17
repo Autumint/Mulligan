@@ -9,3 +9,15 @@ SMODS.DrawStep {
         end
     end
 }
+
+SMODS.DrawStep {
+    key = "damage_shader",
+    order = 20,
+    func = function(self)
+        if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+            if self:get_id() == G.GAME.current_round.tdec_beast_card.id and self.sprite_facing == 'front' and (self.config.center.discovered or self.bypass_discovery_center) then
+                self.children.center:draw_shader('booster', nil, self.ARGS.send_to_shader)
+            end
+        end
+    end
+}
