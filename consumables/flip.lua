@@ -1,6 +1,6 @@
 SMODS.Consumable {
-    atlas = "tainted_atlas",
-    pos = { x = 1, y = 1 },
+    atlas = "Flip_Atlas",
+    pos = { x = 0, y = 0 },
     unlocked = true,
     discovered = true,
     key = "flip_card",

@@ -50,8 +50,6 @@ return {
             },
             bl_tdec_beast = {
                 name = "The Beast",
-                text = {
-                }
             },
         },
         Joker = {

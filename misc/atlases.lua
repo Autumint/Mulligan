@@ -74,3 +74,10 @@ SMODS.Atlas{
     px = 71,
     py = 95
 }
+
+SMODS.Atlas{
+    key = "Flip_Atlas",
+    path = "flip.png",
+    px = 71,
+    py = 95
+}

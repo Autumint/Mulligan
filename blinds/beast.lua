@@ -1,3 +1,4 @@
+-- famine effect
 SMODS.Blind {
     key = "famine",
     pos = { x = 0, y = 25 },
@@ -19,7 +20,7 @@ SMODS.Blind {
         return false
     end,
 }
-
+-- pestilence effect
 SMODS.Blind {
     key = "pestilence",
     pos = { x = 0, y = 25 },
@@ -94,7 +95,7 @@ SMODS.Blind {
         return false
     end,
 }
-
+-- war effect
 SMODS.Blind {
     key = "war",
     pos = { x = 0, y = 25 },
@@ -157,7 +158,7 @@ SMODS.Blind {
         end
     end
 }
-
+-- death effect
 SMODS.Blind {
     key = "death",
     pos = { x = 0, y = 25 },
@@ -186,7 +187,7 @@ SMODS.Blind {
         end
     end
 }
-
+--pick playing card which will damage the beast
 local function beast_damage_card()
     G.GAME.current_round.tdec_beast_card = { rank = 'Ace' }
     local valid_damage_cards = {}
@@ -201,7 +202,7 @@ local function beast_damage_card()
         G.GAME.current_round.tdec_beast_card.id = damage_card.base.id
     end
 end
-
+-- beast effect
 SMODS.Blind {
     key = "beast",
     pos = { x = 0, y = 25 },
@@ -210,6 +211,9 @@ SMODS.Blind {
     boss_colour = HEX("a84024"),
 
     calculate = function(self, blind, context)
+        -- keep loading progress for the health bar 
+        G.GAME.BeastProgress = (G.GAME.blind.chips - G.GAME.chips) / G.GAME.blind.chips * 100
+        -- warning text to tell you which card is the damaging card
         if G.hand and #G.hand.highlighted > 0 then
             if G.GAME.current_round.tdec_beast_card and not self.boss_warning_text then
                 self.boss_warning_text = UIBox {
@@ -218,7 +222,7 @@ SMODS.Blind {
                         { n = G.UIT.R, config = { align = 'cm', maxw = 1 }, nodes = {
                             { n = G.UIT.O, config = { object = DynaText({
                                 scale = 0.7,
-                                string = "{C:red}Selected Rank:{} " .. G.GAME.current_round.tdec_beast_card.rank,
+                                string = "The sacrifice is.. The " .. G.GAME.current_round.tdec_beast_card.rank,
                                 maxw = 9,
                                 colours = { G.C.WHITE },
                                 float = true,
@@ -242,14 +246,16 @@ SMODS.Blind {
                 self.boss_warning_text = nil
             end
         end
-
+        -- shuffle played and discarded cards back into the deck
         if context.discard then
             G.FUNCS.draw_from_discard_to_deck()
         end
         if context.after then
             G.FUNCS.draw_from_discard_to_deck()
+            -- pick card
             beast_damage_card()
         end
+        -- check if the card is a damage card, if it is then deal damage
         if context.before then
             if G.GAME.current_round.tdec_beast_card and G.GAME.current_round.tdec_beast_card.id then
                 for _, card in ipairs(context.scoring_hand) do
@@ -288,6 +294,7 @@ SMODS.Blind {
     end,
 }
 
+--phase changing
 local end_roundref = end_round
 function end_round()
     if G.GAME.current_round.hands_left == 0 and G.GAME.chips < G.GAME.blind.chips then
@@ -307,6 +314,7 @@ function end_round()
             end
         }))
     end
+    -- win game if beast is defeated
     if G.GAME.blind.config.blind.key == "bl_tdec_beast" then
         win_game()
         remove_save()
@@ -333,6 +341,29 @@ function end_round()
                 if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
                     ease_hands_played(4)
                     beast_damage_card()
+                    if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" and G.GAME.BeastProgress then
+                        G.HP_ui = UIBox {
+                            definition = {
+                                n = G.UIT.ROOT,
+                                config = { align = "cm", padding = 0.05, colour = G.C.CLEAR, offset = { x = 0, y = 0 }, major = G.jokers, bond = "Weak" },
+                                nodes = {
+                                    create_progress_bar({
+                                        label = "The Beast",
+                                        ref_table = G.GAME,
+                                        ref_value = 'BeastProgress',
+                                        w = 7,
+                                        h = 0.5,
+                                        min = 0,
+                                        max = 100,
+                                        colour = G.C.RED,
+                                        bg_colour = G.C.BLACK,
+                                        bar_rotation = "Horizontal",
+                                    })
+                                }
+                            },
+                            config = { align = "cm", padding = 0.05, colour = G.C.CLEAR, offset = { x = 0, y = 2.2 }, major = G.jokers, bond = "Weak" }
+                        }
+                    end
                 end
 
                 change_phase()
