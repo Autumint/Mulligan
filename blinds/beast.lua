@@ -211,7 +211,7 @@ SMODS.Blind {
     boss_colour = HEX("a84024"),
 
     calculate = function(self, blind, context)
-        -- keep loading progress for the health bar 
+        -- keep loading progress for the health bar
         G.GAME.BeastProgress = (G.GAME.blind.chips - G.GAME.chips) / G.GAME.blind.chips * 100
         -- warning text to tell you which card is the damaging card
         if G.hand and #G.hand.highlighted > 0 then
@@ -341,29 +341,7 @@ function end_round()
                 if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
                     ease_hands_played(4)
                     beast_damage_card()
-                    if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" and G.GAME.BeastProgress then
-                        G.HP_ui = UIBox {
-                            definition = {
-                                n = G.UIT.ROOT,
-                                config = { align = "cm", padding = 0.05, colour = G.C.CLEAR, offset = { x = 0, y = 0 }, major = G.jokers, bond = "Weak" },
-                                nodes = {
-                                    create_progress_bar({
-                                        label = "The Beast",
-                                        ref_table = G.GAME,
-                                        ref_value = 'BeastProgress',
-                                        w = 7,
-                                        h = 0.5,
-                                        min = 0,
-                                        max = 100,
-                                        colour = G.C.RED,
-                                        bg_colour = G.C.BLACK,
-                                        bar_rotation = "Horizontal",
-                                    })
-                                }
-                            },
-                            config = { align = "cm", padding = 0.05, colour = G.C.CLEAR, offset = { x = 0, y = 2.2 }, major = G.jokers, bond = "Weak" }
-                        }
-                    end
+                    spawn_beast_hp_ui()
                 end
 
                 change_phase()
@@ -444,3 +422,4 @@ TDECKS.ENDLESSBUTTON = function()
         }
     end
 end
+

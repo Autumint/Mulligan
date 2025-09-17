@@ -317,3 +317,34 @@ G.GAME.round_resets.blind_states.Big = (function()
 end)()
 '''
 match_indent = true
+
+[[patches]]
+[patches.pattern]
+target = "functions/state_events.lua"
+pattern = '''
+  ref_table = G.GAME,
+  ref_value = 'chips',
+  ease_to = G.GAME.chips + math.floor( SMODS.calculate_round_score() ),
+  delay =  0.5,
+  func = (function(t) return math.floor(t) end)
+'''
+position = "at"
+payload = '''
+ref_table = G.GAME,
+ref_value = 'chips',
+ease_to = (function()
+    local scored_points = SMODS.calculate_round_score()
+    local effective_score = scored_points
+    if G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+        local ratio = scored_points / G.GAME.blind.chips
+        local armor_factor = math.min(1, ratio^1.5)
+        local max_reduction = 0.7
+        local reduction = scored_points * armor_factor * max_reduction
+        effective_score = math.max(0, scored_points - reduction)
+    end
+    return G.GAME.chips + math.floor(effective_score)
+end)(),
+delay = 0.5,
+func = (function(t) return math.floor(t) end)
+'''
+match_indent = true

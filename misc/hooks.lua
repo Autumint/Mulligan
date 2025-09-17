@@ -611,13 +611,19 @@ end
 function G.FUNCS.progress_bar_h(e)
     local c = e.children[1]
     local rt = c.config.ref_table
-    local neww = (rt.ref_table[rt.ref_value] - rt.min) / (rt.max - rt.min) * rt.w
-    if neww <= 0 then
+    local target = (rt.ref_table[rt.ref_value] - rt.min) / (rt.max - rt.min) * rt.w
+
+    if target <= 0 then
         c.states.visible = false
     else
         c.states.visible = true
     end
-    c.T.w = neww
+
+    c.T.w = c.T.w or 0
+    c.config.w = c.config.w or 0
+
+    local smoothing = 0.1 
+    c.T.w = c.T.w + (target - c.T.w) * smoothing
     c.config.w = c.T.w
 
     if rt.callback then G.FUNCS[rt.callback](rt) end
@@ -626,20 +632,22 @@ end
 function G.FUNCS.progress_bar_v(e)
     local c = e.children[1]
     local rt = c.config.ref_table
-    local newh = (rt.ref_table[rt.ref_value] - rt.min) / (rt.max - rt.min) * rt.h
-    if newh <= 0 then
+    local target = (rt.ref_table[rt.ref_value] - rt.min) / (rt.max - rt.min) * rt.h
+
+    if target <= 0 then
         c.states.visible = false
     else
         c.states.visible = true
     end
-    c.T.h = newh
+
+    c.T.h = c.T.h or 0
+    c.config.h = c.config.h or 0
+
+    local smoothing = 0.1 
+    c.T.h = c.T.h + (target - c.T.h) * smoothing
     c.config.h = c.T.h
 
     if rt.callback then G.FUNCS[rt.callback](rt) end
-end
-
-function G.FUNCS.pb_rotate_ui(e)
-    e.T.r = math.rad(e.config.degree or 0)
 end
 
 function create_progress_bar(args)
@@ -658,7 +666,7 @@ function create_progress_bar(args)
 
     args.reverse_fill = args.reverse_fill or false
 
-    args.bar_rotation = args.bar_rotation or "Horizontal" --Can be "Horizontal", "Vertical"
+    args.bar_rotation = args.bar_rotation or "Horizontal" 
     args.w = args.w or ((args.bar_rotation == "Horizontal" and 1) or (args.bar_rotation == "Vertical" and 0.5))
     args.h = args.h or ((args.bar_rotation == "Horizontal" and 0.5) or (args.bar_rotation == "Vertical" and 1))
     args.label_degree = args.label_degree or 0
@@ -709,7 +717,7 @@ function create_progress_bar(args)
                 n = G.UIT.R,
                 config = { align = "cm", padding = 0 },
                 nodes = {
-                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                    { n = G.UIT.T, config = { degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
                 }
             }
 
@@ -733,7 +741,7 @@ function create_progress_bar(args)
                 n = G.UIT.R,
                 config = { align = "cm", padding = 0 },
                 nodes = {
-                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                    { n = G.UIT.T, config = { degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
                 }
             }
 
@@ -757,7 +765,7 @@ function create_progress_bar(args)
                 n = G.UIT.C,
                 config = { align = "cm", padding = 0 },
                 nodes = {
-                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                    { n = G.UIT.T, config = { degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
                 }
             }
 
@@ -781,7 +789,7 @@ function create_progress_bar(args)
                 n = G.UIT.C,
                 config = { align = "cm", padding = 0 },
                 nodes = {
-                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                    { n = G.UIT.T, config = { degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
                 }
             }
 
@@ -814,27 +822,7 @@ function Game:start_run(...)
         self.HP_ui = nil
     end
     if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" and G.GAME.BeastProgress then
-        self.HP_ui = UIBox {
-            definition = {
-                n = G.UIT.ROOT,
-                config = { align = "cm", padding = 0.05, colour = G.C.CLEAR, offset = { x = 0, y = 0 }, major = G.jokers, bond = "Weak" },
-                nodes = {
-                    create_progress_bar({
-                        label = "The Beast",
-                        ref_table = G.GAME,
-                        ref_value = 'BeastProgress',
-                        w = 7,
-                        h = 0.5,
-                        min = 0,
-                        max = 100,
-                        colour = G.C.RED,
-                        bg_colour = G.C.BLACK,
-                        bar_rotation = "Horizontal",
-                    })
-                }
-            },
-            config = { align = "cm", padding = 0.05, colour = G.C.CLEAR, offset = { x = 0, y = 2.2 }, major = G.jokers, bond = "Weak" }
-        }
+        spawn_beast_hp_ui()
+        return ret
     end
-    return ret
 end

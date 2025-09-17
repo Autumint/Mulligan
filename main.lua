@@ -23,6 +23,7 @@ local files = {
     "misc/pactives",
     "misc/larea",
     "misc/globcalc",
+    "misc/functions",
 
     "decks/t_checkered",
     "decks/t_erratic",
