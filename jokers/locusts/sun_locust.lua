@@ -34,24 +34,25 @@ SMODS.Joker {
     no_collection = true,
     unlocked = true,
     discovered = true,
-    config = { extra = { size = 1, Xmult = 0.2 } },
+    config = { extra = { size = 1, Xmult = 0.2, bloodlust = 0 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.size, card.ability.extra.Xmult, 1 + card.ability.extra.Xmult * math.floor(G.GAME.Bloodlust or 0) } }
+        return { vars = { card.ability.extra.size, card.ability.extra.Xmult, 1 + card.ability.extra.Xmult * math.floor(card.ability.extra.bloodlust) } }
     end,
+
     calculate = function(self, card, context)
         if context.setting_blind then
-            G.GAME.Bloodlust = 0
+            card.ability.extra.bloodlust = 0
             return {
                 message = "More!",
                 colour = G.C.RED
             }
         end
         if context.before then
-            G.GAME.Bloodlust = G.GAME.Bloodlust + 1
+            card.ability.extra.bloodlust = card.ability.extra.bloodlust+ 1
         end
         if context.joker_main then
             return {
-                xmult = 1 + (card.ability.extra.Xmult * G.GAME.Bloodlust)
+                xmult = 1 + (card.ability.extra.Xmult * card.ability.extra.bloodlust)
             }
         end
     end,

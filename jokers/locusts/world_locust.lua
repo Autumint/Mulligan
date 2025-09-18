@@ -34,24 +34,24 @@ SMODS.Joker {
     no_collection = true,
     unlocked = true,
     discovered = true,
-    config = { extra = { size = 1, chips = 20 } },
+    config = { extra = { size = 1, chips = 20, carvings = 0 } },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.size, card.ability.extra.chips, 1 + card.ability.extra.chips * math.floor(G.GAME.Carvings or 0) } }
+        return { vars = { card.ability.extra.size, card.ability.extra.chips, card.ability.extra.chips * math.floor(card.ability.extra.carvings) } }
     end,
     calculate = function(self, card, context)
         if context.setting_blind then
-            G.GAME.Carvings = 0
+            card.ability.extra.carvings = 0
             return {
                 message = "Carved Down",
                 colour = G.C.BLUE
             }
         end
         if context.before then
-            G.GAME.Carvings = G.GAME.Carvings + 1
+            card.ability.extra.carvings = card.ability.extra.carvings + 1
         end
         if context.joker_main then
             return {
-                chips = card.ability.extra.chips * G.GAME.Carvings
+                chips = card.ability.extra.chips * card.ability.extra.carvings
             }
         end
     end,
