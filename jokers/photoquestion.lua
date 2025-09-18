@@ -44,17 +44,27 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if G.GAME.round_resets.ante == 0 and context.setting_blind then
             G.GAME.modifiers.photoq_switch = true
-
-            G.GAME.round_resets.hands = G.GAME.round_resets.hands + 2
-            ease_hands_played(2)
-            return {
-                message = "+2 hands",
-                colour = G.C.BLUE
-            }
+            if G.GAME.selected_back.effect.center.key ~= "b_tdec_tainted_ghost" then
+                G.GAME.round_resets.hands = G.GAME.round_resets.hands + 2
+                ease_hands_played(2)
+                return {
+                    message = "+2 hands",
+                    colour = G.C.BLUE
+                }
+            else
+                return {
+                    message = "Befallen Purge..",
+                    colour = G.C.BLUE
+                }
+            end
         end
 
         if G.GAME.round_resets.ante == 0 and context.joker_main then
-            return { xmult = 2 }
+            if G.GAME.selected_back.effect.center.key ~= "b_tdec_tainted_ghost" then
+                return { xmult = 2 }
+            else
+                return { xmult = 3 }
+            end
         end
 
         if context.check_eternal and context.other_card == card then

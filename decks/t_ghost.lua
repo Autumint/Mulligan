@@ -9,11 +9,11 @@ SMODS.Back{
     },
     
     apply = function(self)
+        G.GAME.BreakArmor = true
         G.GAME.taintedcards_rate = 1
         G.GAME.common_mod   = (G.GAME.common_mod   or 1) * 0.8
         G.GAME.uncommon_mod = (G.GAME.uncommon_mod or 1) * 1.5
         G.GAME.rare_mod     = (G.GAME.rare_mod     or 1) * 2.0
-
         G.GAME.banned_keys["j_card_sharp"] = true
         G.GAME.banned_keys["j_troubadour"] = true
         G.GAME.banned_keys["j_burglar"]    = true

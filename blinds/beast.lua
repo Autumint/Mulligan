@@ -175,7 +175,7 @@ SMODS.Blind {
         if context.post_trigger then
             if not context.other_context.mod_probability and not context.other_context.fix_probability then
                 if SMODS.pseudorandom_probability(self, 'ghostly', 1, 4) then
-                    if context.other_card.config.center ~= G.P_CENTERS.j_tdec_photoquestion then
+                    if context.other_card.config and context.other_card.config.center ~= G.P_CENTERS.j_tdec_photoquestion then
                         context.other_ret.jokers = {}
                         return {
                             message = "Fading",

@@ -335,7 +335,7 @@ ref_value = 'chips',
 ease_to = (function()
     local scored_points = SMODS.calculate_round_score()
     local effective_score = scored_points
-    if G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+    if G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" and not G.GAME.BreakArmor then
         local ratio = scored_points / G.GAME.blind.chips
         local armor_factor = 1 / (1 + math.exp(-10 * (ratio - 0.5)))
         local max_reduction = 0.8
