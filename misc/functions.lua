@@ -13,7 +13,7 @@ function spawn_beast_hp_ui()
                 align = "cm",
                 padding = 0.05,
                 colour = G.C.CLEAR,
-                offset = { x = 0, y = 0 },
+                offset = { x = 1.2, y = 2.2 },
                 major = G.jokers,
                 bond = "Weak"
             },
@@ -22,7 +22,7 @@ function spawn_beast_hp_ui()
                     label = "The Beast",
                     ref_table = G.GAME,
                     ref_value = "BeastProgress",
-                    w = 7,
+                    w = 12,
                     h = 0.5,
                     min = 0,
                     max = 100,
@@ -36,7 +36,7 @@ function spawn_beast_hp_ui()
             align = "cm",
             padding = 0.05,
             colour = G.C.CLEAR,
-            offset = { x = 0, y = 2.2 },
+            offset = { x = 1.2, y = 2.2 },
             major = G.jokers,
             bond = "Weak"
         }
