@@ -15,7 +15,7 @@ local abyss_consumable_to_joker = {
 do
     local orig_use = Card.use_consumeable
     function Card:use_consumeable(area, copier)
-        if G.GAME.AbyssActive then
+        if G.GAME.AbyssActive and self.ability.set ~= "Planet" then
             local used_key = self.config.center.key
             G.GAME.AbyssActive = false
             G.GAME.AbyssLastConsumable = used_key
@@ -42,7 +42,7 @@ end
 do
     local orig_can_use = Card.can_use_consumeable
     function Card:can_use_consumeable(area, copier)
-        if G.GAME.AbyssActive and self.config.center.key ~= "c_tdec_abyss" then
+        if G.GAME.AbyssActive and self.config.center.key ~= "c_tdec_abyss" and self.ability.set ~= "Planet" then
             return true
         end
         return orig_can_use(self, area, copier)
@@ -64,11 +64,19 @@ SMODS.Consumable {
         local colour = active and G.C.GREEN or G.C.RED
 
         local main_end = {
-            { n = G.UIT.C, config = { align = "bm", padding = 0.02 }, nodes = {
-                { n = G.UIT.C, config = { align = "m", colour = colour, r = 0.05, padding = 0.05 }, nodes = {
-                    { n = G.UIT.T, config = { text = status_text, colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
-                }}
-            }}
+            {
+                n = G.UIT.C,
+                config = { align = "bm", padding = 0.02 },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { align = "m", colour = colour, r = 0.05, padding = 0.05 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = status_text, colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
+                        }
+                    }
+                }
+            }
         }
 
         return { vars = { G.GAME.AbyssRounds or 0 }, main_end = main_end }
