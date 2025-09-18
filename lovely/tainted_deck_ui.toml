@@ -337,10 +337,13 @@ ease_to = (function()
     local effective_score = scored_points
     if G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
         local ratio = scored_points / G.GAME.blind.chips
-        local armor_factor = math.min(1, ratio^1.5)
-        local max_reduction = 0.7
+        local armor_factor = 1 / (1 + math.exp(-10 * (ratio - 0.5)))
+        local max_reduction = 0.8
         local reduction = scored_points * armor_factor * max_reduction
         effective_score = math.max(0, scored_points - reduction)
+        print("reduced from: " .. scored_points)
+        print("reduced to: " .. effective_score)
+        print("reduced by: " .. reduction)
     end
     return G.GAME.chips + math.floor(effective_score)
 end)(),

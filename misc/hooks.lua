@@ -567,7 +567,7 @@ function get_blind_amount(ante)
         for _, j in ipairs(G.jokers.cards) do
             if j.config and j.config.center and j.config.center.key == "j_tdec_photoquestion" then
                 if ante == 0 then
-                    return old_get_blind_amount(9)
+                    return old_get_blind_amount(8)
                 end
             end
         end
@@ -764,4 +764,5 @@ function Game:start_run(...)
         return ret
     end
 end
+
 

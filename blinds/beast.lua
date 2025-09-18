@@ -2,7 +2,7 @@
 SMODS.Blind {
     key = "famine",
     pos = { x = 0, y = 25 },
-    mult = 2,
+    mult = 4,
     boss = { min = 1 },
     boss_colour = HEX("675b5b"),
     tdecks_next_phase = "bl_tdec_pestilence",
@@ -24,7 +24,7 @@ SMODS.Blind {
 SMODS.Blind {
     key = "pestilence",
     pos = { x = 0, y = 25 },
-    mult = 2,
+    mult = 4,
     boss = { min = 1 },
     boss_colour = HEX("008000"),
     tdecks_next_phase = "bl_tdec_war",
@@ -99,7 +99,7 @@ SMODS.Blind {
 SMODS.Blind {
     key = "war",
     pos = { x = 0, y = 25 },
-    mult = 2,
+    mult = 4,
     boss = { min = 1 },
     boss_colour = HEX("ff000d"),
     tdecks_next_phase = "bl_tdec_death",
@@ -162,7 +162,7 @@ SMODS.Blind {
 SMODS.Blind {
     key = "death",
     pos = { x = 0, y = 25 },
-    mult = 2,
+    mult = 4,
     boss = { min = 1 },
     boss_colour = HEX("fbfbfd"),
     tdecks_next_phase = "bl_tdec_beast",
@@ -174,7 +174,7 @@ SMODS.Blind {
     calculate = function(self, blind, context)
         if context.post_trigger then
             if not context.other_context.mod_probability and not context.other_context.fix_probability then
-                if SMODS.pseudorandom_probability(self, 'ghostly', 1, 3) then
+                if SMODS.pseudorandom_probability(self, 'ghostly', 1, 4) then
                     if context.other_card.config.center ~= G.P_CENTERS.j_tdec_photoquestion then
                         context.other_ret.jokers = {}
                         return {
@@ -235,7 +235,7 @@ SMODS.Blind {
                     } },
                     config = {
                         align = 'cm',
-                        offset = { x = 0, y = -3.1 },
+                        offset = { x = 0, y = -1.5 },
                         major = G.play,
                     }
                 }
@@ -263,13 +263,10 @@ SMODS.Blind {
                         if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
                             if not G.GAME.blind.starting_chips then
                                 G.GAME.blind.starting_chips = G.GAME.blind.chips
-                                G.GAME.blind.reduction_amount = math.floor(G.GAME.blind.starting_chips * 0.03)
+                                G.GAME.blind.damage_amount = math.floor(G.GAME.blind.starting_chips * 0.04)
                             end
 
-                            G.GAME.blind.chips = G.GAME.blind.chips - G.GAME.blind.reduction_amount
-
-                            G.GAME.blind.chip_text = number_format(G.GAME.blind.chips)
-                            G.HUD_blind:recalculate()
+                            G.GAME.chips = G.GAME.chips + G.GAME.blind.damage_amount
                             G.GAME.blind:juice_up()
 
                             attention_text({
@@ -279,7 +276,7 @@ SMODS.Blind {
                                 major = G.play,
                                 colour = G.C.RED,
                                 align = 'cm',
-                                offset = { x = 0, y = -2.7 },
+                                offset = { x = 0, y = -1.5 },
                                 silent = true
                             })
                         end
@@ -339,7 +336,6 @@ function end_round()
                 G.GAME.blind:set_blind(G.P_BLINDS[G.GAME.blind.config.blind.tdecks_next_phase])
 
                 if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" then
-                    ease_hands_played(4)
                     beast_damage_card()
                     spawn_beast_hp_ui()
                 end

@@ -44,7 +44,7 @@ return {
             bl_tdec_death = {
                 name = "The Death",
                 text = {
-                    "1 in 3 chance",
+                    "1 in 4 chance",
                     "for jokers to not trigger"
                 }
             },

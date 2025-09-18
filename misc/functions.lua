@@ -20,6 +20,7 @@ function spawn_beast_hp_ui()
             nodes = {
                 create_progress_bar({
                     label = "The Beast",
+                    label_position = "Bottom",
                     ref_table = G.GAME,
                     ref_value = "BeastProgress",
                     w = 12,
