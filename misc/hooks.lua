@@ -176,8 +176,8 @@ function Game:start_run(args)
             },
             config = {
                 align = "tr",
-                offset = { x = -7.3, y = 3.4 },
-                major = G.ROOM_ATTACH,
+                offset = { x = -2.2, y = 0.1 },
+                major = G.jokers,
                 bond = 'Weak'
             }
         }
