@@ -22,7 +22,7 @@ do
     end
 end
 
-SMODS.Joker{
+SMODS.Joker {
     key = "soulless_locust",
     atlas = "tainted_atlas",
     blueprint_compat = true,
@@ -30,6 +30,9 @@ SMODS.Joker{
     rarity = 4,
     cost = 0,
     pos = { x = 0, y = 0 },
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
 
     config = { extra = {
         size = 1,
@@ -43,25 +46,27 @@ SMODS.Joker{
         triboulet_odds = 3,
         perkeo_odds = 3,
         chicot_odds = 3
-    }},
+    } },
 
     loc_vars = function(self, info_queue, card)
         local cn, cd = SMODS.get_probability_vars(card, 1, card.ability.extra.canio_odds, 'soulless_canio')
         local yn, yd = SMODS.get_probability_vars(card, 1, card.ability.extra.triboulet_odds, 'soulless_triboulet')
         local pn, pd = SMODS.get_probability_vars(card, 1, card.ability.extra.perkeo_odds, 'soulless_perkeo')
         local chn, chd = SMODS.get_probability_vars(card, 1, card.ability.extra.chicot_odds, 'soulless_chicot')
-        return { vars = {
-            card.ability.extra.size,
-            cn, cd,
-            card.ability.extra.face_gain,
-            card.ability.extra.yorick_gain,
-            card.ability.extra.discards,
-            yn, yd,
-            card.ability.extra.triboulet_xmult,
-            pn, pd,
-            chn, chd,
-            card.ability.extra.xmult
-        }}
+        return {
+            vars = {
+                card.ability.extra.size,
+                cn, cd,
+                card.ability.extra.face_gain,
+                card.ability.extra.yorick_gain,
+                card.ability.extra.discards,
+                yn, yd,
+                card.ability.extra.triboulet_xmult,
+                pn, pd,
+                chn, chd,
+                card.ability.extra.xmult
+            }
+        }
     end,
 
     in_pool = function(self)
@@ -138,7 +143,7 @@ SMODS.Joker{
                 if SMODS.pseudorandom_probability(card, 'soulless_canio', 1, card.ability.extra.canio_odds) then
                     card.ability.extra.xmult = card.ability.extra.xmult + faces * card.ability.extra.face_gain
                     return {
-                        message = localize{ type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } }
+                        message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } }
                     }
                 end
             end
@@ -149,7 +154,7 @@ SMODS.Joker{
                 card.ability.extra.discards_remaining = card.ability.extra.discards
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.yorick_gain
                 return {
-                    message = localize{ type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
+                    message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
                     colour = G.C.RED
                 }
             else

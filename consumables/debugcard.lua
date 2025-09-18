@@ -22,8 +22,8 @@ SMODS.Consumable {
         end
     end,
 
-    keep_on_use = function(self) 
-        return true 
+    keep_on_use = function(self)
+        return true
     end,
 
     can_use = function(self, card)
@@ -56,11 +56,14 @@ SMODS.Consumable {
 local start_run_refdebug = Game.start_run
 function Game:start_run(args)
     start_run_refdebug(self, args)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.GAME.DebugRounds = 1
-            G.GAME.DebugMessageCheck = false
-            return true
-        end
-    }))
+    if not G.GAME.DEBUGLOADED then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.DEBUGLOADED = true
+                G.GAME.DebugRounds = 1
+                G.GAME.DebugMessageCheck = false
+                return true
+            end
+        }))
+    end
 end

@@ -30,8 +30,8 @@ SMODS.Consumable {
         return { vars = { G.GAME.SketchRoundKeeper or 0, G.GAME.SketchedJokerKey or "None" }, main_end = main_end }
     end,
 
-    keep_on_use = function(self, card) 
-        return true 
+    keep_on_use = function(self, card)
+        return true
     end,
 
     use = function(self, card, area, copier)
@@ -90,8 +90,8 @@ SMODS.Consumable {
         end
     end,
 
-    in_pool = function(self) 
-        return false 
+    in_pool = function(self)
+        return false
     end,
 
     calculate = function(self, card, context)
@@ -168,8 +168,8 @@ SMODS.Consumable {
         return { vars = { G.GAME.ChiselRoundKeeper or 0 } }
     end,
 
-    keep_on_use = function(self, card) 
-        return true 
+    keep_on_use = function(self, card)
+        return true
     end,
 
     use = function(self, card, area, copier)
@@ -207,8 +207,8 @@ SMODS.Consumable {
         end
     end,
 
-    in_pool = function(self) 
-        return false 
+    in_pool = function(self)
+        return false
     end,
 
     calculate = function(self, card, context)
@@ -236,15 +236,18 @@ SMODS.Consumable {
 local start_run_ref = Game.start_run
 function Game:start_run(args)
     start_run_ref(self, args)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.GAME.SketchRoundKeeper = 4
-            G.GAME.SketchedJokerKey = nil
-            G.GAME.SketchRecordActive = false
-            G.GAME.SketchMessageCheck = false
-            G.GAME.ChiselRoundKeeper = 0
-            G.GAME.ChiselMessageCheck = false
-            return true
-        end
-    }))
+    if not G.GAME.SKETCHCHISELLOADED then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.SKETCHCHISELLOADED = true
+                G.GAME.SketchRoundKeeper = 4
+                G.GAME.SketchedJokerKey = nil
+                G.GAME.SketchRecordActive = false
+                G.GAME.SketchMessageCheck = false
+                G.GAME.ChiselRoundKeeper = 0
+                G.GAME.ChiselMessageCheck = false
+                return true
+            end
+        }))
+    end
 end

@@ -23,7 +23,7 @@ do
 end
 
 
-SMODS.Joker{
+SMODS.Joker {
     key = "hierophant_locust",
     atlas = "tainted_atlas",
     blueprint_compat = false,
@@ -31,7 +31,10 @@ SMODS.Joker{
     rarity = 1,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { size = 1, chips = 30 }},
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { size = 1, chips = 30 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.size, card.ability.extra.chips } }
     end,
@@ -49,10 +52,10 @@ SMODS.Joker{
     end,
 
     calculate = function(self, card, context)
-    if context.joker_main then
-        return {
-            chips = card.ability.extra.chips
-        }
+        if context.joker_main then
+            return {
+                chips = card.ability.extra.chips
+            }
+        end
     end
-end
 }

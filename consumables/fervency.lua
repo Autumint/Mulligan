@@ -84,7 +84,7 @@ SMODS.Consumable {
         end
         if context.final_scoring_step and (G.GAME.FervencyCounter < 40 or G.GAME.FervencyCounter > 60) then
             local xmultred = 1 -
-            (((G.GAME.FervencyCounter < 40) and (40 - G.GAME.FervencyCounter) or (G.GAME.FervencyCounter - 60)) * 0.015)
+                (((G.GAME.FervencyCounter < 40) and (40 - G.GAME.FervencyCounter) or (G.GAME.FervencyCounter - 60)) * 0.015)
             return { xmult = xmultred }
         end
         if context.starting_shop then
@@ -143,9 +143,19 @@ function Game:update(dt)
         end
     end
 end
+
 local start_run_refferv = Game.start_run
 function Game:start_run(args)
-    G.GAME.FervencyCounter = 50
-    G.GAME.FervencyState = "Cooling"
     start_run_refferv(self, args)
+    if not G.GAME.FERVENCYLOADED then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.FERVENCYLOADED = true
+                G.GAME.FervencyCounter = 50
+                G.GAME.FervencyState = "Cooling"
+
+                return true
+            end
+        }))
+    end
 end

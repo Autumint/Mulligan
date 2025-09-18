@@ -17,7 +17,7 @@ return {
                 text = {
                     "Card consumed by {C:green}Pestilence{}",
                     "Doesn't score"
-                }       
+                }
             }
         },
         Blind = {
@@ -144,7 +144,6 @@ return {
                 name = "Foolish Locust",
                 text = {
                     "Copies {C:money}ability{} of the {C:red}locust{} to the right."
-
                 }
             },
             j_tdec_powerful_locust = {
@@ -182,6 +181,29 @@ return {
                 text = {
                     "Disappears and {C:attention}duplicates{} another {C:red}locust{} after {C:attention}#2#{} rounds",
                     "{C:inactive}(Currently {X:mult,C:white} #3#/#2# {C:inactive} Rounds)"
+                }
+            },
+            j_tdec_fragile_locust = {
+                name = "Fragile Locust",
+                text = {
+                    "grants {X:mult,C:white}X2{} Mult",
+                    "{C:green}#1# in #3#{} chance to break",
+                }
+            },
+            j_tdec_bloody_locust = {
+                name = "Bloody Locust",
+                text = {
+                    "grants {X:mult,C:white}X#2#{} Mult per used {C:blue}hand{}",
+                    "within a round",
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"
+                }
+            },
+            j_tdec_flint_locust = {
+                name = "Flinty Locust",
+                text = {
+                    "grants {C:blue}#2#{} Chips per used {C:blue}hand{}",
+                    "within a round",
+                    "{C:inactive}(Currently {C:blue}#3#{} {C:inactive}Chips)"
                 }
             },
         },
@@ -370,7 +392,7 @@ return {
         }
     },
     misc = {
-            achievement_names={
+        achievement_names = {
             ach_tdec_beast_red       = "The Curdled",
             ach_tdec_beast_blue      = "The Drowned",
             ach_tdec_beast_yellow    = "The Monopoly",
@@ -387,7 +409,7 @@ return {
             ach_tdec_beast_plasma    = "??? ???",
             ach_tdec_beast_erratic   = "TH$_; CRRPTD_#$_$o$u$op(_){$?",
         },
-        achievement_descriptions={
+        achievement_descriptions = {
             ach_tdec_beast_red       = "Defeat ??? with the Red Deck",
             ach_tdec_beast_blue      = "Defeat ??? with the Blue Deck",
             ach_tdec_beast_yellow    = "Defeat ??? with the Yellow Deck",
@@ -403,7 +425,7 @@ return {
             ach_tdec_beast_anaglyph  = "Defeat ??? with the Anaglyph Deck",
             ach_tdec_beast_plasma    = "Defeat ??? with the Plasma Deck",
             ach_tdec_beast_erratic   = "Defeat ??? with the Erratic Deck",
-            
+
         },
         labels = {
             tdec_clotting = "Clotting",

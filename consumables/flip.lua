@@ -75,12 +75,14 @@ SMODS.Consumable {
 local start_run_refflip = Game.start_run
 function Game:start_run(args)
     start_run_refflip(self, args)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.GAME.FlipCharges = 2
-            G.GAME.FlipMessageCheck = false
-            return true
-        end
-    }))
+    if not G.GAME.FLIPLOADED then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.FLIPLOADED = true
+                G.GAME.FlipCharges = 2
+                G.GAME.FlipMessageCheck = false
+                return true
+            end
+        }))
+    end
 end
-

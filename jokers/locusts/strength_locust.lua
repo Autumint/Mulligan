@@ -22,16 +22,19 @@ do
     end
 end
 
-SMODS.Joker{
+SMODS.Joker {
     key = "powerful_locust",
     atlas = "tainted_atlas",
     rarity = 3,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { mult = 1, chips = 5, size = 1 }},
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { mult = 1, chips = 5, size = 1 } },
 
-    in_pool = function(self) 
-        return false 
+    in_pool = function(self)
+        return false
     end,
 
     calculate = function(self, card, context)
@@ -40,14 +43,14 @@ SMODS.Joker{
             if G.locust_area and G.locust_area.cards then
                 for _, j in ipairs(G.locust_area.cards) do
                     if j.config and j.config.center and j.config.center.key
-                       and j.config.center.key:match("^j_tdec.*locust$") then
+                        and j.config.center.key:match("^j_tdec.*locust$") then
                         count = count + 1
                     end
                 end
             end
             if count > 0 then
                 return {
-                    mult  = card.ability.extra.mult  * count,
+                    mult  = card.ability.extra.mult * count,
                     chips = card.ability.extra.chips * count
                 }
             end
@@ -59,7 +62,7 @@ SMODS.Joker{
         if G.jokers and G.locust_area then
             for _, j in ipairs(G.locust_area.cards) do
                 if j.config and j.config.center and j.config.center.key
-                   and j.config.center.key:match("^j_tdec.*locust$") then
+                    and j.config.center.key:match("^j_tdec.*locust$") then
                     count = count + 1
                 end
             end

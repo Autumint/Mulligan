@@ -1,4 +1,4 @@
-    do
+do
     local original_use_and_sell = G.UIDEF.use_and_sell_buttons
 
     local function remove_sell_button(node)
@@ -21,8 +21,8 @@
         return m
     end
 end
-    
-    SMODS.Joker{
+
+SMODS.Joker {
     key = "wealthy_locust",
     atlas = "tainted_atlas",
     blueprint_compat = false,
@@ -30,13 +30,16 @@ end
     rarity = 1,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { size = 1, mult = 1, dollars = 10, dollareor = 1 }},
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { size = 1, mult = 1, dollars = 10, dollareor = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.size, card.ability.extra.mult, card.ability.extra.dollars, card.ability.extra.mult * math.floor(((G.GAME.dollars or 0) + (G.GAME.dollar_buffer or 0)) / card.ability.extra.dollars), card.ability.extra.dollareor } }
     end,
 
-    in_pool = function(self) 
-        return false 
+    in_pool = function(self)
+        return false
     end,
 
     calc_dollar_bonus = function(self, card)

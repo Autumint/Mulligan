@@ -23,7 +23,7 @@ do
 end
 
 
-SMODS.Joker{
+SMODS.Joker {
     key = "executioner_locust",
     atlas = "tainted_atlas",
     blueprint_compat = true,
@@ -31,6 +31,9 @@ SMODS.Joker{
     rarity = 1,
     cost = 0,
     pos = { x = 0, y = 0 },
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
     config = { extra = { size = 1, mult = 2, mult_gain = 2 } },
 
     loc_vars = function(self, info_queue, card)

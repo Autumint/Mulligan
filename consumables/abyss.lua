@@ -10,7 +10,11 @@ local abyss_consumable_to_joker = {
     c_talisman   = "j_tdec_golden_locust",
     c_black_hole = "j_tdec_singularity_locust",
     c_death      = "j_tdec_mitosis_locust",
+    c_justice    = "j_tdec_fragile_locust",
+    c_world      = "j_tdec_flint_locust",
+    c_sun        = "j_tdec_bloody_locust"
 }
+
 
 do
     local orig_use = Card.use_consumeable
@@ -126,13 +130,16 @@ SMODS.Consumable {
 local start_run_refabyss = Game.start_run
 function Game:start_run(args)
     start_run_refabyss(self, args)
-    G.E_MANAGER:add_event(Event({
-        func = function()
-            G.GAME.AbyssRounds = 2
-            G.GAME.AbyssActive = false
-            G.GAME.AbyssMessageCheck = true
-            G.GAME.AbyssLastConsumable = nil
-            return true
-        end
-    }))
+    if not G.GAME.ABYSSLOADED then
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.ABYSSLOADED = true
+                G.GAME.AbyssRounds = 2
+                G.GAME.AbyssActive = false
+                G.GAME.AbyssMessageCheck = true
+                G.GAME.AbyssLastConsumable = nil
+                return true
+            end
+        }))
+    end
 end

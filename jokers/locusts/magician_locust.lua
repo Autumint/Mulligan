@@ -23,7 +23,7 @@ do
 end
 
 
-SMODS.Joker{
+SMODS.Joker {
     key = "lucky_locust",
     atlas = "tainted_atlas",
     blueprint_compat = false,
@@ -31,8 +31,11 @@ SMODS.Joker{
     rarity = 1,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { size = 1, mult = 15, dollars = 15, mult_odds = 6, dollars_odds = 20 }},
-    
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { size = 1, mult = 15, dollars = 15, mult_odds = 6, dollars_odds = 20 } },
+
     loc_vars = function(self, info_queue, card)
         local mn, md = SMODS.get_probability_vars(card, 1, card.ability.extra.mult_odds, 'lucky_locust_mult')
         local dn, dd = SMODS.get_probability_vars(card, 1, card.ability.extra.dollars_odds, 'lucky_locust_money')
@@ -76,3 +79,4 @@ SMODS.Joker{
         end
     end,
 }
+

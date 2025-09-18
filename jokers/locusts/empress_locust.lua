@@ -23,7 +23,7 @@ do
 end
 
 
-SMODS.Joker{
+SMODS.Joker {
     key = "empress_locust",
     atlas = "tainted_atlas",
     blueprint_compat = false,
@@ -31,13 +31,16 @@ SMODS.Joker{
     rarity = 1,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { size = 1, mult = 4 }},
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { size = 1, mult = 4 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.size, card.ability.extra.mult } }
     end,
 
-    in_pool = function(self) 
-        return false 
+    in_pool = function(self)
+        return false
     end,
 
     add_to_deck = function(self, card, from_debuff)
@@ -49,10 +52,10 @@ SMODS.Joker{
     end,
 
     calculate = function(self, card, context)
-    if context.joker_main then
-        return {
-            mult = card.ability.extra.mult
-        }
-    end
-end,
+        if context.joker_main then
+            return {
+                mult = card.ability.extra.mult
+            }
+        end
+    end,
 }

@@ -28,7 +28,10 @@ SMODS.Joker {
     rarity = 3,
     cost = 0,
     pos = { x = 0, y = 0 },
-    config = { extra = { size = 1 }},
+    no_collection = true,
+    unlocked = true,
+    discovered = true,
+    config = { extra = { size = 1 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.size } }
     end,
@@ -41,8 +44,8 @@ SMODS.Joker {
         G.locust_area.config.card_limit = G.locust_area.config.card_limit - card.ability.extra.size
     end,
 
-    in_pool = function(self) 
-        return false 
+    in_pool = function(self)
+        return false
     end,
 
     calculate = function(self, card, context)
@@ -55,10 +58,10 @@ SMODS.Joker {
         end
 
         if other_joker
-        and other_joker.config
-        and other_joker.config.center
-        and other_joker.config.center.key
-        and other_joker.config.center.key:match("^j_tdec.*locust$") then
+            and other_joker.config
+            and other_joker.config.center
+            and other_joker.config.center.key
+            and other_joker.config.center.key:match("^j_tdec.*locust$") then
             return SMODS.blueprint_effect(card, other_joker, context)
         end
     end
