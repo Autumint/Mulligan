@@ -84,7 +84,7 @@ SMODS.Consumable {
         G.E_MANAGER:add_event(Event({
             func = function()
                 card_eval_status_text(card, "extra", nil, nil, nil,
-                    { message = G.GAME.CraftingBagOpen and "Opened.." or "Closed.." })
+                    { message = G.GAME.CraftingBagOpen and "Unsealed.." or "Sealed.." })
                 return true
             end
         }))
