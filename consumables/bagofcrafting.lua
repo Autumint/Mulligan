@@ -51,7 +51,32 @@ SMODS.Consumable {
     loc_vars = function(self, info_queue, card)
         local stored = #G.GAME.CraftingBag or 0
         local status_text = stored .. "/3 Collected"
-        local colour = (stored >= 3) and G.C.GREEN or G.C.RED
+        local colour = G.C.MONEY
+
+        if stored == 3 then
+            local total = 0
+            local has_SorB = false
+            for _, key in ipairs(G.GAME.CraftingBag) do
+                if key == "c_soul" or key == "c_black_hole" then
+                    has_SorB = true
+                end
+                total = total + (crafting_consumable_values[key] or 1)
+            end
+            local rarity = has_special and "legendary" or roll_joker_rarity(total)
+            if rarity == "common" then
+                colour = G.C.BLUE
+                status_text = "Common Joker"
+            elseif rarity == "uncommon" then
+                colour = G.C.GREEN
+                status_text = "Uncommon Joker"
+            elseif rarity == "rare" then
+                colour = G.C.RED
+                status_text = "Rare Joker"
+            elseif rarity == "legendary" then
+                colour = G.C.PURPLE
+                status_text = "Legendary Joker"
+            end
+        end
 
         local main_end = {
             {
@@ -60,7 +85,7 @@ SMODS.Consumable {
                 nodes = {
                     {
                         n = G.UIT.C,
-                        config = { align = "m", colour = colour, r = 0.05, padding = 0.05 },
+                        config = { align = "m", colour = colour, r = 0.02, padding = 0.1 },
                         nodes = {
                             { n = G.UIT.T, config = { text = status_text, colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
                         }
@@ -79,15 +104,55 @@ SMODS.Consumable {
     end,
 
     use = function(self, card, area, copier)
-        G.GAME.CraftingBagOpen = not G.GAME.CraftingBagOpen
-        card:juice_up(0.8, 0.8)
-        G.E_MANAGER:add_event(Event({
-            func = function()
-                card_eval_status_text(card, "extra", nil, nil, nil,
-                    { message = G.GAME.CraftingBagOpen and "Unsealed.." or "Sealed.." })
-                return true
+        if #G.GAME.CraftingBag == 3 then
+            card:juice_up()
+            local total = 0
+            local has_SorB = false
+            for _, key in ipairs(G.GAME.CraftingBag) do
+                if key == "c_soul" or key == "c_black_hole" then
+                    has_SorB = true
+                end
+                total = total + (crafting_consumable_values[key] or 1)
             end
-        }))
+            local rarity_key = has_special and "legendary" or roll_joker_rarity(total)
+
+            local rarity_mapping = {
+                common = "Common",
+                uncommon = "Uncommon",
+                rare = "Rare",
+                legendary = "Legendary"
+            }
+
+            local append_rarity = rarity_mapping[rarity_key]
+
+            G.E_MANAGER:add_event(Event({
+                trigger = "after",
+                func = function()
+                    local c = SMODS.create_card {
+                        set = "Joker",
+                        rarity = append_rarity,
+                        key_append = "crafted_by_bag",
+                    }
+                    c.is_crafted = true
+                    G.jokers:emplace(c)
+                    c:add_to_deck()
+                    return true
+                end
+            }))
+
+            G.GAME.CraftingBag = {}
+            G.GAME.CraftingBagOpen = false
+        else
+            G.GAME.CraftingBagOpen = not G.GAME.CraftingBagOpen
+            card:juice_up(0.8, 0.8)
+            G.E_MANAGER:add_event(Event({
+                func = function()
+                    card_eval_status_text(card, "extra", nil, nil, nil,
+                        { message = G.GAME.CraftingBagOpen and "Unsealed.." or "Sealed.." })
+                    return true
+                end
+            }))
+        end
     end,
 
     in_pool = function(self)
@@ -101,42 +166,10 @@ do
         local used_key = self.config.center.key
 
         if G.GAME.CraftingBagOpen and used_key ~= "c_tdec_bagofcrafting" then
-            if used_key == "c_soul" or used_key == "c_black_hole" then
-                G.GAME.CraftingBag = { 4, 4, 4 }
+            if #G.GAME.CraftingBag < 3 then
+                table.insert(G.GAME.CraftingBag, used_key)
             else
-                local val = crafting_consumable_values[used_key] or 1
-                table.insert(G.GAME.CraftingBag, val)
-            end
-
-            if #G.GAME.CraftingBag >= 3 then
-                local total = 0
-                for _, v in ipairs(G.GAME.CraftingBag) do total = total + v end
-                local rarity_key = roll_joker_rarity(total)
-
-                local rarity_mapping = {
-                    common = "Common",
-                    uncommon = "Uncommon",
-                    rare = "Rare",
-                    legendary = "Legendary"
-                }
-
-                local append_rarity = rarity_mapping[rarity_key]
-
-                G.E_MANAGER:add_event(Event({
-                    trigger = "after",
-                    func = function()
-                        local c = SMODS.create_card {
-                            set = "Joker",
-                            rarity = append_rarity,
-                            key_append = "crafted_by_bag",
-                        }
-                        c.is_crafted = true
-                        G.jokers:emplace(c)
-                        c:add_to_deck()
-                        return true
-                    end
-                }))
-                G.GAME.CraftingBag = {}
+                G.GAME.CraftingBag[3] = used_key
             end
             return
         end

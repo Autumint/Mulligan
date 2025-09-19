@@ -23,5 +23,22 @@ SMODS.Back {
                 return true
             end
         }))
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.discount_percent = 25
+                for _, v in pairs(G.I.CARD) do
+                    if v.set_cost then v:set_cost() end
+                end
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            func = function()
+                G.GAME.round_resets.reroll_cost = G.GAME.round_resets.reroll_cost - 2
+                G.GAME.current_round.reroll_cost = math.max(0,
+                    G.GAME.current_round.reroll_cost - 2)
+                return true
+            end
+        }))
     end
 }

@@ -13,17 +13,15 @@ function spawn_beast_hp_ui()
                 align = "cm",
                 padding = 0.05,
                 colour = G.C.CLEAR,
-                offset = { x = 1.2, y = 2.2 },
+                offset = { x = -7.8, y = 3.3 },
                 major = G.jokers,
                 bond = "Weak"
             },
             nodes = {
                 create_progress_bar({
-                    label = "The Beast",
-                    label_position = "Bottom",
                     ref_table = G.GAME,
                     ref_value = "BeastProgress",
-                    w = 12,
+                    w = 4.5,
                     h = 0.5,
                     min = 0,
                     max = 100,
@@ -37,7 +35,7 @@ function spawn_beast_hp_ui()
             align = "cm",
             padding = 0.05,
             colour = G.C.CLEAR,
-            offset = { x = 1.2, y = 2.2 },
+            offset = { x = -7.8, y = 3.3 },
             major = G.jokers,
             bond = "Weak"
         }

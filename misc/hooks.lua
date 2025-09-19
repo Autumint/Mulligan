@@ -949,7 +949,7 @@ local ref_blind_load = Blind.load
 function Blind:load(blindTable)
     local ret = ref_blind_load(self, blindTable)
 
-    if self.config.blind.score_invisible and G.GAME.modifiers.hide_blind_score then
+    if self.config.blind.score_invisible then
         set_blind_score_visible(false)
     end
 
@@ -1064,5 +1064,6 @@ function Card:add_to_deck(from_debuff)
         end
     end
 end
+
 
 
