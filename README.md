@@ -80,8 +80,10 @@ Use **Flip?** to immediately shift states at will.
 ---
 
 ## Benighted Deck
-Start run with the **Reroll Surplus, Overstock** Vouchers and **Tainted Madness** Joker  
-After ante 1, Tainted Madness will consume one of the jokers at any point during the run if more than 2 hands have been used to defeat a blind  
+Start run with the **Overstock**, **Planet Tycoon**, **Tarot Tycoon** Vouchers and the Active Item: **Star Shaper**
+Naturally obtained jokers will be transformed into 2 random consumables (Spectral, Tarot or Planet)
+
+Use **Star Shaper** to obtain a joker by slotting 3 consumables into it. Better consumables reward you with better jokers.
 
 ---
 
