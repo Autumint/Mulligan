@@ -11,15 +11,6 @@ return {
                 }
             }
         },
-        Enhanced = {
-            m_tdec_pestilence = {
-                name = "Pestilence Card",
-                text = {
-                    "Card consumed by {C:green}Pestilence{}",
-                    "Doesn't score"
-                }
-            }
-        },
         Blind = {
             bl_tdec_famine = {
                 name = "???",
@@ -66,12 +57,6 @@ return {
                 name = "Faded Photograph?",
                 text = {
                     "I remember {C:attention}this{} one!"
-                }
-            },
-            j_tdec_tainted_madness = {
-                name = "Tainted Madness",
-                text = {
-                    "{C:red,E:2}What's yours is mine{}",
                 }
             },
             j_tdec_Sumptorium = {
@@ -206,6 +191,28 @@ return {
                     "{C:inactive}(Currently {C:blue}#3#{} {C:inactive}Chips)"
                 }
             },
+            j_tdec_lunar_locust = {
+                name = "Lunar Locust",
+                text = {
+                    "grants {X:mult,C:white}+#2#{} Mult per used {C:blue}hand{}",
+                    "within a round",
+                    "{C:inactive}(Currently {X:mult,C:white}+#3#{} {C:inactive}Mult)"
+                }
+            },
+            j_tdec_grateful_locust = {
+                name = "Grateful Locust",
+                text = {
+                    "grants {C:money}$#2#{} sell value to",
+                    "a random joker",
+                }
+            },
+            j_tdec_heavy_locust = {
+                name = "Heavy Locust",
+                text = {
+                    "grants {X:mult,C:white}+#2#{} Mult for",
+                    "each card held in hand"
+                }
+            },
         },
 
         Back = {
@@ -220,14 +227,14 @@ return {
                 name = "Avarice Deck",
                 text = {
                     "Start run with the {C:money,T:c_tdec_turnover}Turnover{}",
-                    "{C:red,E:2}Economic Wasteland.{}"
+                    "{C:red,E:2}Economic Wasteland{}"
                 }
             },
             b_tdec_tainted_green = {
                 name = "Mi$er Deck",
                 text = {
                     "{C:attention}Greed{} is Good",
-                    "{C:red,E:2}Chasing Wealth.{}"
+                    "{C:red,E:2}Chasing Wealth{}"
                 }
             },
             b_tdec_tainted_nebula = {
@@ -242,7 +249,7 @@ return {
                 name = "Phantasm Deck",
                 text = {
                     "{C:blue,T:c_tdec_holy_card}Holier{} Cards",
-                    "{C:red,E:2}Last Purge.{}"
+                    "{C:red,E:2}Last Purge{}"
                 }
             },
             b_tdec_tainted_checkered = {
@@ -255,8 +262,8 @@ return {
             b_tdec_tainted_zodiac = {
                 name = "Benighted Deck",
                 text = {
-                    "Better {C:money}Shops{}",
-                    "{C:red,E:2}Repent for your Debt.{}"
+                    "Craft Your {C:money}Destiny{}",
+                    "{C:red,E:2}Shattered Stars{}"
                 }
             },
             b_tdec_tainted_painted = {
@@ -264,15 +271,14 @@ return {
                 text = {
                     "Start run with the",
                     "{C:money,T:c_tdec_thechisel}Chisel{} and {C:money,T:c_tdec_thesketch}Sketch{}",
-                    "{C:red,E:2}Destined To Erode."
-
+                    "{C:red,E:2}Destined To Erode"
                 }
             },
             b_tdec_tainted_anaglyph = {
                 name = "Dauntless Deck",
                 text = {
                     "{C:blue}Restless{}",
-                    "{C:red,E:2}Fervency.{}"
+                    "{C:red,E:2}Fervency{}"
                 }
             },
             b_tdec_tainted_erratic = {
@@ -292,7 +298,6 @@ return {
                 }
             }
         },
-
         Other = {
             tdec_tainted_perish = {
                 name = "ERR_EVCHANGING",
@@ -305,12 +310,10 @@ return {
                 text = {
                     "{C:red}Unsellable{}. Erodes over {C:attention}2{} Rounds",
                     "Becomes {C:red}Dried Joker{} after Eroding",
-
                     "{C:inactive}({C:attention}#2#{C:inactive} remaining)"
                 }
             }
         },
-
         taintedcards = {
             c_tdec_debugcard = {
                 name = "Debug Card",
@@ -371,6 +374,13 @@ return {
                     "Destroy a {C:attention}Consumable{} to",
                     "Turn it into a {C:red}Locust{} with special {C:attention}effects{}",
                     "{C:inactive}(Currently {X:mult,C:white} #1#/2 {C:inactive} Charges)"
+                }
+            },
+            c_tdec_bagofcrafting = {
+                name = "{C:dark_edition}Star Shaper{}",
+                text = {
+                    "Collect up to 3 {C:attention}Consumables{}",
+                    "To create a random {C:attention}Joker{}",
                 }
             }
         },

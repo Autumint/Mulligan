@@ -209,6 +209,7 @@ SMODS.Blind {
     mult = 10,
     boss = { min = 1 },
     boss_colour = HEX("a84024"),
+    score_invisible = true,
 
     calculate = function(self, blind, context)
         -- keep loading progress for the health bar
@@ -418,4 +419,3 @@ TDECKS.ENDLESSBUTTON = function()
         }
     end
 end
-

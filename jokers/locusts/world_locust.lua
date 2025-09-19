@@ -39,7 +39,7 @@ SMODS.Joker {
         return { vars = { card.ability.extra.size, card.ability.extra.chips, card.ability.extra.chips * math.floor(card.ability.extra.carvings) } }
     end,
     calculate = function(self, card, context)
-        if context.setting_blind then
+        if context.end_of_round then
             card.ability.extra.carvings = 0
             return {
                 message = "Carved Down",

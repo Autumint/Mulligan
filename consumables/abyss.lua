@@ -12,7 +12,10 @@ local abyss_consumable_to_joker = {
     c_death      = "j_tdec_mitosis_locust",
     c_justice    = "j_tdec_fragile_locust",
     c_world      = "j_tdec_flint_locust",
-    c_sun        = "j_tdec_bloody_locust"
+    c_sun        = "j_tdec_bloody_locust",
+    c_temperance = "j_tdec_grateful_locust",
+    c_chariot    = "j_tdec_heavy_locust",
+    c_moon       = "j_tdec_lunar_locust"
 }
 
 

@@ -6,13 +6,6 @@ SMODS.Atlas{
 }
 
 SMODS.Atlas{
-    key = "madness_atlas",
-    path = "tainted_madness.png",
-    px = 71,
-    py = 95
-}
-
-SMODS.Atlas{
     key = "debugcard_atlas",
     path = "debug_print.png",
     px = 71,

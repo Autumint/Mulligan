@@ -34,13 +34,13 @@ SMODS.Joker {
     no_collection = true,
     unlocked = true,
     discovered = true,
-    config = { extra = { size = 1, Xmult = 0.2, bloodlust = 0 } },
+    config = { extra = { size = 1, Xmult = 0.1, bloodlust = 0 } },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.size, card.ability.extra.Xmult, 1 + card.ability.extra.Xmult * math.floor(card.ability.extra.bloodlust) } }
     end,
 
     calculate = function(self, card, context)
-        if context.setting_blind then
+        if context.end_of_round then
             card.ability.extra.bloodlust = 0
             return {
                 message = "More!",

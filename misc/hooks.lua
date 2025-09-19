@@ -219,7 +219,8 @@ local allowed_decks = {
     "b_tdec_tainted_yellow",
     "b_tdec_tainted_erratic",
     "b_tdec_tainted_nebula",
-    "b_tdec_tainted_checkered"
+    "b_tdec_tainted_checkered",
+    "b_tdec_tainted_zodiac"
 }
 
 local function is_allowed(key, list)
@@ -675,77 +676,141 @@ function create_progress_bar(args)
 
     args.detailed_tooltip = args.detailed_tooltip or nil
     if not args.detailed_tooltip and args.detailed_tooltip_k then
-        args.detailed_tooltip = {key = args.detailed_tooltip_k, set = args.detailed_tooltip_s or nil}
+        args.detailed_tooltip = { key = args.detailed_tooltip_k, set = args.detailed_tooltip_s or nil }
     end
 
     local t = nil
     if args.bar_rotation == "Horizontal" then
-        local startval = args.w * (args.ref_table[args.ref_value] - args.min)/(args.max - args.min)
-        t = 
-        {n=G.UIT.C, config={align = "cm", minw = args.w, minh = args.h, padding = 0.1, r = 0.1, colour = G.C.CLEAR, focus_args = {type = 'slider'}}, nodes={
-            {n=G.UIT.C, config={align = (args.reverse_fill and "cr") or "cl", detailed_tooltip = args.detailed_tooltip, tooltip = args.tooltip, minw = args.w, r = 0.1,minh = args.h, colour = args.bg_colour,emboss = 0.05,func = 'progress_bar_h', refresh_movement = true}, nodes={
-              {n=G.UIT.B, config={w=startval,h=args.h, r = 0.1, colour = args.colour, ref_table = args, refresh_movement = true}},
-            }},
-        }}
+        local startval = args.w * (args.ref_table[args.ref_value] - args.min) / (args.max - args.min)
+        t =
+        {
+            n = G.UIT.C,
+            config = { align = "cm", minw = args.w, minh = args.h, padding = 0.1, r = 0.1, colour = G.C.CLEAR, focus_args = { type = 'slider' } },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = { align = (args.reverse_fill and "cr") or "cl", detailed_tooltip = args.detailed_tooltip, tooltip = args.tooltip, minw = args.w, r = 0.1, minh = args.h, colour = args.bg_colour, emboss = 0.05, func = 'progress_bar_h', refresh_movement = true },
+                    nodes = {
+                        { n = G.UIT.B, config = { w = startval, h = args.h, r = 0.1, colour = args.colour, ref_table = args, refresh_movement = true } },
+                    }
+                },
+            }
+        }
     elseif args.bar_rotation == "Vertical" then
-        local startval = args.h * (args.ref_table[args.ref_value] - args.min)/(args.max - args.min)
-        t = 
-        {n=G.UIT.C, config={align = "cm", minw = args.w, minh = args.h, padding = 0.1, r = 0.1, colour = G.C.CLEAR, focus_args = {type = 'slider'}}, nodes={
-            {n=G.UIT.C, config={align = (args.reverse_fill and "tm") or "bm", detailed_tooltip = args.detailed_tooltip, tooltip = args.tooltip, minw = args.w, r = 0.1,minh = args.h, colour = args.bg_colour,emboss = 0.05,func = 'progress_bar_v', refresh_movement = true}, nodes={
-              {n=G.UIT.B, config={w=args.w,h=startval, r = 0.1, colour = args.colour, ref_table = args, refresh_movement = true}},
-            }},
-        }}
+        local startval = args.h * (args.ref_table[args.ref_value] - args.min) / (args.max - args.min)
+        t =
+        {
+            n = G.UIT.C,
+            config = { align = "cm", minw = args.w, minh = args.h, padding = 0.1, r = 0.1, colour = G.C.CLEAR, focus_args = { type = 'slider' } },
+            nodes = {
+                {
+                    n = G.UIT.C,
+                    config = { align = (args.reverse_fill and "tm") or "bm", detailed_tooltip = args.detailed_tooltip, tooltip = args.tooltip, minw = args.w, r = 0.1, minh = args.h, colour = args.bg_colour, emboss = 0.05, func = 'progress_bar_v', refresh_movement = true },
+                    nodes = {
+                        { n = G.UIT.B, config = { w = args.w, h = startval, r = 0.1, colour = args.colour, ref_table = args, refresh_movement = true } },
+                    }
+                },
+            }
+        }
     end
 
-    if args.label then 
+    if args.label then
         if args.label_position == "Top" then
-            local label_node = {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-                {n=G.UIT.T, config={func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert}}
-            }} 
+            local label_node = {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0 },
+                nodes = {
+                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                }
+            }
 
-            t = 
-            {n=G.UIT.R, config={align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR}, nodes={
-                label_node,
-                {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-                    t
-                }}
-            }}
+            t =
+            {
+                n = G.UIT.R,
+                config = { align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR },
+                nodes = {
+                    label_node,
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm", padding = 0 },
+                        nodes = {
+                            t
+                        }
+                    }
+                }
+            }
         elseif args.label_position == "Bottom" then
-            local label_node = {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-                {n=G.UIT.T, config={func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert}}
-            }} 
+            local label_node = {
+                n = G.UIT.R,
+                config = { align = "cm", padding = 0 },
+                nodes = {
+                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                }
+            }
 
-            t = 
-            {n=G.UIT.R, config={align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR}, nodes={
-                {n=G.UIT.R, config={align = "cm", padding = 0}, nodes={
-                    t
-                }},
-                label_node,
-            }}
+            t =
+            {
+                n = G.UIT.R,
+                config = { align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR },
+                nodes = {
+                    {
+                        n = G.UIT.R,
+                        config = { align = "cm", padding = 0 },
+                        nodes = {
+                            t
+                        }
+                    },
+                    label_node,
+                }
+            }
         elseif args.label_position == "Left" then
-            local label_node = {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
-                {n=G.UIT.T, config={func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert}}
-            }} 
+            local label_node = {
+                n = G.UIT.C,
+                config = { align = "cm", padding = 0 },
+                nodes = {
+                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                }
+            }
 
-            t = 
-            {n=G.UIT.C, config={align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR}, nodes={
-                label_node,
-                {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
-                    t
-                }},
-            }}
+            t =
+            {
+                n = G.UIT.C,
+                config = { align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR },
+                nodes = {
+                    label_node,
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0 },
+                        nodes = {
+                            t
+                        }
+                    },
+                }
+            }
         elseif args.label_position == "Right" then
-            local label_node = {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
-                {n=G.UIT.T, config={func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert}}
-            }} 
+            local label_node = {
+                n = G.UIT.C,
+                config = { align = "cm", padding = 0 },
+                nodes = {
+                    { n = G.UIT.T, config = { func = 'pb_rotate_ui', degree = args.label_degree, text = args.label, scale = args.label_scale, colour = G.C.UI.TEXT_LIGHT, vert = args.label_vert } }
+                }
+            }
 
-            t = 
-            {n=G.UIT.C, config={align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR}, nodes={
-                {n=G.UIT.C, config={align = "cm", padding = 0}, nodes={
-                    t
-                }},
-                label_node,
-            }}
+            t =
+            {
+                n = G.UIT.C,
+                config = { align = "cm", minh = args.label_minh, minw = args.label_minw, padding = args.label_padding * args.label_scale, colour = G.C.CLEAR },
+                nodes = {
+                    {
+                        n = G.UIT.C,
+                        config = { align = "cm", padding = 0 },
+                        nodes = {
+                            t
+                        }
+                    },
+                    label_node,
+                }
+            }
         end
     end
 
@@ -762,6 +827,241 @@ function Game:start_run(...)
     if G.GAME.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" and G.GAME.BeastProgress then
         spawn_beast_hp_ui()
         return ret
+    end
+end
+
+-- blind hud removal by win'ter
+
+local function set_blind_score_visible(bool)
+    local hud_def = create_UIBox_HUD()
+    local blind_def = create_UIBox_HUD_blind()
+
+    -- reset hud
+    if G.HUD then
+        G.HUD:remove(); G.HUD = nil
+    end
+    if G.HUD_blind then
+        -- manually nil out the blind object so this remove call doesn't destroy it unnecessarily
+        G.HUD_blind.UIRoot.children[2].children[2].children[1].config.object = nil
+        G.HUD_blind:remove();
+        G.HUD_blind = nil
+    end
+
+    if not bool then
+        local blind_node = blind_def.nodes[2].nodes[2]
+        blind_node.nodes = {
+            { n = G.UIT.C, config = { align = "cm", minw = 1.4, id = 'HUD_blind_count' }, nodes = {} },
+            blind_def.nodes[2].nodes[2].nodes[1],
+            -- below are dummy equivalents to prevent having to invasively change some code in blind.lua
+            {
+                n = G.UIT.C,
+                config = { align = "cm", minw = 1.4, id = 'HUD_blind_reward' },
+                nodes = {
+                    { n = G.UIT.O, config = { object = DynaText({ string = { "" }, colours = { G.C.CLEAR }, silent = true, scale = 0 }), id = 'dollars_to_be_earned' } },
+                }
+            },
+        }
+        hud_def.nodes[1].nodes[1].nodes[3] = {
+            n = G.UIT.R,
+            config = { align = "cm", r = 0.1, id = 'row_dollars_chips' },
+            nodes = { {
+                n = G.UIT.C,
+                config = { align = "cm", minw = 3.3, minh = 0.95 },
+                nodes = {
+                    { n = G.UIT.R, config = { align = "cm", id = 'chip_UI_count' } }
+                }
+            }
+            }
+        }
+    end
+
+    G.HUD = UIBox {
+        definition = hud_def,
+        config = { align = ('cli'), offset = { x = -0.7, y = 0 }, major = G.ROOM_ATTACH }
+    }
+
+    G.HUD_blind = UIBox {
+        definition = blind_def,
+        config = { major = G.HUD:get_UIE_by_ID('row_blind_bottom'), align = 'bmi', offset = { x = 0, y = 0 }, bond = 'Weak' }
+    }
+
+    G.hand_text_area = {
+        chips = G.HUD:get_UIE_by_ID('hand_chips'),
+        mult = G.HUD:get_UIE_by_ID('hand_mult'),
+        ante = G.HUD:get_UIE_by_ID('ante_UI_count'),
+        round = G.HUD:get_UIE_by_ID('round_UI_count'),
+        chip_total = G.HUD:get_UIE_by_ID('hand_chip_total'),
+        handname = G.HUD:get_UIE_by_ID('hand_name'),
+        hand_level = G.HUD:get_UIE_by_ID('hand_level'),
+        game_chips = G.HUD:get_UIE_by_ID('chip_UI_count'),
+        blind_chips = G.HUD_blind:get_UIE_by_ID('HUD_blind_count'),
+        blind_spacer = G.HUD:get_UIE_by_ID('blind_spacer')
+    }
+end
+
+local ref_blind_debuff = G.FUNCS.HUD_blind_debuff
+G.FUNCS.HUD_blind_debuff = function(e)
+    if e.UIBox == G.HUD_blind then return ref_blind_debuff(e) end
+end
+
+local ref_blind_set = Blind.set_blind
+function Blind:set_blind(...)
+    local args = { ... }
+    local blind, reset = args[1], args[2]
+
+    if blind and blind.score_invisible then
+        G.GAME.modifiers.hide_blind_score = true
+        set_blind_score_visible(false)
+    end
+
+    G.GAME.modifiers.hide_blind_score = nil
+    local ret = ref_blind_set(self, ...)
+
+    return ret
+end
+
+local ref_blind_defeat = Blind.defeat
+function Blind:defeat(...)
+    local ret = ref_blind_defeat(self, ...)
+
+    if self.config.blind.score_invisible and G.GAME.modifiers.hide_blind_score then
+        G.GAME.modifiers.hide_blind_score = nil
+        set_blind_score_visible(true)
+    end
+
+    return ret
+end
+
+local ref_blind_disable = Blind.disable
+function Blind:disable(...)
+    local ret = ref_blind_disable(self, ...)
+
+    if self.config.blind.score_invisible and G.GAME.modifiers.hide_blind_score then
+        G.GAME.modifiers.hide_blind_score = nil
+        set_blind_score_visible(true)
+    end
+
+
+    return ret
+end
+
+local ref_blind_load = Blind.load
+function Blind:load(blindTable)
+    local ret = ref_blind_load(self, blindTable)
+
+    if self.config.blind.score_invisible and G.GAME.modifiers.hide_blind_score then
+        set_blind_score_visible(false)
+    end
+
+    return ret
+end
+
+local ref_blind_choice = create_UIBox_blind_choice
+function create_UIBox_blind_choice(...)
+    local ret = ref_blind_choice(...)
+
+    local args = { ... }
+    local type = args[1]
+    if G.P_BLINDS[G.GAME.round_resets.blind_choices[type]].score_invisible then
+        local info_node = ret.nodes[1].nodes[3].nodes[1].nodes[2]
+        info_node.config.colour = G.C.CLEAR
+        info_node.nodes = {}
+    end
+
+    return ret
+end
+
+local ref_eval_row = add_round_eval_row
+function add_round_eval_row(config)
+    if G.GAME.blind.config.blind.key == "bl_tdec_beast" then
+        config = config or {}
+        local width = G.round_eval.T.w - 0.51
+        local scale = 0.9
+
+        if config.name ~= 'bottom' and config.name == 'blind1' then
+            delay(0.4)
+            G.E_MANAGER:add_event(Event({
+                trigger = 'before',
+                delay = 0.5,
+                func = function()
+                    --Add the far left text and context first:
+                    local left_text = {}
+                    if config.name == 'blind1' then
+                        local stake_sprite = get_stake_sprite(G.GAME.stake or 1, 0.5)
+                        local obj = G.GAME.blind.config.blind
+                        local blind_sprite = AnimatedSprite(0, 0, 1.2, 1.2,
+                            G.ANIMATION_ATLAS[obj.atlas] or G.ANIMATION_ATLAS['blind_chips'],
+                            copy_table(G.GAME.blind.pos))
+                        blind_sprite:define_draw_steps({
+                            { shader = 'dissolve', shadow_height = 0.05 },
+                            { shader = 'dissolve' }
+                        })
+                        table.insert(left_text,
+                            { n = G.UIT.O, config = { w = 1.2, h = 1.2, object = blind_sprite, hover = true, can_collide = false } })
+                        table.insert(left_text,
+                            {
+                                n = G.UIT.C,
+                                config = { padding = 0.05, align = 'cm' },
+                                nodes = {
+                                    {
+                                        n = G.UIT.R,
+                                        config = { align = 'cm', minh = 0.8 },
+                                        nodes = {
+                                            { n = G.UIT.O, config = { w = 0.5, h = 0.5, object = stake_sprite, hover = true, can_collide = false } },
+                                            { n = G.UIT.T, config = { text = "DEFEAT BOSS", scale = 0.8, colour = G.C.RED, shadow = true } }
+                                        }
+                                    }
+                                }
+                            })
+                    end
+
+                    local full_row = {
+                        n = G.UIT.R,
+                        config = { align = "cm", minw = 5 },
+                        nodes = {
+                            { n = G.UIT.C, config = { padding = 0.05, minw = width * 0.55, minh = 0.61, align = "cl" }, nodes = left_text },
+                            { n = G.UIT.C, config = { padding = 0.05, minw = width * 0.45, align = "cr" },              nodes = {} }
+                        }
+                    }
+
+                    G.GAME.blind:juice_up()
+                    G.round_eval:add_child(full_row, G.round_eval:get_UIE_by_ID('base_round_eval'))
+                    play_sound('cancel', config.pitch or 1)
+                    play_sound('highlight1', (1.5 * config.pitch) or 1, 0.2)
+                    if config.card then config.card:juice_up(0.7, 0.46) end
+                    return true
+                end
+            }))
+        end
+    end
+    return ref_eval_row(config)
+end
+
+local old_add_to_deck = Card.add_to_deck
+function Card:add_to_deck(from_debuff)
+    old_add_to_deck(self, from_debuff)
+    if G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac" then
+        if self.ability.set == "Joker" and not self.is_crafted then
+            self:start_dissolve()
+            if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
+                local spawn_count = math.min(2, G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
+                G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + spawn_count
+                local chosen_type = { 'Tarot', 'Spectral', 'Planet' }
+                G.E_MANAGER:add_event(Event({
+                    func = function()
+                        for i = 1, spawn_count do
+                            local chosen_consumable = pseudorandom_element(chosen_type, 'tdec_tzodiac')
+                            SMODS.add_card {
+                                set = chosen_consumable,
+                                key_append = 'createdbydestiny'
+                            }
+                        end
+                        G.GAME.consumeable_buffer = 0
+                        return true
+                    end
+                }))
+            end
+        end
     end
 end
 
