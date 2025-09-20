@@ -441,7 +441,6 @@ return {
             tdec_clotting = "Clotting",
             tdec_tainted_perish = "EVERCHANGING",
             tdec_Eroding = "Eroding",
-            tdec_ghostly = "Ghostly"
         }
     }
 

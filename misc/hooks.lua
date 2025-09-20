@@ -1042,9 +1042,15 @@ function Card:add_to_deck(from_debuff)
     old_add_to_deck(self, from_debuff)
     if G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac" then
         if self.ability.set == "Joker" and not self.is_crafted then
+            local chance_spawn = 0
             self:start_dissolve()
+            if SMODS.pseudorandom_probability(card, 'destiny_drop', 1, 2) then
+                chance_spawn = 3
+            else
+                chance_spawn = 2
+            end
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local spawn_count = math.min(2, G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
+                local spawn_count = math.min(chance_spawn, G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + spawn_count
                 local chosen_type = { 'Tarot', 'Spectral', 'Planet' }
                 G.E_MANAGER:add_event(Event({
@@ -1064,6 +1070,7 @@ function Card:add_to_deck(from_debuff)
         end
     end
 end
+
 
 
 

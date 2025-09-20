@@ -9,8 +9,8 @@ local crafting_consumable_values = {
     c_ceres          = 3,
     c_eris           = 3,
     c_planet_x       = 3,
-    c_soul           = 12,
-    c_black_hole     = 12,
+    c_soul           = 10,
+    c_black_hole     = 10,
     c_ectoplasm      = 3,
     c_trance         = 3,
     c_talisman       = 3,
@@ -25,7 +25,16 @@ local crafting_consumable_values = {
     c_devil          = 2,
     c_immolate       = 3,
     c_deja_vu        = 3,
-    c_cryptid        = 3
+    c_cryptid        = 3,
+    c_ouija          = 2,
+    c_wraith         = 2,
+    c_familiar       = 2,
+    c_grim           = 2,
+    c_incantation    = 2,
+    c_aura           = 2,
+    c_sigil          = 2,
+    c_ankh           = 2,
+    c_hex            = 2,
 }
 
 local function roll_joker_rarity(total_value)
@@ -49,32 +58,28 @@ SMODS.Consumable {
     set = "taintedcards",
 
     loc_vars = function(self, info_queue, card)
-        local stored = #G.GAME.CraftingBag or 0
+        local stored = G.GAME.CraftingBag and #G.GAME.CraftingBag or 0
         local status_text = stored .. "/3 Collected"
         local colour = G.C.MONEY
 
         if stored == 3 then
             local total = 0
-            local has_SorB = false
             for _, key in ipairs(G.GAME.CraftingBag) do
-                if key == "c_soul" or key == "c_black_hole" then
-                    has_SorB = true
-                end
                 total = total + (crafting_consumable_values[key] or 1)
             end
             local rarity = has_special and "legendary" or roll_joker_rarity(total)
             if rarity == "common" then
                 colour = G.C.BLUE
-                status_text = "Common Joker"
+                status_text = "Common"
             elseif rarity == "uncommon" then
                 colour = G.C.GREEN
-                status_text = "Uncommon Joker"
+                status_text = "Uncommon"
             elseif rarity == "rare" then
                 colour = G.C.RED
-                status_text = "Rare Joker"
+                status_text = "Rare"
             elseif rarity == "legendary" then
                 colour = G.C.PURPLE
-                status_text = "Legendary Joker"
+                status_text = "Legendary"
             end
         end
 
@@ -109,12 +114,9 @@ SMODS.Consumable {
             local total = 0
             local has_SorB = false
             for _, key in ipairs(G.GAME.CraftingBag) do
-                if key == "c_soul" or key == "c_black_hole" then
-                    has_SorB = true
-                end
                 total = total + (crafting_consumable_values[key] or 1)
             end
-            local rarity_key = has_special and "legendary" or roll_joker_rarity(total)
+            local rarity_key = roll_joker_rarity(total)
 
             local rarity_mapping = {
                 common = "Common",
@@ -123,14 +125,14 @@ SMODS.Consumable {
                 legendary = "Legendary"
             }
 
-            local append_rarity = rarity_mapping[rarity_key]
+            local append_value_rarity = rarity_mapping[rarity_key]
 
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 func = function()
                     local c = SMODS.create_card {
                         set = "Joker",
-                        rarity = append_rarity,
+                        rarity = append_value_rarity,
                         key_append = "crafted_by_bag",
                     }
                     c.is_crafted = true
