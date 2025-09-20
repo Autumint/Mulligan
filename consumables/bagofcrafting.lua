@@ -49,13 +49,6 @@ local function roll_joker_rarity(total_value)
     end
 end
 
-local function has(tbl, val)
-    for _, v in ipairs(tbl) do
-        if v == val then return true end
-    end
-    return false
-end
-
 local function calc_total(bag)
     local total = 0
     for _, key in ipairs(bag) do
@@ -64,66 +57,232 @@ local function calc_total(bag)
     return total
 end
 
-local function get_special_recipe(bag)
-    local total = calc_total(bag)
-
-    if total >= 3 and total <= 5 then
-        if has(bag, "c_stars") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_sun")) then
-            return "j_greedy_joker"
-        elseif has(bag, "c_sun") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_stars")) then
-            return "j_lusty_joker"
-        elseif has(bag, "c_world") and not (has(bag, "c_stars") or has(bag, "c_moon") or has(bag, "c_sun")) then
-            return "j_wrathful_joker"
-        elseif has(bag, "c_moon") and not (has(bag, "c_world") or has(bag, "c_stars") or has(bag, "c_sun")) then
-            return "j_gluttonous_joker"
-        elseif has(bag, "c_wraith") and total == 4 then
-            return "j_credit_card"
-        elseif has(bag, "c_tower") and (has(bag, "c_incantation")) and total == 4 then
-            return "j_marble"
-        elseif has(bag, "c_emperor") then
-            return "j_8_ball"
-        elseif has(bag, "c_familiar") and has(bag, "c_heirophant") then
-            return "j_scary_face"
-        elseif has(bag, "c_grim") then
-            return "j_scholar"
-        elseif has(bag, "c_hanged_man") or has(bag, "c_immolate") then
-            return "j_half"
+local function has(tbl, value)
+    for _, v in ipairs(tbl) do
+        if v == value then
+            return true
         end
     end
-    if total >= 6 and total <= 9 then
-        if has(bag, "c_stars") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_sun")) then
-            return "j_rough_gem"
-        elseif has(bag, "c_sun") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_stars")) then
-            return "j_bloodstone"
-        elseif has(bag, "c_world") and not (has(bag, "c_stars") or has(bag, "c_moon") or has(bag, "c_sun")) then
-            return "j_arrowhead"
-        elseif has(bag, "c_moon") and not (has(bag, "c_world") or has(bag, "c_stars") or has(bag, "c_sun")) then
-            return "j_onyx_agate"
-        elseif has(bag, "c_ankh") and has(bag, "c_empress") then
-            return "j_ceremonial_dagger"
-        elseif has(bag, "c_ankh") then
-            return "j_stencil"
-        elseif has(bag, "c_chariot") then
-            return "j_steel"
-        elseif has(bag, "c_familiar") then
-            return "j_pareidolia"
-        elseif has(bag, "c_death") and has(bag, "c_cryptid") and not has(bag, "c_immolate") or has(bag, "c_hanged_man") then
-            return "j_dna"
-        elseif #bag > 0 then
-            local emperorfool = true
+    return false
+end
+
+local special_recipes = {
+    {
+        range = { 3, 5 },
+        key = "j_greedy_joker",
+        requires = { "c_stars" },
+        excludes = { "c_world", "c_moon", "c_sun" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_lusty_joker",
+        requires = { "c_sun" },
+        excludes = { "c_world", "c_moon", "c_stars" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_wrathful_joker",
+        requires = { "c_world" },
+        excludes = { "c_stars", "c_moon", "c_sun" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_gluttonous_joker",
+        requires = { "c_moon" },
+        excludes = { "c_world", "c_stars", "c_sun" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_credit_card",
+        requires = { "c_wraith", "c_hermit" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_marble",
+        requires = { "c_tower", "c_incantation" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_8_ball",
+        requires = { "c_emperor", "c_wheel_of_fortune" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_scary_face",
+        requires = { "c_familiar", "c_heirophant" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_scholar",
+        requires = { "c_grim" },
+    },
+    {
+        range = { 3, 5 },
+        key = "j_half",
+        requires = { "c_hanged_man", "c_immolate" },
+    },
+    {
+        range = { 6, 9 },
+        key = "j_rough_gem",
+        requires = { "c_stars" },
+        excludes = { "c_world", "c_moon", "c_sun" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_bloodstone",
+        requires = { "c_sun" },
+        excludes = { "c_world", "c_moon", "c_stars" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_arrowhead",
+        requires = { "c_world" },
+        excludes = { "c_stars", "c_moon", "c_sun" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_onyx_agate",
+        requires = { "c_moon" },
+        excludes = { "c_world", "c_stars", "c_sun" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_ceremonial",
+        requires = { "c_ankh", "c_empress" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_stencil",
+        requires = { "c_ankh" },
+    },
+    {
+        range = { 6, 9 },
+        key = "j_steel",
+        requires = { "c_chariot" },
+        excludes = { "c_justice" }
+    },
+    {
+        range = { 6, 9 },
+        key = "j_glass",
+        requires = { "c_justice" },
+        excludes = { "c_chariot" }
+    },
+    {
+        range = { 6, 9 },
+        key = "j_pareidolia",
+        requires = { "c_familiar" },
+        excludes = { "c_incantation" },
+    },
+    {
+        range = { 6, 9 },
+        key = "j_dna",
+        requires = { "c_death", "c_cryptid" },
+        excludes = { "c_immolate" },
+        priority = 2
+    },
+    {
+        range = { 6, 9 },
+        key = "j_sock_and_buskin",
+        requires = { "c_familiar", "c_deja_vu" },
+        excludes = { "c_incantation" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_satellite",
+        requires = { "c_hermit" },
+        requires_any = { "c_pluto", "c_mercury", "c_uranus", "c_venus", "c_saturn", "c_earth", "c_mars", "c_neptune", "c_planet_x", "c_ceres", "c_eris" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_space",
+        requires = { "c_trance" },
+        requires_any = { "c_pluto", "c_mercury", "c_uranus", "c_venus", "c_saturn", "c_earth", "c_mars", "c_neptune", "c_planet_x", "c_ceres", "c_eris" },
+        priority = 1
+    },
+    {
+        range = { 5, 9 },
+        key = "j_constellation",
+        requires = { "c_high_priestess" },
+        requires_any = { "c_pluto", "c_mercury", "c_uranus", "c_venus", "c_saturn", "c_earth", "c_mars", "c_neptune", "c_planet_x", "c_ceres", "c_eris" },
+        priority = 1
+    },
+    {
+        range = { 5, 9 },
+        key = "j_seeing_double",
+        requires = { "c_moon", "c_death" },
+        requires_any = { "c_sun", "c_world", "c_stars" },
+        priority = 1
+    },
+    {
+        range = { 6, 9 },
+        key = "j_cartomancer",
+        special = function(bag)
             for _, k in ipairs(bag) do
                 if k ~= "c_fool" and k ~= "c_emperor" then
-                    emperorfool = false
-                    break
+                    return false
                 end
             end
-            if emperorfool then
-                return "j_cartomancer"
+            return true
+        end
+    },
+}
+
+local function matches_recipe(bag, total, recipe)
+    if recipe.range and (total < recipe.range[1] or total > recipe.range[2]) then
+        return false
+    end
+    if recipe.exact_total and total ~= recipe.exact_total then
+        return false
+    end
+    if recipe.requires then
+        for _, req in ipairs(recipe.requires) do
+            if not has(bag, req) then return false end
+        end
+    end
+    if recipe.requires_any then
+        local reqany = false
+        for _, req in ipairs(recipe.requires_any) do
+            if has(bag, req) then
+                reqany = true
+                break
+            end
+        end
+        if not reqany then return false end
+    end
+    if recipe.excludes then
+        for _, exc in ipairs(recipe.excludes) do
+            if has(bag, exc) then return false end
+        end
+    end
+    if recipe.special and not recipe.special(bag) then
+        return false
+    end
+    return true
+end
+
+local function get_special_recipe(bag)
+    local total = calc_total(bag)
+    local scale_recipe = nil
+    local scale_priority = -1
+
+    for _, recipe in ipairs(special_recipes) do
+        if matches_recipe(bag, total, recipe) then
+            local p = recipe.priority or 0
+            if p > scale_priority then
+                scale_recipe = recipe
+                scale_priority = p
             end
         end
     end
 
-    return nil
+    return scale_recipe and scale_recipe.key or nil
 end
 
 SMODS.Consumable {
@@ -138,6 +297,15 @@ SMODS.Consumable {
         local stored = G.GAME.CraftingBag and #G.GAME.CraftingBag or 0
         local status_text = stored .. "/3 Collected"
         local colour = G.C.MONEY
+
+        if G.GAME.CraftingBag and #G.GAME.CraftingBag > 0 then
+            for _, key in ipairs(G.GAME.CraftingBag) do
+                local center = G.P_CENTERS[key]
+                if center then
+                    info_queue[#info_queue + 1] = center
+                end
+            end
+        end
 
         if stored == 3 then
             local total = 0

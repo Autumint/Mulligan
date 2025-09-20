@@ -6,7 +6,7 @@ SMODS.Back {
     unlocked = true,
     discovered = true,
     config = {
-        consumable_slot = 2,
+        consumable_slot = 3,
         vouchers = { "v_overstock_norm", "v_tarot_merchant", "v_planet_merchant", "v_tarot_tycoon", "v_planet_tycoon" },
     },
     apply = function(self)
