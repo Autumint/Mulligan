@@ -49,6 +49,83 @@ local function roll_joker_rarity(total_value)
     end
 end
 
+local function has(tbl, val)
+    for _, v in ipairs(tbl) do
+        if v == val then return true end
+    end
+    return false
+end
+
+local function calc_total(bag)
+    local total = 0
+    for _, key in ipairs(bag) do
+        total = total + (crafting_consumable_values[key] or 1)
+    end
+    return total
+end
+
+local function get_special_recipe(bag)
+    local total = calc_total(bag)
+
+    if total >= 3 and total <= 5 then
+        if has(bag, "c_stars") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_sun")) then
+            return "j_greedy_joker"
+        elseif has(bag, "c_sun") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_stars")) then
+            return "j_lusty_joker"
+        elseif has(bag, "c_world") and not (has(bag, "c_stars") or has(bag, "c_moon") or has(bag, "c_sun")) then
+            return "j_wrathful_joker"
+        elseif has(bag, "c_moon") and not (has(bag, "c_world") or has(bag, "c_stars") or has(bag, "c_sun")) then
+            return "j_gluttonous_joker"
+        elseif has(bag, "c_wraith") and total == 4 then
+            return "j_credit_card"
+        elseif has(bag, "c_tower") and (has(bag, "c_incantation")) and total == 4 then
+            return "j_marble"
+        elseif has(bag, "c_emperor") then
+            return "j_8_ball"
+        elseif has(bag, "c_familiar") and has(bag, "c_heirophant") then
+            return "j_scary_face"
+        elseif has(bag, "c_grim") then
+            return "j_scholar"
+        elseif has(bag, "c_hanged_man") or has(bag, "c_immolate") then
+            return "j_half"
+        end
+    end
+    if total >= 6 and total <= 9 then
+        if has(bag, "c_stars") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_sun")) then
+            return "j_rough_gem"
+        elseif has(bag, "c_sun") and not (has(bag, "c_world") or has(bag, "c_moon") or has(bag, "c_stars")) then
+            return "j_bloodstone"
+        elseif has(bag, "c_world") and not (has(bag, "c_stars") or has(bag, "c_moon") or has(bag, "c_sun")) then
+            return "j_arrowhead"
+        elseif has(bag, "c_moon") and not (has(bag, "c_world") or has(bag, "c_stars") or has(bag, "c_sun")) then
+            return "j_onyx_agate"
+        elseif has(bag, "c_ankh") and has(bag, "c_empress") then
+            return "j_ceremonial_dagger"
+        elseif has(bag, "c_ankh") then
+            return "j_stencil"
+        elseif has(bag, "c_chariot") then
+            return "j_steel"
+        elseif has(bag, "c_familiar") then
+            return "j_pareidolia"
+        elseif has(bag, "c_death") and has(bag, "c_cryptid") and not has(bag, "c_immolate") or has(bag, "c_hanged_man") then
+            return "j_dna"
+        elseif #bag > 0 then
+            local emperorfool = true
+            for _, k in ipairs(bag) do
+                if k ~= "c_fool" and k ~= "c_emperor" then
+                    emperorfool = false
+                    break
+                end
+            end
+            if emperorfool then
+                return "j_cartomancer"
+            end
+        end
+    end
+
+    return nil
+end
+
 SMODS.Consumable {
     atlas = "tainted_atlas",
     pos = { x = 6, y = 1 },
@@ -67,19 +144,27 @@ SMODS.Consumable {
             for _, key in ipairs(G.GAME.CraftingBag) do
                 total = total + (crafting_consumable_values[key] or 1)
             end
-            local rarity = has_special and "legendary" or roll_joker_rarity(total)
-            if rarity == "common" then
-                colour = G.C.BLUE
-                status_text = "Common"
-            elseif rarity == "uncommon" then
+            local special_recipe = get_special_recipe(G.GAME.CraftingBag)
+
+            if special_recipe then
+                local recipe = G.P_CENTERS[special_recipe]
+                status_text = recipe.name
                 colour = G.C.GREEN
-                status_text = "Uncommon"
-            elseif rarity == "rare" then
-                colour = G.C.RED
-                status_text = "Rare"
-            elseif rarity == "legendary" then
-                colour = G.C.PURPLE
-                status_text = "Legendary"
+            else
+                local rarity = has_special and "legendary" or roll_joker_rarity(total)
+                if rarity == "common" then
+                    colour = G.C.BLUE
+                    status_text = "Common"
+                elseif rarity == "uncommon" then
+                    colour = G.C.GREEN
+                    status_text = "Uncommon"
+                elseif rarity == "rare" then
+                    colour = G.C.RED
+                    status_text = "Rare"
+                elseif rarity == "legendary" then
+                    colour = G.C.PURPLE
+                    status_text = "Legendary"
+                end
             end
         end
 
@@ -112,25 +197,30 @@ SMODS.Consumable {
         if #G.GAME.CraftingBag == 3 then
             card:juice_up()
             local total = 0
-            local has_SorB = false
             for _, key in ipairs(G.GAME.CraftingBag) do
                 total = total + (crafting_consumable_values[key] or 1)
             end
-            local rarity_key = roll_joker_rarity(total)
+            local special_recipe = get_special_recipe(G.GAME.CraftingBag)
+            local rarity_key, append_value_rarity
 
-            local rarity_mapping = {
-                common = "Common",
-                uncommon = "Uncommon",
-                rare = "Rare",
-                legendary = "Legendary"
-            }
-
-            local append_value_rarity = rarity_mapping[rarity_key]
-
+            if special_recipe then
+                rarity_key = nil
+                append_value_rarity = nil
+            else
+                rarity_key = roll_joker_rarity(total)
+                local rarity_mapping = {
+                    common = "Common",
+                    uncommon = "Uncommon",
+                    rare = "Rare",
+                    legendary = "Legendary"
+                }
+                append_value_rarity = rarity_mapping[rarity_key]
+            end
             G.E_MANAGER:add_event(Event({
                 trigger = "after",
                 func = function()
                     local c = SMODS.create_card {
+                        key = special_recipe or nil,
                         set = "Joker",
                         rarity = append_value_rarity,
                         key_append = "crafted_by_bag",

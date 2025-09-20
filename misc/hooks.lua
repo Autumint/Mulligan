@@ -1042,19 +1042,35 @@ function Card:add_to_deck(from_debuff)
     old_add_to_deck(self, from_debuff)
     if G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac" then
         if self.ability.set == "Joker" and not self.is_crafted then
-            local chance_spawn = 0
+            local chance_spawn = 2
+            local rarity = self.config.center.rarity
             self:start_dissolve()
             if SMODS.pseudorandom_probability(card, 'destiny_drop', 1, 2) then
                 chance_spawn = 3
-            else
-                chance_spawn = 2
+            end
+            if rarity == 3 then
+                chance_spawn = 3
             end
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
-                local spawn_count = math.min(chance_spawn, G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
+                local spawn_count = math.min(chance_spawn,
+                    G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
                 G.GAME.consumeable_buffer = G.GAME.consumeable_buffer + spawn_count
                 local chosen_type = { 'Tarot', 'Spectral', 'Planet' }
+                if rarity == 1 then
+                    chosen_type = { 'Tarot', 'Planet' }
+                end
+                if rarity == 2 then
+                    chosen_type = { 'Tarot', 'Planet' }
+                end
                 G.E_MANAGER:add_event(Event({
                     func = function()
+                        if rarity == 3 and spawn_count > 0 then
+                            SMODS.add_card {
+                                set = 'Spectral',
+                                key_append = 'createdbydestiny'
+                            }
+                            spawn_count = spawn_count - 1
+                        end
                         for i = 1, spawn_count do
                             local chosen_consumable = pseudorandom_element(chosen_type, 'tdec_tzodiac')
                             SMODS.add_card {
@@ -1070,6 +1086,7 @@ function Card:add_to_deck(from_debuff)
         end
     end
 end
+
 
 
 
