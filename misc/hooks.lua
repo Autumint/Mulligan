@@ -1037,6 +1037,13 @@ function add_round_eval_row(config)
     return ref_eval_row(config)
 end
 
+local function has_sticker(tbl, sticker)
+    for _, s in ipairs(tbl) do
+        if s == sticker then return true end
+    end
+    return false
+end
+
 local old_add_to_deck = Card.add_to_deck
 function Card:add_to_deck(from_debuff)
     old_add_to_deck(self, from_debuff)
@@ -1044,6 +1051,18 @@ function Card:add_to_deck(from_debuff)
         if self.ability.set == "Joker" and not self.is_crafted then
             local chance_spawn = 2
             local rarity = self.config.center.rarity
+            local bagstickers = G.GAME.StoredStickers or {}
+            G.GAME.StoredStickers = bagstickers
+
+            if self.ability.eternal and not has_sticker(bagstickers, "eternal") then
+                table.insert(bagstickers, "eternal")
+            end
+            if self.ability.rental and not has_sticker(bagstickers, "rental") then
+                table.insert(bagstickers, "rental")
+            end
+            if self.ability.perishable and not has_sticker(bagstickers, "perishable") then
+                table.insert(bagstickers, "perishable")
+            end
             self:start_dissolve()
             if SMODS.pseudorandom_probability(card, 'destiny_drop', 1, 2) then
                 chance_spawn = 3
@@ -1060,7 +1079,11 @@ function Card:add_to_deck(from_debuff)
                     chosen_type = { 'Tarot', 'Planet' }
                 end
                 if rarity == 2 then
-                    chosen_type = { 'Tarot', 'Planet' }
+                    if SMODS.pseudorandom_probability(card, 'destiny_spectral', 1, 2) then
+                        chosen_type = { 'Tarot', 'Planet', 'Spectral' }
+                    else
+                        chosen_type = { 'Tarot', 'Planet' }
+                    end
                 end
                 G.E_MANAGER:add_event(Event({
                     func = function()

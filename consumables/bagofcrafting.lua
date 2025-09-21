@@ -87,7 +87,7 @@ local special_recipes = {
     },
     {
         range = { 3, 5 },
-        key = "j_gluttonous_joker",
+        key = "j_gluttenous_joker",
         requires = { "c_moon" },
         excludes = { "c_world", "c_stars", "c_sun" },
     },
@@ -420,7 +420,17 @@ SMODS.Consumable {
                         c.is_crafted = true
                         G.jokers:emplace(c)
                         c:add_to_deck()
+
+                        for _, stk in ipairs(G.GAME.StoredStickers) do
+                            if stk == "eternal" and not c.config.center.eternal_compat then
+                            elseif stk == "perishable" and not c.config.center.perishable_compat then
+                            else
+                                c:add_sticker(stk, true)
+                            end
+                        end
+
                         G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                        G.GAME.StoredStickers = {}
                         return true
                     end
                 }))
@@ -482,6 +492,7 @@ function Game:start_run(args)
                 G.GAME.CRAFTINGBAGLOADED = true
                 G.GAME.CraftingBag = {}
                 G.GAME.CraftingBagOpen = false
+                G.GAME.StoredStickers = {}
                 return true
             end
         }))
