@@ -422,8 +422,12 @@ SMODS.Consumable {
                         c:add_to_deck()
 
                         for _, stk in ipairs(G.GAME.StoredStickers) do
-                            if stk == "eternal" and not c.config.center.eternal_compat then
+                            if stk == "perishable" and has_sticker(G.GAME.StoredStickers, "eternal") then
+
+                            elseif stk == "eternal" and not c.config.center.eternal_compat then
+
                             elseif stk == "perishable" and not c.config.center.perishable_compat then
+
                             else
                                 c:add_sticker(stk, true)
                             end

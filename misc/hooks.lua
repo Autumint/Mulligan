@@ -1037,7 +1037,7 @@ function add_round_eval_row(config)
     return ref_eval_row(config)
 end
 
-local function has_sticker(tbl, sticker)
+function has_sticker(tbl, sticker)
     for _, s in ipairs(tbl) do
         if s == sticker then return true end
     end
@@ -1137,7 +1137,6 @@ function G.FUNCS.can_select_card(e)
     end
     return orig_booster_select(e)
 end
-
 
 
 
