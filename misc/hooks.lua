@@ -1087,6 +1087,34 @@ function Card:add_to_deck(from_debuff)
     end
 end
 
+local old_check_for_buy_space = G.FUNCS.check_for_buy_space
+function G.FUNCS.check_for_buy_space(card)
+    if
+        G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac"
+    then
+        return true
+    end
+    return old_check_for_buy_space(card)
+end
+
+local orig_can_use = Card.can_use_consumeable
+function Card:can_use_consumeable(area, copier)
+    if G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac" and self.config.center.key == "c_judgement" then
+        return true
+    end
+    return orig_can_use(self, area, copier)
+end
+
+local orig_booster_select = G.FUNCS.can_select_card
+function G.FUNCS.can_select_card(e)
+    if G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac" then
+        e.config.colour = G.C.GREEN
+        e.config.button = 'use_card'
+        return true
+    end
+    return orig_booster_select(e)
+end
+
 
 
 

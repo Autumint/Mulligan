@@ -37,7 +37,7 @@ local crafting_consumable_values = {
     c_hex            = 2,
 }
 
-local function roll_joker_rarity(total_value)
+local function check_joker_rarity(total_value)
     if total_value >= 12 then
         return "legendary"
     elseif total_value >= 9 then
@@ -114,68 +114,64 @@ local special_recipes = {
     {
         range = { 3, 5 },
         key = "j_scholar",
-        requires = { "c_grim" },
+        requires = { "c_grim", "c_heirophant", "c_empress" },
     },
     {
-        range = { 3, 5 },
-        key = "j_half",
-        requires = { "c_hanged_man", "c_immolate" },
-    },
-    {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_rough_gem",
-        requires = { "c_stars" },
+        requires = { "c_stars", "c_hermit" },
         excludes = { "c_world", "c_moon", "c_sun" },
         priority = 1
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_bloodstone",
-        requires = { "c_sun" },
+        requires = { "c_sun", "c_chariot", "c_hex" },
         excludes = { "c_world", "c_moon", "c_stars" },
         priority = 1
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_arrowhead",
-        requires = { "c_world" },
+        requires = { "c_world", "c_heirophant" },
         excludes = { "c_stars", "c_moon", "c_sun" },
         priority = 1
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_onyx_agate",
-        requires = { "c_moon" },
+        requires = { "c_moon", "c_empress" },
         excludes = { "c_world", "c_stars", "c_sun" },
         priority = 1
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_ceremonial",
         requires = { "c_ankh", "c_empress" },
+    },
+    {
+        range = { 6, 8 },
+        key = "j_stencil",
+        requires = { "c_ankh", "c_hex" },
+        excludes = { "c_judgement" },
         priority = 1
     },
     {
-        range = { 6, 9 },
-        key = "j_stencil",
-        requires = { "c_ankh" },
-    },
-    {
-        range = { 6, 9 },
-        key = "j_steel",
-        requires = { "c_chariot" },
+        range = { 6, 8 },
+        key = "j_steel_joker",
+        requires = { "c_chariot", "c_hex" },
         excludes = { "c_justice" }
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_glass",
-        requires = { "c_justice" },
+        requires = { "c_justice", "c_hex" },
         excludes = { "c_chariot" }
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_pareidolia",
-        requires = { "c_familiar" },
+        requires = { "c_familiar", "c_hex" },
         excludes = { "c_incantation" },
     },
     {
@@ -186,43 +182,53 @@ local special_recipes = {
         priority = 2
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_sock_and_buskin",
         requires = { "c_familiar", "c_deja_vu" },
         excludes = { "c_incantation" },
-        priority = 1
+        priority = 2
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_satellite",
-        requires = { "c_hermit" },
+        requires = { "c_trance", "c_hermit" },
+        excludes = { "c_high_priestess" },
         requires_any = { "c_pluto", "c_mercury", "c_uranus", "c_venus", "c_saturn", "c_earth", "c_mars", "c_neptune", "c_planet_x", "c_ceres", "c_eris" },
         priority = 1
     },
     {
-        range = { 6, 9 },
+        range = { 6, 8 },
         key = "j_space",
-        requires = { "c_trance" },
+        requires = { "c_trance", "c_wheel_of_fortune" },
+        excludes = { "c_hermit", "c_high_priestess" },
         requires_any = { "c_pluto", "c_mercury", "c_uranus", "c_venus", "c_saturn", "c_earth", "c_mars", "c_neptune", "c_planet_x", "c_ceres", "c_eris" },
         priority = 1
     },
     {
-        range = { 5, 9 },
+        range = { 5, 8 },
         key = "j_constellation",
-        requires = { "c_high_priestess" },
+        requires = { "c_trance", "c_high_priestess" },
+        excludes = { "c_hermit", "c_wheel_of_fortune" },
         requires_any = { "c_pluto", "c_mercury", "c_uranus", "c_venus", "c_saturn", "c_earth", "c_mars", "c_neptune", "c_planet_x", "c_ceres", "c_eris" },
         priority = 1
     },
     {
-        range = { 5, 9 },
+        range = { 5, 8 },
         key = "j_seeing_double",
-        requires = { "c_moon", "c_death" },
+        requires = { "c_moon", "c_cryptid" },
         requires_any = { "c_sun", "c_world", "c_stars" },
+        priority = 1
+    },
+    {
+        range = { 5, 8 },
+        key = "j_egg",
+        requires = { "c_temperance", "c_hex" },
         priority = 1
     },
     {
         range = { 6, 9 },
         key = "j_cartomancer",
+        priority = 2,
         special = function(bag)
             for _, k in ipairs(bag) do
                 if k ~= "c_fool" and k ~= "c_emperor" then
@@ -297,29 +303,37 @@ SMODS.Consumable {
         local stored = G.GAME.CraftingBag and #G.GAME.CraftingBag or 0
         local status_text = stored .. "/3 Collected"
         local colour = G.C.MONEY
+        local total = 0
 
         if G.GAME.CraftingBag and #G.GAME.CraftingBag > 0 then
             for _, key in ipairs(G.GAME.CraftingBag) do
-                local center = G.P_CENTERS[key]
-                if center then
-                    info_queue[#info_queue + 1] = center
+                local heldcons = G.P_CENTERS[key]
+                if heldcons then
+                    info_queue[#info_queue + 1] = heldcons
                 end
+                total = total + (crafting_consumable_values[key] or 1)
             end
         end
 
-        if stored == 3 then
-            local total = 0
-            for _, key in ipairs(G.GAME.CraftingBag) do
-                total = total + (crafting_consumable_values[key] or 1)
-            end
-            local special_recipe = get_special_recipe(G.GAME.CraftingBag)
+        local colour2 = G.C.GREY
+        if total >= 12 then
+            colour2 = G.C.PURPLE
+        elseif total >= 9 then
+            colour2 = G.C.RED
+        elseif total >= 6 then
+            colour2 = G.C.GREEN
+        elseif total >= 3 then
+            colour2 = G.C.BLUE
+        end
 
+        if stored == 3 then
+            local special_recipe = get_special_recipe(G.GAME.CraftingBag)
             if special_recipe then
                 local recipe = G.P_CENTERS[special_recipe]
                 status_text = recipe.name
                 colour = G.C.GREEN
             else
-                local rarity = has_special and "legendary" or roll_joker_rarity(total)
+                local rarity = check_joker_rarity(total)
                 if rarity == "common" then
                     colour = G.C.BLUE
                     status_text = "Common"
@@ -346,6 +360,13 @@ SMODS.Consumable {
                         config = { align = "m", colour = colour, r = 0.02, padding = 0.1 },
                         nodes = {
                             { n = G.UIT.T, config = { text = status_text, colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
+                        }
+                    },
+                    {
+                        n = G.UIT.C,
+                        config = { align = "m", colour = colour2, r = 0.02, padding = 0.1 },
+                        nodes = {
+                            { n = G.UIT.T, config = { text = (total == 0 and "No Value") or ("Value: " .. total), colour = G.C.UI.TEXT_LIGHT, scale = 0.3, shadow = true } }
                         }
                     }
                 }
@@ -375,7 +396,7 @@ SMODS.Consumable {
                 rarity_key = nil
                 append_value_rarity = nil
             else
-                rarity_key = roll_joker_rarity(total)
+                rarity_key = check_joker_rarity(total)
                 local rarity_mapping = {
                     common = "Common",
                     uncommon = "Uncommon",
@@ -384,21 +405,28 @@ SMODS.Consumable {
                 }
                 append_value_rarity = rarity_mapping[rarity_key]
             end
-            G.E_MANAGER:add_event(Event({
-                trigger = "after",
-                func = function()
-                    local c = SMODS.create_card {
-                        key = special_recipe or nil,
-                        set = "Joker",
-                        rarity = append_value_rarity,
-                        key_append = "crafted_by_bag",
-                    }
-                    c.is_crafted = true
-                    G.jokers:emplace(c)
-                    c:add_to_deck()
-                    return true
-                end
-            }))
+
+            if #G.jokers.cards + G.GAME.joker_buffer < G.jokers.config.card_limit then
+                G.GAME.joker_buffer = G.GAME.joker_buffer + 1
+                G.E_MANAGER:add_event(Event({
+                    trigger = "after",
+                    func = function()
+                        local c = SMODS.create_card {
+                            key = special_recipe or nil,
+                            set = "Joker",
+                            rarity = append_value_rarity,
+                            key_append = "crafted_by_bag",
+                        }
+                        c.is_crafted = true
+                        G.jokers:emplace(c)
+                        c:add_to_deck()
+                        G.GAME.joker_buffer = G.GAME.joker_buffer - 1
+                        return true
+                    end
+                }))
+            else
+
+            end
 
             G.GAME.CraftingBag = {}
             G.GAME.CraftingBagOpen = false
@@ -420,31 +448,29 @@ SMODS.Consumable {
     end,
 }
 
-do
-    local orig_use = Card.use_consumeable
-    function Card:use_consumeable(area, copier)
-        local used_key = self.config.center.key
 
-        if G.GAME.CraftingBagOpen and used_key ~= "c_tdec_bagofcrafting" then
-            if #G.GAME.CraftingBag < 3 then
-                table.insert(G.GAME.CraftingBag, used_key)
-            else
-                G.GAME.CraftingBag[3] = used_key
-            end
-            return
+local orig_use = Card.use_consumeable
+function Card:use_consumeable(area, copier)
+    local used_key = self.config.center.key
+
+    if G.GAME.CraftingBagOpen and used_key ~= "c_tdec_bagofcrafting" then
+        if #G.GAME.CraftingBag < 3 then
+            table.insert(G.GAME.CraftingBag, used_key)
+        else
+            table.remove(G.GAME.CraftingBag, 1)
+            table.insert(G.GAME.CraftingBag, used_key)
         end
-        return orig_use(self, area, copier)
+        return
     end
+    return orig_use(self, area, copier)
 end
 
-do
-    local orig_can_use = Card.can_use_consumeable
-    function Card:can_use_consumeable(area, copier)
-        if G.GAME.CraftingBagOpen and self.config.center.key ~= "c_tdec_bagofcrafting" then
-            return true
-        end
-        return orig_can_use(self, area, copier)
+local orig_can_use = Card.can_use_consumeable
+function Card:can_use_consumeable(area, copier)
+    if G.GAME.CraftingBagOpen and self.config.center.key ~= "c_tdec_bagofcrafting" then
+        return true
     end
+    return orig_can_use(self, area, copier)
 end
 
 local start_run_refbag = Game.start_run
