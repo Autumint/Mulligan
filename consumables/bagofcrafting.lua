@@ -342,7 +342,7 @@ SMODS.Consumable {
 
         if G.GAME.CraftingBag and #G.GAME.CraftingBag > 0 then
             for _, key in ipairs(G.GAME.CraftingBag) do
-                local heldcons = {set = set, key = key}
+                local heldcons = G.P_CENTERS[key]
                 if heldcons then
                     info_queue[#info_queue + 1] = heldcons
                 end
