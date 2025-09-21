@@ -1,6 +1,7 @@
-# Tainted-Decks
-Implementation of Tainted Decks for Balatro. Inspired by The Binding of Isaac's tainted characters.
+# Balatro: Mulligan
+Implementation of Tainted Decks, Jokers and More for Balatro. Inspired by The Binding of Isaac: Repentance
 
+# Decks
 ---
 
 ## Curdled Deck 
