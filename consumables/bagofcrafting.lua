@@ -226,6 +226,41 @@ local special_recipes = {
         priority = 1
     },
     {
+        range = { 0, 100 },
+        key = "j_perkeo",
+        requires = { "c_soul", "c_fool", "c_cryptid" },
+        priority = 10,
+        exact_total = 16
+    },
+    {
+        range = { 0, 100 },
+        key = "j_triboulet",
+        requires = { "c_soul", "c_familiar", "c_hex" },
+        priority = 10,
+        exact_total = 14
+    },
+    {
+        range = { 0, 100 },
+        key = "j_caino",
+        requires = { "c_soul", "c_familiar", "c_immolate" },
+        priority = 10,
+        exact_total = 15
+    },
+    {
+        range = { 0, 100 },
+        key = "j_yorick",
+        requires = { "c_soul", "c_immolate", "c_hanged_man" },
+        priority = 10,
+        exact_total = 16
+    },
+    {
+        range = { 0, 100 },
+        key = "j_chicot",
+        requires = { "c_soul", "c_ectoplasm", "c_hanged_man" },
+        priority = 10,
+        exact_total = 16
+    },
+    {
         range = { 6, 9 },
         key = "j_cartomancer",
         priority = 2,
@@ -307,7 +342,7 @@ SMODS.Consumable {
 
         if G.GAME.CraftingBag and #G.GAME.CraftingBag > 0 then
             for _, key in ipairs(G.GAME.CraftingBag) do
-                local heldcons = G.P_CENTERS[key]
+                local heldcons = {set = set, key = key}
                 if heldcons then
                     info_queue[#info_queue + 1] = heldcons
                 end

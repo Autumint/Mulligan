@@ -580,7 +580,7 @@ local set_textref = Blind.set_text
 function Blind:set_text()
     set_textref(self)
     if self.config.blind.hidden then
-        self.loc_name = "The Famine"
+        self.loc_name = "Famine"
         self.loc_debuff_lines = {
             "-1 Hand Size",
             "-1 Discard Limit"
@@ -1048,7 +1048,7 @@ local old_add_to_deck = Card.add_to_deck
 function Card:add_to_deck(from_debuff)
     old_add_to_deck(self, from_debuff)
     if G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac" then
-        if self.ability.set == "Joker" and not self.is_crafted then
+        if self.ability.set == "Joker" and self.config.center.key ~= "j_tdec_photoquestion" and not self.is_crafted then
             local chance_spawn = 2
             local rarity = self.config.center.rarity
             local bagstickers = G.GAME.StoredStickers or {}

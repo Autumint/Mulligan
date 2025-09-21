@@ -1,7 +1,8 @@
 -- famine effect
 SMODS.Blind {
     key = "famine",
-    pos = { x = 0, y = 25 },
+    atlas = "Beast_Atlas",
+    pos = { x = 0, y = 3 },
     mult = 4,
     boss = { min = 1 },
     boss_colour = HEX("675b5b"),
@@ -23,7 +24,8 @@ SMODS.Blind {
 -- pestilence effect
 SMODS.Blind {
     key = "pestilence",
-    pos = { x = 0, y = 25 },
+    atlas = "Beast_Atlas",
+    pos = { x = 0, y = 0 },
     mult = 4,
     boss = { min = 1 },
     boss_colour = HEX("008000"),
@@ -98,7 +100,8 @@ SMODS.Blind {
 -- war effect
 SMODS.Blind {
     key = "war",
-    pos = { x = 0, y = 25 },
+    atlas = "Beast_Atlas",
+    pos = { x = 0, y = 1 },
     mult = 4,
     boss = { min = 1 },
     boss_colour = HEX("ff000d"),
@@ -161,10 +164,11 @@ SMODS.Blind {
 -- death effect
 SMODS.Blind {
     key = "death",
-    pos = { x = 0, y = 25 },
+    atlas = "Beast_Atlas",
+    pos = { x = 0, y = 2 },
     mult = 4,
     boss = { min = 1 },
-    boss_colour = HEX("fbfbfd"),
+    boss_colour = HEX("ecf0f9"),
     tdecks_next_phase = "bl_tdec_beast",
 
     in_pool = function(self)
@@ -205,7 +209,8 @@ end
 -- beast effect
 SMODS.Blind {
     key = "beast",
-    pos = { x = 0, y = 25 },
+    atlas = "Beast_Atlas",
+    pos = { x = 0, y = 4 },
     mult = 10,
     boss = { min = 1 },
     boss_colour = HEX("a84024"),
