@@ -213,7 +213,7 @@ SMODS.Blind {
     pos = { x = 0, y = 4 },
     mult = 10,
     boss = { min = 1 },
-    boss_colour = HEX("a84024"),
+    boss_colour = HEX("ffcf5047"),
     score_invisible = true,
 
     calculate = function(self, blind, context)

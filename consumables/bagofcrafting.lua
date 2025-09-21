@@ -339,18 +339,17 @@ SMODS.Consumable {
         local status_text = stored .. "/3 Collected"
         local colour = G.C.MONEY
         local total = 0
+
         if G.GAME.CraftingBag and #G.GAME.CraftingBag > 0 then
             for _, key in ipairs(G.GAME.CraftingBag) do
                 local heldcons = G.P_CENTERS[key]
                 if heldcons then
-                    info_queue[#info_queue + 1] = {
-                        key = heldcons.key,
-                        set = heldcons.set,
-                    }
+                    info_queue[#info_queue + 1] = heldcons
                 end
                 total = total + (crafting_consumable_values[key] or 1)
             end
         end
+
         local colour2 = G.C.GREY
         if total >= 12 then
             colour2 = G.C.PURPLE

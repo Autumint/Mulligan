@@ -1,13 +1,13 @@
 return {
     descriptions = {
         Mod = {
-            TaintedDecks = {
+            Mulligan = {
                 name = "Tainted Decks",
                 text = {
                     "- Adds tainted decks, inspired by TBOI, implemented by",
                     "{C:attention}Autumint{} and {C:attention}lord.ruby{}.",
-                    "- Featuring sprites from {C:attention}lord.ruby{}",
-                    "- {C:blue}Abyss Card{} and {C:blue}Flip Card{} sprites by {C:attention}danihunn{}"
+                    "- Featuring sprites by {C:attention}lord.ruby{} and {C:attention}MrCr33ps{}",
+                    "- {C:blue}Abyss Card{} and {C:blue}Flip Card{} sprites by {C:attention}danihunn{}",
                 }
             }
         },
@@ -19,21 +19,21 @@ return {
                 }
             },
             bl_tdec_pestilence = {
-                name = "The Pestilence",
+                name = "Pestilence",
                 text = {
                     "Debuff cards depending on",
                     "deck size per hand played"
                 }
             },
             bl_tdec_war = {
-                name = "The War",
+                name = "War",
                 text = {
                     "Destroy 3 random",
                     "cards per hand played",
                 }
             },
             bl_tdec_death = {
-                name = "The Death",
+                name = "Death",
                 text = {
                     "1 in 4 chance",
                     "for jokers to not trigger"
