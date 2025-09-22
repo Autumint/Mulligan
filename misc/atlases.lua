@@ -98,3 +98,10 @@ SMODS.Atlas{
     px = 333,
     py = 216
 }
+
+SMODS.Atlas {
+    key = "Ace_Atlas",
+    path = "tainted_ace.png",
+    px = 71,
+    py = 95
+}

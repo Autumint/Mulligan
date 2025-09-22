@@ -23,6 +23,7 @@ local files = {
     "misc/larea",
     "misc/globcalc",
     "misc/functions",
+    "misc/placeholders",
 
     "decks/t_checkered",
     "decks/t_erratic",
