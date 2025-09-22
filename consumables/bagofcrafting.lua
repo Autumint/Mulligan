@@ -354,7 +354,7 @@ SMODS.Consumable {
         end
 
         local colour2 = G.C.GREY
-        if total >= 12 then
+        if total >= 16 then
             colour2 = G.C.PURPLE
         elseif total >= 9 then
             colour2 = G.C.RED
