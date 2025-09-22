@@ -15,7 +15,7 @@ local crafting_consumable_values = {
     c_trance           = 5,
     c_talisman         = 5,
     c_medium           = 4,
-    c_death            = 4,
+    c_death            = 3,
     c_hermit           = 4,
     c_justice          = 3,
     c_chariot          = 3,
@@ -38,7 +38,6 @@ local crafting_consumable_values = {
     c_strength         = 3,
     c_lovers           = 2,
     c_wheel_of_fortune = 2,
-    c_judgement        = 3,
 }
 
 local function check_joker_rarity(total_value)
@@ -332,7 +331,7 @@ end
 
 SMODS.Consumable {
     atlas = "tainted_atlas",
-    pos = { x = 6, y = 1 },
+    pos = { x = 1, y = 2 },
     unlocked = true,
     discovered = true,
     key = "bagofcrafting",
@@ -355,7 +354,7 @@ SMODS.Consumable {
         end
 
         local colour2 = G.C.GREY
-        if total >= 16 then
+        if total >= 12 then
             colour2 = G.C.PURPLE
         elseif total >= 9 then
             colour2 = G.C.RED
@@ -423,7 +422,7 @@ SMODS.Consumable {
 
     use = function(self, card, area, copier)
         if #G.GAME.CraftingBag == 3 then
-            card:juice_up()
+            card:flip()
             local total = 0
             for _, key in ipairs(G.GAME.CraftingBag) do
                 total = total + (crafting_consumable_values[key] or 1)
@@ -485,7 +484,7 @@ SMODS.Consumable {
             G.GAME.CraftingBagOpen = false
         else
             G.GAME.CraftingBagOpen = not G.GAME.CraftingBagOpen
-            card:juice_up(0.8, 0.8)
+            card:flip()
             G.E_MANAGER:add_event(Event({
                 func = function()
                     card_eval_status_text(card, "extra", nil, nil, nil,

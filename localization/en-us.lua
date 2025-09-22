@@ -6,8 +6,8 @@ return {
                 text = {
                     "- Adds tainted decks, inspired by TBOI, implemented by",
                     "{C:attention}Autumint{} and {C:attention}lord.ruby{}.",
-                    "- Featuring sprites by {C:attention}lord.ruby{} and {C:attention}MrCr33ps{}",
-                    "- {C:blue}Abyss Card{} and {C:blue}Flip Card{} sprites by {C:attention}danihunn{}",
+                    "- Featuring sprites by {C:attention}lord.ruby{}, {C:attention}MrCr33ps{} and {C:attention}danihunn{}",
+                    "- Extra credits go to {C:attention}MaxBoi{}"
                 }
             }
         },

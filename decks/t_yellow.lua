@@ -19,11 +19,11 @@ SMODS.Back{
             trigger = 'after',
             func = function()
                 if G.pactive_area then
-                    local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_turnover")
+                    local c = SMODS.create_card({key = "c_tdec_turnover", no_edition = true})
                     c:add_to_deck()
-                    table.insert(G.pactive_area.cards, c)
-                    c.area = G.pactive_area
+                    G.pactive_area:emplace(c)
                     c:align()
+                    c:flip()
                 end
                 return true
             end

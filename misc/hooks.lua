@@ -1141,6 +1141,20 @@ function G.FUNCS.can_select_card(e)
     return orig_booster_select(e)
 end
 
+local card_hover_ref = Card.hover
+function Card:hover()
+    card_hover_ref(self)
+    if G.GAME and self.facing == 'back' and (not self.states.drag.is or G.CONTROLLER.HID.touch) and not self.no_ui and self.area == G.pactive_area then
+        if self.children.alert and not self.config.center.alerted then
+            self.config.center.alerted = true
+            G:save_progress()
+        end
+        self.ability_UIBox_table = self:generate_UIBox_ability_table()
+        self.config.h_popup = G.UIDEF.card_h_popup(self)
+        self.config.h_popup_config = self:align_h_popup()
+        Node.hover(self)
+    end
+end
 
 
 

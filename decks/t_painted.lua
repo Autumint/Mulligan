@@ -32,21 +32,31 @@ SMODS.Back{
     apply = function(self)
         G.GAME.modifiers.tainted_painted = true
         G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        func = function()
-            local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_thechisel") 
-            c:add_to_deck()
-            G.pactive_area:emplace(c)  
-            return true
-        end}))
-     G.E_MANAGER:add_event(Event({
-        trigger = 'after',
-        func = function()
-            local c = create_card("taintedcards", G.pactive_area, nil, nil, nil, nil, "c_tdec_thesketch") 
-            c:add_to_deck()
-            G.pactive_area:emplace(c)  
-            return true
-        end}))
+            trigger = 'after',
+            func = function()
+                if G.pactive_area then
+                    local c = SMODS.create_card({key = "c_tdec_thechisel", no_edition = true})
+                    c:add_to_deck()
+                    G.pactive_area:emplace(c)
+                    c:align()
+                    c:flip()
+                end
+                return true
+            end
+        }))
+        G.E_MANAGER:add_event(Event({
+            trigger = 'after',
+            func = function()
+                if G.pactive_area then
+                    local c = SMODS.create_card({key = "c_tdec_thesketch", no_edition = true})
+                    c:add_to_deck()
+                    G.pactive_area:emplace(c)
+                    c:align()
+                    c:flip()
+                end
+                return true
+            end
+        }))
     end,
 
     calculate = function(self, card, context)
