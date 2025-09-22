@@ -1,4 +1,5 @@
 
+![alt text](https://github.com/Autumint/Mulligan/blob/test/assets/1x/mulligantext.png)
 ![alt text](https://github.com/Autumint/Mulligan/blob/test/assets/2x/mod_icon.png)
 # Balatro: Mulligan 
 
