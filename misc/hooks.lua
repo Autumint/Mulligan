@@ -1046,7 +1046,6 @@ end
 
 local old_add_to_deck = Card.add_to_deck
 function Card:add_to_deck(from_debuff)
-    old_add_to_deck(self, from_debuff)
     if G.GAME.selected_back.effect.center.key == "b_tdec_tainted_zodiac" then
         if self.ability.set == "Joker" and self.config.center.key ~= "j_tdec_photoquestion" and not self.is_crafted then
             local chance_spawn = 2
@@ -1070,6 +1069,9 @@ function Card:add_to_deck(from_debuff)
             if rarity == 3 then
                 chance_spawn = 3
             end
+            if rarity == 4 then
+                chance_spawn = 5
+            end
             if #G.consumeables.cards + G.GAME.consumeable_buffer < G.consumeables.config.card_limit then
                 local spawn_count = math.min(chance_spawn,
                     G.consumeables.config.card_limit - (#G.consumeables.cards + G.GAME.consumeable_buffer))
@@ -1087,7 +1089,7 @@ function Card:add_to_deck(from_debuff)
                 end
                 G.E_MANAGER:add_event(Event({
                     func = function()
-                        if rarity == 3 and spawn_count > 0 then
+                        if (rarity == 3 or rarity == 4) and spawn_count > 0 then
                             SMODS.add_card {
                                 set = 'Spectral',
                                 key_append = 'createdbydestiny'
@@ -1108,6 +1110,7 @@ function Card:add_to_deck(from_debuff)
             end
         end
     end
+    return old_add_to_deck(self, from_debuff)
 end
 
 local old_check_for_buy_space = G.FUNCS.check_for_buy_space
