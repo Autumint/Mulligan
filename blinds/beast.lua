@@ -28,7 +28,7 @@ SMODS.Blind {
     pos = { x = 0, y = 0 },
     mult = 4,
     boss = { min = 1 },
-    boss_colour = HEX("008000"),
+    boss_colour = HEX("2d521a"),
     tdecks_next_phase = "bl_tdec_war",
 
     calculate = function(self, blind, context)
@@ -104,7 +104,7 @@ SMODS.Blind {
     pos = { x = 0, y = 1 },
     mult = 4,
     boss = { min = 1 },
-    boss_colour = HEX("ff000d"),
+    boss_colour = HEX("d6654d"),
     tdecks_next_phase = "bl_tdec_death",
 
     in_pool = function(self)
@@ -213,7 +213,7 @@ SMODS.Blind {
     pos = { x = 0, y = 4 },
     mult = 10,
     boss = { min = 1 },
-    boss_colour = HEX("ffcf5047"),
+    boss_colour = HEX("5c1305"),
     score_invisible = true,
 
     calculate = function(self, blind, context)

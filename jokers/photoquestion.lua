@@ -45,8 +45,8 @@ SMODS.Joker {
         if G.GAME.round_resets.ante == 0 and context.setting_blind then
             G.GAME.modifiers.photoq_switch = true
             if G.GAME.selected_back.effect.center.key ~= "b_tdec_tainted_ghost" then
-                G.GAME.round_resets.hands = G.GAME.round_resets.hands + 2
-                ease_hands_played(2)
+                G.GAME.round_resets.hands = G.GAME.round_resets.hands + 1
+                ease_hands_played(1)
                 return {
                     message = "+2 hands",
                     colour = G.C.BLUE
@@ -61,7 +61,7 @@ SMODS.Joker {
 
         if G.GAME.round_resets.ante == 0 and context.joker_main then
             if G.GAME.selected_back.effect.center.key ~= "b_tdec_tainted_ghost" then
-                return { xmult = 2 }
+                return { xmult = 1.5 }
             else
                 return { xmult = 3 }
             end
