@@ -1,44 +1,47 @@
 local crafting_consumable_values = {
-    c_fool           = 3,
-    c_magician       = 2,
-    c_high_priestess = 2,
-    c_mercury        = 2,
-    c_saturn         = 2,
-    c_neptune        = 2,
-    c_pluto          = 2,
-    c_ceres          = 3,
-    c_eris           = 3,
-    c_planet_x       = 3,
-    c_soul           = 10,
-    c_black_hole     = 10,
-    c_ectoplasm      = 3,
-    c_trance         = 3,
-    c_talisman       = 3,
-    c_medium         = 2,
-    c_death          = 3,
-    c_hermit         = 3,
-    c_justice        = 3,
-    c_chariot        = 3,
-    c_temperance     = 3,
-    c_emperor        = 3,
-    c_hanged_man     = 3,
-    c_devil          = 2,
-    c_immolate       = 3,
-    c_deja_vu        = 3,
-    c_cryptid        = 3,
-    c_ouija          = 2,
-    c_wraith         = 2,
-    c_familiar       = 2,
-    c_grim           = 2,
-    c_incantation    = 2,
-    c_aura           = 2,
-    c_sigil          = 2,
-    c_ankh           = 2,
-    c_hex            = 2,
+    c_fool             = 4,
+    c_magician         = 3,
+    c_high_priestess   = 2,
+    c_mercury          = 2,
+    c_saturn           = 2,
+    c_neptune          = 2,
+    c_pluto            = 2,
+    c_ceres            = 3,
+    c_eris             = 3,
+    c_planet_x         = 3,
+    c_soul             = 10,
+    c_black_hole       = 10,
+    c_ectoplasm        = 4,
+    c_trance           = 5,
+    c_talisman         = 5,
+    c_medium           = 4,
+    c_death            = 3,
+    c_hermit           = 4,
+    c_justice          = 3,
+    c_chariot          = 3,
+    c_temperance       = 4,
+    c_emperor          = 3,
+    c_hanged_man       = 4,
+    c_devil            = 3,
+    c_immolate         = 5,
+    c_deja_vu          = 5,
+    c_cryptid          = 5,
+    c_ouija            = 5,
+    c_wraith           = 3,
+    c_familiar         = 3,
+    c_grim             = 3,
+    c_incantation      = 3,
+    c_aura             = 3,
+    c_sigil            = 3,
+    c_ankh             = 3,
+    c_hex              = 3,
+    c_strength         = 3,
+    c_lovers           = 2,
+    c_wheel_of_fortune = 2,
 }
 
 local function check_joker_rarity(total_value)
-    if total_value >= 12 then
+    if total_value >= 16 then
         return "legendary"
     elseif total_value >= 9 then
         return "rare"
@@ -68,128 +71,128 @@ end
 
 local special_recipes = {
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_greedy_joker",
         requires = { "c_stars" },
         excludes = { "c_world", "c_moon", "c_sun" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_lusty_joker",
         requires = { "c_sun" },
-        excludes = { "c_world", "c_moon", "c_stars" },
+        excludes = { "c_world", "c_moon", "c_star" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_wrathful_joker",
         requires = { "c_world" },
-        excludes = { "c_stars", "c_moon", "c_sun" },
+        excludes = { "c_star", "c_moon", "c_sun" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_gluttenous_joker",
         requires = { "c_moon" },
-        excludes = { "c_world", "c_stars", "c_sun" },
+        excludes = { "c_world", "c_star", "c_sun" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_credit_card",
-        requires = { "c_wraith", "c_hermit" },
+        requires = { "c_wraith" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_marble",
         requires = { "c_tower", "c_incantation" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_8_ball",
         requires = { "c_emperor", "c_wheel_of_fortune" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_scary_face",
         requires = { "c_familiar", "c_heirophant" },
     },
     {
-        range = { 3, 5 },
+        range = { 0, 5 },
         key = "j_scholar",
         requires = { "c_grim", "c_heirophant", "c_empress" },
     },
     {
-        range = { 6, 8 },
+        range = { 4, 6 },
         key = "j_rough_gem",
-        requires = { "c_stars", "c_hermit" },
+        requires = { "c_star", "c_hermit" },
         excludes = { "c_world", "c_moon", "c_sun" },
         priority = 1
     },
     {
-        range = { 6, 8 },
+        range = { 4, 7 },
         key = "j_bloodstone",
         requires = { "c_sun", "c_chariot", "c_hex" },
-        excludes = { "c_world", "c_moon", "c_stars" },
+        excludes = { "c_world", "c_moon", "c_star" },
         priority = 1
     },
     {
-        range = { 6, 8 },
+        range = { 4, 8 },
         key = "j_arrowhead",
         requires = { "c_world", "c_heirophant" },
-        excludes = { "c_stars", "c_moon", "c_sun" },
+        excludes = { "c_star", "c_moon", "c_sun" },
         priority = 1
     },
     {
-        range = { 6, 8 },
+        range = { 4, 8 },
         key = "j_onyx_agate",
         requires = { "c_moon", "c_empress" },
-        excludes = { "c_world", "c_stars", "c_sun" },
+        excludes = { "c_world", "c_star", "c_sun" },
         priority = 1
     },
     {
-        range = { 6, 8 },
+        range = { 4, 8 },
         key = "j_ceremonial",
         requires = { "c_ankh", "c_empress" },
     },
     {
-        range = { 6, 8 },
+        range = { 4, 8 },
         key = "j_stencil",
         requires = { "c_ankh", "c_hex" },
         excludes = { "c_judgement" },
         priority = 1
     },
     {
-        range = { 6, 8 },
+        range = { 4, 8 },
         key = "j_steel_joker",
         requires = { "c_chariot", "c_hex" },
         excludes = { "c_justice" }
     },
     {
-        range = { 6, 8 },
+        range = { 4, 8 },
         key = "j_glass",
         requires = { "c_justice", "c_hex" },
         excludes = { "c_chariot" }
     },
     {
-        range = { 6, 8 },
+        range = { 4, 7 },
         key = "j_pareidolia",
         requires = { "c_familiar", "c_hex" },
         excludes = { "c_incantation" },
     },
     {
-        range = { 6, 9 },
+        range = { 0, 10 },
         key = "j_dna",
         requires = { "c_death", "c_cryptid" },
         excludes = { "c_immolate" },
         priority = 2
     },
     {
-        range = { 6, 8 },
+        range = { 4, 9 },
         key = "j_sock_and_buskin",
         requires = { "c_familiar", "c_deja_vu" },
         excludes = { "c_incantation" },
         priority = 2
     },
     {
-        range = { 6, 8 },
+        range = { 4, 10 },
         key = "j_satellite",
         requires = { "c_trance", "c_hermit" },
         excludes = { "c_high_priestess" },
@@ -197,7 +200,7 @@ local special_recipes = {
         priority = 1
     },
     {
-        range = { 6, 8 },
+        range = { 4, 8 },
         key = "j_space",
         requires = { "c_trance", "c_wheel_of_fortune" },
         excludes = { "c_hermit", "c_high_priestess" },
@@ -205,7 +208,7 @@ local special_recipes = {
         priority = 1
     },
     {
-        range = { 5, 8 },
+        range = { 4, 8 },
         key = "j_constellation",
         requires = { "c_trance", "c_high_priestess" },
         excludes = { "c_hermit", "c_wheel_of_fortune" },
@@ -213,16 +216,16 @@ local special_recipes = {
         priority = 1
     },
     {
-        range = { 5, 8 },
+        range = { 4, 8 },
         key = "j_seeing_double",
         requires = { "c_moon", "c_cryptid" },
         requires_any = { "c_sun", "c_world", "c_stars" },
         priority = 1
     },
     {
-        range = { 5, 8 },
+        range = { 4, 8 },
         key = "j_egg",
-        requires = { "c_temperance", "c_hex" },
+        requires = { "c_temperance", "c_devil" },
         priority = 1
     },
     {
@@ -230,35 +233,35 @@ local special_recipes = {
         key = "j_perkeo",
         requires = { "c_soul", "c_fool", "c_cryptid" },
         priority = 10,
-        exact_total = 16
+        exact_total = 19
     },
     {
         range = { 0, 100 },
         key = "j_triboulet",
         requires = { "c_soul", "c_familiar", "c_hex" },
         priority = 10,
-        exact_total = 14
+        exact_total = 16
     },
     {
         range = { 0, 100 },
         key = "j_caino",
         requires = { "c_soul", "c_familiar", "c_immolate" },
         priority = 10,
-        exact_total = 15
+        exact_total = 18
     },
     {
         range = { 0, 100 },
         key = "j_yorick",
         requires = { "c_soul", "c_immolate", "c_hanged_man" },
         priority = 10,
-        exact_total = 16
+        exact_total = 19
     },
     {
         range = { 0, 100 },
         key = "j_chicot",
         requires = { "c_soul", "c_ectoplasm", "c_hanged_man" },
         priority = 10,
-        exact_total = 16
+        exact_total = 18
     },
     {
         range = { 6, 9 },

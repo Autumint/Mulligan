@@ -41,3 +41,5 @@ function spawn_beast_hp_ui()
         }
     }
 end
+
+to_big = to_big or function(x) return x end
