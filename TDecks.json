@@ -6,6 +6,6 @@
 	"description": "",
 	"prefix": "tdec",
 	"main_file": "main.lua",
-	"version": "0.5.1~alpha",
+	"version": "0.1.1~alpha",
 	"dependencies": [ "Steamodded (>=1.0.0~BETA-0827c)" ]
 }

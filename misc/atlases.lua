@@ -55,6 +55,13 @@ SMODS.Atlas {
 }
 
 SMODS.Atlas {
+    key = "modicon",
+    path = "mod_icon.png",
+    px = 34,
+    py = 34
+}
+
+SMODS.Atlas {
     key = "Photo_Atlas",
     path = "tattered_photo2.png",
     px = 71,
