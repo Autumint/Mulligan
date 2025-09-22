@@ -347,6 +347,7 @@ function end_round()
                 end
 
                 change_phase()
+                G.FUNCS.draw_from_deck_to_hand()
                 G.GAME.blind:juice_up()
                 ease_hands_played(G.GAME.round_resets.hands - G.GAME.current_round.hands_left)
                 ease_discard(
