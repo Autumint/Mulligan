@@ -1,9 +1,10 @@
-# Balatro: Mulligan ![alt text](https://github.com/Autumint/Mulligan/blob/test/assets/2x/mod_icon.png)
+
+![alt text](https://github.com/Autumint/Mulligan/blob/test/assets/2x/mod_icon.png)
+# Balatro: Mulligan 
+
 Implementation of Tainted Decks, Jokers and More for Balatro. Inspired by The Binding of Isaac: Repentance
 
 # Decks
-
----
 
 ## Curdled Deck 
 -2 Hands  
