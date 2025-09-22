@@ -48,7 +48,7 @@ SMODS.Joker {
                 G.GAME.round_resets.hands = G.GAME.round_resets.hands + 1
                 ease_hands_played(1)
                 return {
-                    message = "+2 hands",
+                    message = "+1 hands",
                     colour = G.C.BLUE
                 }
             else
