@@ -15,7 +15,6 @@ SMODS.Back({
     hidden = true
 })
 
-
 local files = {
     "misc/atlases",
     "misc/sounds",

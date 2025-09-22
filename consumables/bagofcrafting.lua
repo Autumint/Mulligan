@@ -15,7 +15,7 @@ local crafting_consumable_values = {
     c_trance           = 5,
     c_talisman         = 5,
     c_medium           = 4,
-    c_death            = 3,
+    c_death            = 4,
     c_hermit           = 4,
     c_justice          = 3,
     c_chariot          = 3,
@@ -38,6 +38,7 @@ local crafting_consumable_values = {
     c_strength         = 3,
     c_lovers           = 2,
     c_wheel_of_fortune = 2,
+    c_judgement        = 3,
 }
 
 local function check_joker_rarity(total_value)
@@ -354,7 +355,7 @@ SMODS.Consumable {
         end
 
         local colour2 = G.C.GREY
-        if total >= 12 then
+        if total >= 16 then
             colour2 = G.C.PURPLE
         elseif total >= 9 then
             colour2 = G.C.RED
