@@ -90,3 +90,11 @@ SMODS.Atlas {
     frames = 21,
     atlas_table = 'ANIMATION_ATLAS'
 }
+
+SMODS.Atlas{
+    key = 'balatro',
+    raw_key = true,
+    path = 'balalarep2.png',
+    px = 333,
+    py = 216
+}
