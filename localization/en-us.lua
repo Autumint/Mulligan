@@ -226,7 +226,9 @@ return {
             b_tdec_tainted_black = {
                 name = "Umbral Deck",
                 text = {
-                    "Start run with the {C:purple}Lemegeton{}"
+                    "Start run with",
+                    "the {C:purple,T:c_tdec_lemegeton}Lemegeton{}",
+                    "{C:red}Lifeblood{}"
                 }
             },
             b_tdec_tainted_yellow = {
