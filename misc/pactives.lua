@@ -96,7 +96,8 @@ function Game:start_run(args)
             "b_tdec_tainted_painted",
             "b_tdec_tainted_anaglyph",
             "b_tdec_tainted_checkered",
-            "b_tdec_tainted_zodiac"
+            "b_tdec_tainted_zodiac",
+            "b_tdec_tainted_black"
         }
 
         local function is_allowed(key, list)

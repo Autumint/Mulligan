@@ -335,6 +335,7 @@ ref_value = 'chips',
 ease_to = (function()
     local scored_points = SMODS.calculate_round_score()
     local effective_score = scored_points
+
     if G.GAME.blind and G.GAME.blind.config.blind and G.GAME.blind.config.blind.key == "bl_tdec_beast" and not G.GAME.BreakArmor then
         local ratio = scored_points / G.GAME.blind.chips
         local armor_factor = 1 / (1 + math.exp(-10 * (ratio - 0.5)))
@@ -345,12 +346,21 @@ ease_to = (function()
         print("reduced to: " .. effective_score)
         print("reduced by: " .. reduction)
     end
+
+    if G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_black" and G.GAME.FrailtyCount and G.GAME.FrailtyCount > 0 then
+        if G.GAME.FrailtyCount and G.GAME.FrailtyCount > 0 then
+            local reduction_factor = math.max(0, 1 - 0.5 * G.GAME.FrailtyCount)
+            effective_score = math.floor(effective_score * reduction_factor)
+        end
+    end
+
     return G.GAME.chips + math.floor(effective_score)
 end)(),
 delay = 0.5,
 func = (function(t) return math.floor(t) end)
 '''
 match_indent = true
+
 
 [[patches]]
 [patches.pattern]

@@ -220,7 +220,8 @@ local allowed_decks = {
     "b_tdec_tainted_erratic",
     "b_tdec_tainted_nebula",
     "b_tdec_tainted_checkered",
-    "b_tdec_tainted_zodiac"
+    "b_tdec_tainted_zodiac",
+    "b_tdec_tainted_black"
 }
 
 local function is_allowed(key, list)

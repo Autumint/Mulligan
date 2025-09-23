@@ -46,6 +46,7 @@ local files = {
     "consumables/abyss",
     "consumables/fervency",
     "consumables/bagofcrafting",
+    "consumables/lemegeton",
 
     "jokers/sumptorium",
     "jokers/purgatory",

@@ -388,7 +388,14 @@ return {
                     "Collect up to 3 {C:attention}Consumables{}",
                     "To create a random {C:attention}Joker{}",
                 }
-            }
+            },
+            c_tdec_lemegeton = {
+                name = "{C:purple}Lemegeton{}",
+                text = {
+                    "Create a random {C:purple}Frail Joker{}",
+                    "{C:inactive}(Currently {X:purple,C:white} #1#/8 {C:inactive} Charges)"
+                }
+            },
         },
 
         Edition = {
@@ -399,12 +406,14 @@ return {
                     "if {C:red}Sumptorium{} isn't present"
                 }
             },
-            e_tdec_ghostly = {
-                name = "Dead",
+            e_tdec_frailty = {
+                name = "Frailty",
                 text = {
-                    "{C:green}#1# in #2#{} chance to {C:attention}trigger{} the joker's effect and {}remove{} itself"
+                    "{C:purple}+1{} Joker Slot",
+                    "{C:purple}-5%{} Total Score",
                 }
-            }
+            },
+
         }
     },
     misc = {
@@ -447,6 +456,7 @@ return {
             tdec_clotting = "Clotting",
             tdec_tainted_perish = "EVERCHANGING",
             tdec_Eroding = "Eroding",
+            tdec_frailty = "Frailty"
         }
     }
 }
