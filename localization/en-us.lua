@@ -223,6 +223,12 @@ return {
                     "{C:blue}-2{} Hands"
                 }
             },
+            b_tdec_tainted_black = {
+                name = "Umbral Deck",
+                text = {
+                    "Start run with the {C:purple}Lemegeton{}"
+                }
+            },
             b_tdec_tainted_yellow = {
                 name = "Avarice Deck",
                 text = {
@@ -406,14 +412,14 @@ return {
             ach_tdec_beast_red       = "The Curdled",
             ach_tdec_beast_blue      = "The Drowned",
             ach_tdec_beast_yellow    = "The Monopoly",
-            ach_tdec_beast_green     = "The Hoarder",
-            ach_tdec_beast_black     = "??? ???",
+            ach_tdec_beast_green     = "The Rapacity",
+            ach_tdec_beast_black     = "The Profane",
             ach_tdec_beast_magic     = "The Twisted",
             ach_tdec_beast_nebula    = "The Plagued",
             ach_tdec_beast_ghost     = "The Baleful",
             ach_tdec_beast_abandoned = "??? ???",
             ach_tdec_beast_checkered = "The Liminal",
-            ach_tdec_beast_zodiac    = "The Unforgiven",
+            ach_tdec_beast_zodiac    = "The Hoarder",
             ach_tdec_beast_painted   = "The Crumbled",
             ach_tdec_beast_anaglyph  = "The Flatline",
             ach_tdec_beast_plasma    = "??? ???",

@@ -35,6 +35,7 @@ local files = {
     "decks/t_ghost",
     "decks/t_anaglyph",
     "decks/t_nebula",
+    "decks/t_black",
 
     "consumables/consumabletype",
     "consumables/debugcard",

@@ -1,11 +1,12 @@
 SMODS.Back {
-    original   = "b_anaglyph",
-    key        = "tainted_anaglyph",
-    atlas      = "tainted_atlas",
-    pos        = { x = 5, y = 1 },
-    unlocked   = true,
+    original = "b_anaglyph",
+    key = "tainted_anaglyph",
+    atlas = "tainted_atlas",
+    pos = { x = 5, y = 1 },
+    unlocked = true,
     discovered = true,
-    apply      = function(self)
+
+    apply = function(self)
         G.GAME.modifiers.tainted_anaglyph = true
         G.GAME.FervencyCounter = 50
         G.GAME.FervencyState = "Cooling"
@@ -25,6 +26,7 @@ SMODS.Back {
         }))
     end,
 }
+
 local skip_blind_ref = G.FUNCS.skip_blind
 G.FUNCS.skip_blind = function(e)
     if G.GAME and G.GAME.selected_back and G.GAME.modifiers.tainted_anaglyph then
