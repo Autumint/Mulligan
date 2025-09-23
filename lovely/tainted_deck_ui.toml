@@ -347,6 +347,13 @@ ease_to = (function()
         print("reduced by: " .. reduction)
     end
 
+    if G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_black" and G.GAME.FrailtyCount and G.GAME.FrailtyCount > 0 then
+        if G.GAME.FrailtyCount and G.GAME.FrailtyCount > 0 then
+            local reduction_factor = math.max(0, 1 - 0.05 * G.GAME.FrailtyCount)
+            effective_score = math.floor(effective_score * reduction_factor)
+        end
+    end
+
     return G.GAME.chips + math.floor(effective_score)
 end)(),
 delay = 0.5,
