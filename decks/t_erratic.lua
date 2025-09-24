@@ -24,20 +24,6 @@ SMODS.Back {
     end
 }
 
-function TDECKS.random_joker_center(_rarity)
-    local center
-    local _pool, _pool_key = get_current_pool("Joker", _rarity, false, "tdeck_erratic")
-    center = pseudorandom_element(_pool, pseudoseed(_pool_key))
-    local it = 1
-    while center == 'UNAVAILABLE' do
-        it = it + 1
-        center = pseudorandom_element(_pool, pseudoseed(_pool_key .. '_resample' .. it))
-    end
-
-    center = G.P_CENTERS[center]
-    return center
-end
-
 SMODS.Sticker {
     atlas = "erratic_perish",
     key = "tainted_perish",

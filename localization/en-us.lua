@@ -226,9 +226,8 @@ return {
             b_tdec_tainted_black = {
                 name = "Umbral Deck",
                 text = {
-                    "Start run with",
-                    "the {C:purple,T:c_tdec_lemegeton}Lemegeton{}",
-                    "{C:red}Lifeblood{}"
+                    "Start run with the {C:purple,T:c_tdec_lemegeton}Lemegeton{}",
+                    "{C:purple}Lifeblood{}"
                 }
             },
             b_tdec_tainted_yellow = {
@@ -277,8 +276,7 @@ return {
             b_tdec_tainted_painted = {
                 name = "Dried Deck",
                 text = {
-                    "Start run with the",
-                    "{C:money,T:c_tdec_thechisel}Chisel{} and {C:money,T:c_tdec_thesketch}Sketch{}",
+                    "Start run with the {C:money,T:c_tdec_artisan}artisan{}",
                     "{C:red,E:2}Destined To Erode"
                 }
             },
@@ -355,18 +353,12 @@ return {
                     "{C:inactive}(Currently {X:attention,C:white} #1#/100 {C:inactive} Fervency)"
                 }
             },
-            c_tdec_thechisel = {
-                name = "Chisel",
+            c_tdec_artisan = {
+                name = "The Artisan",
                 text = {
                     "Carve your {C:attention}Destiny.{}",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
-                }
-            },
-            c_tdec_thesketch = {
-                name = "Sketch",
-                text = {
-                    "Write your {C:attention}Destiny.{}",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/8 {C:inactive} Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #2#/3 {C:inactive} Chisel Charges)",
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/8 {C:inactive} Sketch Charges)"
                 }
             },
             c_tdec_turnover = {

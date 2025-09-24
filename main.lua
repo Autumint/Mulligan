@@ -41,7 +41,7 @@ local files = {
     "consumables/debugcard",
     "consumables/holycard",
     "consumables/flip",
-    "consumables/sketchandchisel",
+    "consumables/artisan",
     "consumables/turnover",
     "consumables/abyss",
     "consumables/fervency",

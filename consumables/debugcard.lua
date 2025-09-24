@@ -27,10 +27,12 @@ SMODS.Consumable {
     end,
 
     can_use = function(self, card)
-        if #G.jokers.highlighted > 0 then
-            for _, j in ipairs(G.jokers.highlighted) do
-                if j.ability and j.ability.tdec_tainted_perish then
-                    return true
+        if G.GAME.DebugRounds >= 3 then
+            if #G.jokers.highlighted > 0 then
+                for _, j in ipairs(G.jokers.highlighted) do
+                    if j.ability and j.ability.tdec_tainted_perish then
+                        return true
+                    end
                 end
             end
         end

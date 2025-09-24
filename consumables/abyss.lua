@@ -92,7 +92,9 @@ SMODS.Consumable {
     keep_on_use = function(self) return true end,
 
     can_use = function(self, card)
-        return G.GAME.AbyssRounds >= 2
+        if G.GAME.AbyssRounds >= 2 then
+            return true
+        end
     end,
 
     use = function(self, card, area, copier)

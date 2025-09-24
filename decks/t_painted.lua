@@ -35,20 +35,7 @@ SMODS.Back{
             trigger = 'after',
             func = function()
                 if G.pactive_area then
-                    local c = SMODS.create_card({key = "c_tdec_thechisel", no_edition = true})
-                    c:add_to_deck()
-                    G.pactive_area:emplace(c)
-                    c:align()
-                    c:flip()
-                end
-                return true
-            end
-        }))
-        G.E_MANAGER:add_event(Event({
-            trigger = 'after',
-            func = function()
-                if G.pactive_area then
-                    local c = SMODS.create_card({key = "c_tdec_thesketch", no_edition = true})
+                    local c = SMODS.create_card({key = "c_tdec_artisan", no_edition = true})
                     c:add_to_deck()
                     G.pactive_area:emplace(c)
                     c:align()
