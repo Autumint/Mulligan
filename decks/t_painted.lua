@@ -39,7 +39,6 @@ SMODS.Back{
                     c:add_to_deck()
                     G.pactive_area:emplace(c)
                     c:align()
-                    c:flip()
                 end
                 return true
             end

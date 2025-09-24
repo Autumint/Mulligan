@@ -276,7 +276,7 @@ return {
             b_tdec_tainted_painted = {
                 name = "Dried Deck",
                 text = {
-                    "Start run with the {C:money,T:c_tdec_artisan}artisan{}",
+                    "Start run with the {C:money,T:c_tdec_artisan}Artisan{}",
                     "{C:red,E:2}Destined To Erode"
                 }
             },
