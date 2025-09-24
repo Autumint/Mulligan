@@ -396,3 +396,20 @@ elseif not nc then draw_card(G.hand, G.play, 1, 'up', true, card, nil, mute) end
 '''
 overwrite = true
 match_indent = false
+
+[[patches]]
+[patches.pattern]
+target = '''functions/common_events.lua'''
+pattern = '''
+table.insert(left_text, {n=G.UIT.T, config={text = config.disp or config.dollars, scale = 0.8*scale, colour = G.C.BLUE, shadow = true, juice = true}})
+table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {" "..localize{type = 'variable', key = 'remaining_hand_money', vars = {G.GAME.modifiers.money_per_hand or 1}}}, colours = {G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
+'''
+position = "at"
+payload = '''
+table.insert(left_text, {n=G.UIT.T, config={text = config.disp or config.dollars, scale = 0.8*scale, colour = (G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_black") and G.C.PURPLE or G.C.BLUE, shadow = true, juice = true}})
+table.insert(left_text, {n=G.UIT.O, config={object = DynaText({string = {(G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_black") and " Lemegeton charges gained" or " "..localize{type = 'variable', key = 'remaining_hand_money', vars = {G.GAME.modifiers.money_per_hand or 1}}}, colours = {(G.GAME.selected_back and G.GAME.selected_back.effect.center.key == "b_tdec_tainted_black") and G.C.PURPLE or G.C.UI.TEXT_LIGHT}, shadow = true, pop_in = 0, scale = 0.4*scale, silent = true})}})
+'''
+overwrite = true
+match_indent = false
+
+
