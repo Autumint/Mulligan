@@ -24,6 +24,7 @@ local files = {
     "misc/globcalc",
     "misc/functions",
     "misc/placeholders",
+    "misc/dummies",
 
     "decks/t_checkered",
     "decks/t_erratic",

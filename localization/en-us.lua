@@ -219,7 +219,7 @@ return {
             b_tdec_tainted_red = {
                 name = "Curdled Deck",
                 text = {
-                    "{C:red}Less{} is {C:blue}More{}",
+                    "{C:red,T:c_tdec_curdletext}Less{} is {C:blue,T:c_tdec_curdletext}More{}",
                     "{C:blue}-2{} Hands"
                 }
             },
@@ -227,21 +227,21 @@ return {
                 name = "Umbral Deck",
                 text = {
                     "Start run with the {C:purple,T:c_tdec_lemegeton}Lemegeton{}",
-                    "{C:purple}Lifeblood{}"
+                    "{C:purple,T:c_tdec_lemegetontext}Lifeblood{}"
                 }
             },
             b_tdec_tainted_yellow = {
                 name = "Avarice Deck",
                 text = {
                     "Start run with the {C:money,T:c_tdec_turnover}Turnover{}",
-                    "{C:red,E:2}Economic Wasteland{}"
+                    "{C:red,T:c_tdec_wastelandtext}Economic Wasteland{}"
                 }
             },
             b_tdec_tainted_green = {
                 name = "Mi$er Deck",
                 text = {
-                    "{C:attention}Greed{} is Good",
-                    "{C:red,E:2}Chasing Wealth{}"
+                    "{C:attention,T:c_tdec_greedtext}Greed{} is Good",
+                    "{C:red,T:c_tdec_wealthtext}Chasing Wealth{}"
                 }
             },
             b_tdec_tainted_nebula = {
@@ -256,7 +256,7 @@ return {
                 name = "Phantasm Deck",
                 text = {
                     "{C:blue,T:c_tdec_holy_card}Holier{} Cards",
-                    "{C:red,E:2}Last Purge{}"
+                    "{C:red,T:c_tdec_phantasmtext}Last Purge{}"
                 }
             },
             b_tdec_tainted_checkered = {
@@ -270,7 +270,7 @@ return {
                 name = "Benighted Deck",
                 text = {
                     "Craft Your {C:money}Destiny{}",
-                    "{C:red,E:2}Shattered Stars{}"
+                    "{C:red,T:c_tdec_shatteredtext}Shattered Stars{}"
                 }
             },
             b_tdec_tainted_painted = {
@@ -390,6 +390,56 @@ return {
                     "{C:inactive}(Currently {X:purple,C:white} #1#/8 {C:inactive} Charges)"
                 }
             },
+            c_tdec_curdletext = {
+                name = "{C:red}Curdling{}",
+                text = {
+                    "{C:red}+2{} Discard Limit",
+                    "Discarding {C:red}1{} card grants",
+                    "an additional {C:blue}hand{}"
+                }
+            },
+            c_tdec_lemegetontext = {
+                name = "{C:purple}Lifeblood{}",
+                text = {
+                    "{C:red}No money{} from leftover {C:blue}hands{}",
+                    "Convert leftover {C:blue}hands{} into",
+                    "{C:purple}lemegeton charges{}"
+                }
+            },
+            c_tdec_greedtext = {
+                name = "{C:money}Greed{}",
+                text = {
+                    "Gain {X:mult,C:white}X0.05{} Mult per {C:money}$5{} held",
+                    "Leaving a shop without purchases grants {C:money}money{}",
+                    "{C:inactive}(Starts at {X:mult,C:white} X1 {C:inactive} Mult)"
+                }
+            },
+            c_tdec_wealthtext = {
+                name = "{C:red}Chasing Wealth{}",
+                text = {
+                    "Shop prices {C:red}increase{} the more",
+                    "{C:money}money{} is held currently."
+                }
+            },
+            c_tdec_phantasmtext = {
+                name = "{C:red}Last Purge{}",
+                text = {
+                    "Limited to {C:blue}1 Hand{}",
+                    "Grants {X:mult,C:white}X1.75{} Mult"
+                }
+            },
+            c_tdec_wastelandtext = {
+                name = "{C:red}Economic Wasteland{}",
+                text = {
+                    "Shops can {C:red}no longer appear{}"
+                }
+            },
+            c_tdec_shatteredtext = {
+                name = "{C:money}Make Your Destiny{}",
+                text = {
+                    "Jokers are turned into {C:purple}consumables{}"
+                }
+            },
         },
 
         Edition = {
@@ -413,7 +463,7 @@ return {
     misc = {
         achievement_names = {
             ach_tdec_beast_red       = "The Curdled",
-            ach_tdec_beast_blue      = "The Drowned",
+            ach_tdec_beast_blue      = "??? ???",
             ach_tdec_beast_yellow    = "The Monopoly",
             ach_tdec_beast_green     = "The Rapacity",
             ach_tdec_beast_black     = "The Profane",
@@ -426,7 +476,7 @@ return {
             ach_tdec_beast_painted   = "The Crumbled",
             ach_tdec_beast_anaglyph  = "The Flatline",
             ach_tdec_beast_plasma    = "??? ???",
-            ach_tdec_beast_erratic   = "TH$_; CRRPTD_#$_$o$u$op(_){$?",
+            ach_tdec_beast_erratic   = "TH$_; _#$_$o$u$op(_){$?",
         },
         achievement_descriptions = {
             ach_tdec_beast_red       = "Defeat ??? with the Red Deck",
