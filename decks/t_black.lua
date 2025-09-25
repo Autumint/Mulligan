@@ -25,11 +25,13 @@ SMODS.Back {
 
     calculate = function(self, back, context)
         if G.jokers then
+            local frail_count = 0
             for _, j in ipairs(G.jokers.cards) do
                 if j.edition.tdec_frailty then
-                    G.GAME.FrailtyCount = G.GAME.FrailtyCount + 1
+                    frail_count = frail_count + 1
                 end
             end
+            G.GAME.FrailtyCount = frail_count
         end
         if context.final_scoring_step and G.GAME.FrailtyCount > 0 then
             G.E_MANAGER:add_event(Event({
