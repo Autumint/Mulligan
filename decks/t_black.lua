@@ -27,7 +27,7 @@ SMODS.Back {
         if G.jokers then
             local frail_count = 0
             for _, j in ipairs(G.jokers.cards) do
-                if j.edition.tdec_frailty then
+                if j.edition and j.edition.tdec_frailty then
                     frail_count = frail_count + 1
                 end
             end
