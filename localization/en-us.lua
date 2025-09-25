@@ -71,7 +71,7 @@ return {
                 name = "Clot",
                 text = {
                     "Summoned by {C:red}Sumptorium{}",
-                    "Provides {X:mult,C:white}X1.5{} Mult"
+                    "Grants {X:mult,C:white}X1.5{} Mult"
                 }
             },
             j_tdec_purgatory = {
@@ -79,7 +79,7 @@ return {
                 text = {
                     "{C:blue}Spectral{} cards grant {X:mult,C:white}X1{} Mult and {C:purple}Tarot{}",
                     "cards grant {X:mult,C:white}X0.5{} Mult for the next played {C:blue}hand{}",
-                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult){}"
                 }
             },
             j_tdec_dried_joker = {
@@ -115,14 +115,14 @@ return {
                 text = {
                     "Grants {C:red}+#2# mult{} per {C:money}$#3#{} held",
                     "and {C:money}$#5#{} at the end of a round.",
-                    "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult){}"
                 }
             },
             j_tdec_executioner_locust = {
                 name = "Executioner Locust",
                 text = {
                     "Grants {C:red}+#2# mult{} when {C:red}destroying{} a {C:attention}card{}",
-                    "{C:inactive}(Currently {X:mult,C:white} +#3# {C:inactive} Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white} +#3# {C:inactive} Mult){}"
                 }
             },
             j_tdec_foolish_locust = {
@@ -136,8 +136,8 @@ return {
                 text = {
                     "Grants {C:red}+#1# mult{} and {C:blue}+#2# chips{}",
                     "per currently owned {C:red}Locust.{}",
-                    "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult)",
-                    "{C:inactive}(Currently {X:blue,C:white} +#5# {C:inactive} Chips)"
+                    "{C:inactive}(Currently {X:mult,C:white} +#4# {C:inactive} Mult){}",
+                    "{C:inactive}(Currently {X:blue,C:white} +#5# {C:inactive} Chips){}"
                 }
             },
             j_tdec_soulless_locust = {
@@ -146,7 +146,7 @@ return {
                     "{C:green}#2# in #3#{} chance to invoke the effect of a",
                     "random {C:purple,E:2}Legendary{} joker. After every",
                     "{C:attention}#6#{} discards gain {X:mult,C:white}X#5#{} Mult.",
-                    "{C:inactive}(Currently {X:mult,C:white} X#14# {C:inactive} Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white} X#14# {C:inactive} Mult){}"
                 }
             },
             j_tdec_singularity_locust = {
@@ -165,13 +165,13 @@ return {
                 name = "Mitosis Locust",
                 text = {
                     "Disappears and {C:attention}duplicates{} another {C:red}locust{} after {C:attention}#2#{} rounds",
-                    "{C:inactive}(Currently {X:mult,C:white} #3#/#2# {C:inactive} Rounds)"
+                    "{C:inactive}(Currently {X:mult,C:white} #3#/#2# {C:inactive} Rounds){}"
                 }
             },
             j_tdec_fragile_locust = {
                 name = "Fragile Locust",
                 text = {
-                    "grants {X:mult,C:white}X2{} Mult",
+                    "grants {X:mult,C:white}X1.5{} Mult",
                     "{C:green}#1# in #3#{} chance to break",
                 }
             },
@@ -180,7 +180,7 @@ return {
                 text = {
                     "grants {X:mult,C:white}X#2#{} Mult per used {C:blue}hand{}",
                     "within a round",
-                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white} X#3# {C:inactive} Mult){}"
                 }
             },
             j_tdec_flint_locust = {
@@ -188,7 +188,7 @@ return {
                 text = {
                     "grants {C:blue}#2#{} Chips per used {C:blue}hand{}",
                     "within a round",
-                    "{C:inactive}(Currently {C:blue}#3#{} {C:inactive}Chips)"
+                    "{C:inactive}(Currently {C:blue}#3#{} {C:inactive}Chips){}"
                 }
             },
             j_tdec_lunar_locust = {
@@ -196,7 +196,7 @@ return {
                 text = {
                     "grants {X:mult,C:white}+#2#{} Mult per used {C:blue}hand{}",
                     "within a round",
-                    "{C:inactive}(Currently {X:mult,C:white}+#3#{} {C:inactive}Mult)"
+                    "{C:inactive}(Currently {X:mult,C:white}+#3#{} {C:inactive}Mult){}"
                 }
             },
             j_tdec_grateful_locust = {
@@ -316,7 +316,7 @@ return {
                 text = {
                     "{C:red}Unsellable{}. Erodes over {C:attention}2{} Rounds",
                     "Becomes {C:red}Dried Joker{} after Eroding",
-                    "{C:inactive}({C:attention}#2#{C:inactive} remaining)"
+                    "{C:inactive}({C:attention}#2#{C:inactive} remaining){}"
                 }
             }
         },
@@ -326,7 +326,7 @@ return {
                 text = {
                     "{C:red}[!] OUTPUT: Defined_Global_Input Corrected{}",
                     "{C:red}[!] DEBUG_JOKER when ?CHARGE? == 3",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges){}"
 
                 }
             },
@@ -334,7 +334,7 @@ return {
                 name = "Flip?",
                 text = {
                     "Swap between the {C:blue}Alive{} and {C:attention}Dead{} state",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges){}"
                 }
             },
             c_tdec_holy_card = {
@@ -350,15 +350,15 @@ return {
                     "{C:attention}Challenging{} blinds swaps between {C:red}Heating{} and {C:blue}Cooling{}",
                     "{C:attention}Actions{} {C:red}increase{}/{C:blue}decrease{} {C:red}Fervency{} depending on the state",
                     "Reaching {C:attention}0{} or {C:attention}100{} {C:red}Fervency ends{} the run",
-                    "{C:inactive}(Currently {X:attention,C:white} #1#/100 {C:inactive} Fervency)"
+                    "{C:inactive}(Currently {X:attention,C:white} #1#/100 {C:inactive} Fervency){}"
                 }
             },
             c_tdec_artisan = {
                 name = "The Artisan",
                 text = {
                     "Carve and Sketch your {C:attention}Destiny.{}",
-                    "{C:inactive}(Currently {X:mult,C:white} #2#/3 {C:inactive} Chisel Charges)",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/8 {C:inactive} Sketch Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #2#/3 {C:inactive} Chisel Charges){}",
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/8 {C:inactive} Sketch Charges){}"
                 }
             },
             c_tdec_turnover = {
@@ -373,7 +373,7 @@ return {
                 text = {
                     "Destroy a {C:attention}Consumable{} to",
                     "Turn it into a {C:red}Locust{} with special {C:attention}effects{}",
-                    "{C:inactive}(Currently {X:mult,C:white} #1#/2 {C:inactive} Charges)"
+                    "{C:inactive}(Currently {X:mult,C:white} #1#/2 {C:inactive} Charges){}"
                 }
             },
             c_tdec_bagofcrafting = {
@@ -387,7 +387,8 @@ return {
                 name = "{C:purple}Lemegeton{}",
                 text = {
                     "Create a random {C:purple}Frail Joker{}",
-                    "{C:inactive}(Currently {X:purple,C:white} #1#/8 {C:inactive} Charges)"
+                    "Unusable when there are {C:purple}5+ Frail Jokers{}",
+                    "{C:inactive}(Currently {X:purple,C:white} #1#/3 {C:inactive} [Max: 8] Charges){}"
                 }
             },
             c_tdec_curdletext = {
@@ -445,7 +446,8 @@ return {
                 text = {
                     "{C:red}No skips{}",
                     "Attempting to skip a blind will",
-                    "{C:attention}challenge{} it instead"
+                    "{C:attention}challenge{} it instead, increasing",
+                    "score requirement by {X:mult,C:white}X1.5{}"
                 }
             },
             c_tdec_errtext = {
@@ -486,7 +488,7 @@ return {
                 name = "Frailty",
                 text = {
                     "{C:purple}+1{} Joker Slot",
-                    "{C:purple}-5%{} Total Score",
+                    "{C:purple}-7.5%{} Total Score",
                 }
             },
 

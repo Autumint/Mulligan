@@ -31,7 +31,7 @@ SMODS.Consumable {
     end,
 
     can_use = function(self, card)
-        if G.GAME.LemegetonCharges >= 3 and G.GAME.FrailtyCount <= 5 then
+        if G.GAME.LemegetonCharges >= 3 and G.GAME.FrailtyCount < 5 then
             return true
         end
     end,
