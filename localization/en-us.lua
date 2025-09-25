@@ -262,14 +262,14 @@ return {
             b_tdec_tainted_checkered = {
                 name = "Enigma Deck",
                 text = {
-                    "{V:1}#1#{V:2}#2#{}",
-                    "Between {V:2}Life{} and {V:1}Death{}",
+                    "Start run with the {C:attention,T:c_tdec_flip_card}Flip?{}",
+                    "{V:1,T:c_tdec_fliptext}#1#{V:2,T:c_tdec_fliptext}#2#{}",
                 },
             },
             b_tdec_tainted_zodiac = {
                 name = "Benighted Deck",
                 text = {
-                    "Craft Your {C:money}Destiny{}",
+                    "Start run with the {C:dark_edition,T:c_tdec_bagofcrafting}Star Shaper{}",
                     "{C:red,T:c_tdec_shatteredtext}Shattered Stars{}"
                 }
             },
@@ -277,21 +277,21 @@ return {
                 name = "Dried Deck",
                 text = {
                     "Start run with the {C:money,T:c_tdec_artisan}Artisan{}",
-                    "{C:red,E:2}Destined To Erode"
+                    "{C:red,T:c_tdec_erodetext}Destined To Erode{}"
                 }
             },
             b_tdec_tainted_anaglyph = {
                 name = "Dauntless Deck",
                 text = {
-                    "{C:blue}Restless{}",
-                    "{C:red,E:2}Fervency{}"
+                    "{C:blue,T:c_tdec_skiptext}Restless{}",
+                    "{C:red,T:c_tdec_fervency}Fervency{}"
                 }
             },
             b_tdec_tainted_erratic = {
                 name = "C@PRIC10US D?CK",
                 text = {
                     "{C:red}ST?RT RUN W_?{} {C:red,T:c_tdec_debugcard}DBG_CARD?{}",
-                    "{C:red}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
+                    "{C:red,T:c_tdec_errtext}@% EVERCHANGING? !_UNRESPONSIVE[indexfailed]{}"
                 }
             },
             b_tdec_tainted_placeholder = {
@@ -333,7 +333,7 @@ return {
             c_tdec_flip_card = {
                 name = "Flip?",
                 text = {
-                    "Swap between the {C:blue}Alive{} and {C:attention}Dead{} state.",
+                    "Swap between the {C:blue}Alive{} and {C:attention}Dead{} state",
                     "{C:inactive}(Currently {X:mult,C:white} #1#/3 {C:inactive} Charges)"
                 }
             },
@@ -356,7 +356,7 @@ return {
             c_tdec_artisan = {
                 name = "The Artisan",
                 text = {
-                    "Carve your {C:attention}Destiny.{}",
+                    "Carve and Sketch your {C:attention}Destiny.{}",
                     "{C:inactive}(Currently {X:mult,C:white} #2#/3 {C:inactive} Chisel Charges)",
                     "{C:inactive}(Currently {X:mult,C:white} #1#/8 {C:inactive} Sketch Charges)"
                 }
@@ -391,7 +391,7 @@ return {
                 }
             },
             c_tdec_curdletext = {
-                name = "{C:red}Curdling{}",
+                name = "Curdling",
                 text = {
                     "{C:red}+2{} Discard Limit",
                     "Discarding {C:red}1{} card grants",
@@ -399,7 +399,7 @@ return {
                 }
             },
             c_tdec_lemegetontext = {
-                name = "{C:purple}Lifeblood{}",
+                name = "Lifeblood",
                 text = {
                     "{C:red}No money{} from leftover {C:blue}hands{}",
                     "Convert leftover {C:blue}hands{} into",
@@ -407,7 +407,7 @@ return {
                 }
             },
             c_tdec_greedtext = {
-                name = "{C:money}Greed{}",
+                name = "Greed",
                 text = {
                     "Gain {X:mult,C:white}X0.05{} Mult per {C:money}$5{} held",
                     "Leaving a shop without purchases grants {C:money}money{}",
@@ -415,29 +415,61 @@ return {
                 }
             },
             c_tdec_wealthtext = {
-                name = "{C:red}Chasing Wealth{}",
+                name = "Chasing Wealth",
                 text = {
                     "Shop prices {C:red}increase{} the more",
                     "{C:money}money{} is held currently."
                 }
             },
             c_tdec_phantasmtext = {
-                name = "{C:red}Last Purge{}",
+                name = "Last Purge",
                 text = {
                     "Limited to {C:blue}1 Hand{}",
                     "Grants {X:mult,C:white}X1.75{} Mult"
                 }
             },
             c_tdec_wastelandtext = {
-                name = "{C:red}Economic Wasteland{}",
+                name = "Economic Wasteland",
                 text = {
                     "Shops can {C:red}no longer appear{}"
                 }
             },
             c_tdec_shatteredtext = {
-                name = "{C:money}Make Your Destiny{}",
+                name = "Shattered Stars",
                 text = {
                     "Jokers are turned into {C:purple}consumables{}"
+                }
+            },
+            c_tdec_skiptext = {
+                name = "Restless",
+                text = {
+                    "{C:red}No skips{}",
+                    "Attempting to skip a blind will",
+                    "{C:attention}challenge{} it instead"
+                }
+            },
+            c_tdec_errtext = {
+                name = "EVERCHANGING?",
+                text = {
+                    "Jokers are {C:red}rerolled{} after",
+                    "leaving a shop"
+                }
+            },
+            c_tdec_fliptext = {
+                name = "Flipside",
+                text = {
+                    "Entering a shop swaps between",
+                    "the {C:attention}Alive{} and {C:blue}Dead{} state",
+                    "{C:attention}Jokers{} and {C:money}Money{} aren't shared"
+                }
+            },
+            c_tdec_erodetext = {
+                name = "Erosion",
+                text = {
+                    "If no jokers are affected by {C:red}Erosion{}",
+                    "apply it to any joker when the round ends",
+                    "After {C:attention}2{} rounds, turn {C:red}Eroding{} jokers",
+                    "into {C:attention}Dried Jokers{}"
                 }
             },
         },
