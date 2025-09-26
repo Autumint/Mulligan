@@ -5,7 +5,7 @@ SMODS.Back {
     pos = { x = 4, y = 0 },
     unlocked = true,
     discovered = true,
-    config = { joker_slot = 1, extra_hand_bonus = 0 },
+    config = { extra_hand_bonus = 0 },
 
     apply = function(self)
         G.GAME.FrailtyCount = 0

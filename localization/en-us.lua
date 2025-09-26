@@ -488,7 +488,7 @@ return {
                 name = "Frailty",
                 text = {
                     "{C:purple}+1{} Joker Slot",
-                    "{C:purple}-10%{} Total Score",
+                    "{C:purple}-15%{} Total Score",
                 }
             },
 

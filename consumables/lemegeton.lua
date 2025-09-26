@@ -8,7 +8,7 @@ SMODS.Consumable {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
-        info_queue[#info_queue+1] = G.P_CENTERS.e_tdec_frailty
+        info_queue[#info_queue + 1] = G.P_CENTERS.e_tdec_frailty
         return { vars = { G.GAME.LemegetonCharges or 0 } }
     end,
 
@@ -42,6 +42,11 @@ SMODS.Consumable {
         G.E_MANAGER:add_event(Event({
             trigger = "after",
             func = function()
+                local lemegeton_bans = { "j_brainstorm", "j_blueprint" }
+                for _, key in ipairs(lemegeton_bans) do
+                    G.GAME.banned_keys[key] = true
+                end
+                banned_keys = true
                 local c = SMODS.create_card {
                     set = "Joker",
                     key_append = "created_by_lemegeton",
@@ -50,6 +55,9 @@ SMODS.Consumable {
                 c.is_crafted = true
                 G.jokers:emplace(c)
                 c:add_to_deck()
+                for _, key in ipairs(lemegeton_bans) do
+                    G.GAME.banned_keys[key] = false
+                end
                 return true
             end
         }))
