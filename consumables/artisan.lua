@@ -73,15 +73,13 @@ SMODS.Consumable {
                 return
             end
         end
-        local highlight_sets = {
-            G.jokers.highlighted,
-            G.shop_jokers.highlighted,
-            G.pack_cards.highlighted
-        }
+        local highlight_sets = {}
+        if G.jokers then table.insert(highlight_sets, G.jokers.highlighted) end
+        if G.shop_jokers then table.insert(highlight_sets, G.shop_jokers.highlighted) end
+        if G.pack_cards then table.insert(highlight_sets, G.pack_cards.highlighted) end
         for _, set in ipairs(highlight_sets) do
             for _, j in ipairs(set) do
                 if j.config and j.config.center and j.config.center.key ~= "j_tdec_dried_joker" then
-
                     G.GAME.SketchedJokerKey = j.config.center.key
                     G.E_MANAGER:add_event(Event({
                         func = function()
