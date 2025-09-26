@@ -102,7 +102,8 @@ SMODS.Joker {
 SMODS.Sticker {
     key = "Eroding",
     badge_colour = HEX '895129',
-    pos = { x = 0, y = 2 },
+    atlas = "Erosion_Atlas",
+    pos = { x = 0, y = 0 },
 
     apply = function(self, card, val)
         card.ability[self.key] = val

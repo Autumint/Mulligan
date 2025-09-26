@@ -105,3 +105,10 @@ SMODS.Atlas {
     px = 71,
     py = 95
 }
+
+SMODS.Atlas {
+    key = "Erosion_Atlas",
+    path = "erosion.png",
+    px = 71,
+    py = 19
+}
