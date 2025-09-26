@@ -27,7 +27,7 @@ SMODS.Back{
     key = "tainted_painted",
     atlas = "tainted_atlas",
     pos = {x = 4, y = 1},
-    config = { joker_slot = -2, consumable_slot = 2 },
+    config = { joker_slot = -2 },
 
     apply = function(self)
         G.GAME.modifiers.tainted_painted = true
