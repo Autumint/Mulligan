@@ -15,7 +15,8 @@ local abyss_consumable_to_joker = {
     c_sun        = "j_tdec_bloody_locust",
     c_temperance = "j_tdec_grateful_locust",
     c_chariot    = "j_tdec_heavy_locust",
-    c_moon       = "j_tdec_lunar_locust"
+    c_moon       = "j_tdec_lunar_locust",
+    c_emperor    = "j_tdec_spacious_locust"
 }
 
 
@@ -27,12 +28,15 @@ do
             G.GAME.AbyssActive = false
             G.GAME.AbyssLastConsumable = used_key
 
+            G.GAME.AbyssConsuming = true  
+
             local spawn_key = abyss_consumable_to_joker[used_key]
             if spawn_key then
                 G.E_MANAGER:add_event(Event({
                     trigger = "after",
                     func = function()
                         local c = create_card("Joker", G.locust_area, nil, nil, nil, nil, spawn_key)
+                        c:set_edition(nil)
                         c:add_to_deck()
                         G.locust_area:emplace(c)
                         c:juice_up(0.8, 0.8)
@@ -40,19 +44,18 @@ do
                     end
                 }))
             end
+
+            G.E_MANAGER:add_event(Event({
+                trigger = "after",
+                func = function()
+                    G.GAME.AbyssConsuming = false
+                    return true
+                end
+            }))
+
             return
         end
         return orig_use(self, area, copier)
-    end
-end
-
-do
-    local orig_can_use = Card.can_use_consumeable
-    function Card:can_use_consumeable(area, copier)
-        if G.GAME.AbyssActive and self.config.center.key ~= "c_tdec_abyss" and self.ability.set ~= "Planet" then
-            return true
-        end
-        return orig_can_use(self, area, copier)
     end
 end
 

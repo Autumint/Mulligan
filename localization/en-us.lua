@@ -213,6 +213,14 @@ return {
                     "each card held in hand"
                 }
             },
+            j_tdec_spacious_locust = {
+                name = "Spacious Locust",
+                text = {
+                    "Spawns a random {C:purple}tarot",
+                    "After 3 {C:purple}consumables{} have been {C:red}abyssed{}",
+                    "{C:inactive}(Currently {C:purple}#2#/3{C:inactive} consumed){}"
+                }
+            },
         },
 
         Back = {
