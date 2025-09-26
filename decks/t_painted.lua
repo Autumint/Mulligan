@@ -68,6 +68,7 @@ SMODS.Back{
 
                 if selected_joker then
                     selected_joker:add_sticker("tdec_Eroding", true)
+                    selected_joker:juice_up()
                 end
             end
         end
