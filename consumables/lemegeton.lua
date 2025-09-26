@@ -31,13 +31,13 @@ SMODS.Consumable {
     end,
 
     can_use = function(self, card)
-        if G.GAME.LemegetonCharges >= 3 and G.GAME.FrailtyCount < 5 then
+        if G.GAME.LemegetonCharges >= 4 and G.GAME.FrailtyCount < 5 then
             return true
         end
     end,
 
     use = function(self, card, area, copier)
-        G.GAME.LemegetonCharges = G.GAME.LemegetonCharges - 3
+        G.GAME.LemegetonCharges = G.GAME.LemegetonCharges - 4
         G.GAME.LemegetonMessageCheck = false
         G.E_MANAGER:add_event(Event({
             trigger = "after",
