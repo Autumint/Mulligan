@@ -20,7 +20,7 @@ SMODS.Consumable {
             end
         end
 
-        if context.end_of_round and context.main_eval and G.GAME.LemegetonCharges >= 4 and not G.GAME.LemegetonMessageCheck then
+        if context.end_of_round and context.main_eval and G.GAME.LemegetonCharges >= 5 and not G.GAME.LemegetonMessageCheck then
             G.GAME.LemegetonMessageCheck = true
             return { message = "Charged" }
         end
@@ -31,13 +31,13 @@ SMODS.Consumable {
     end,
 
     can_use = function(self, card)
-        if G.GAME.LemegetonCharges >= 4 and G.GAME.FrailtyCount < 5 then
+        if G.GAME.LemegetonCharges >= 5 and G.GAME.FrailtyCount < 5 then
             return true
         end
     end,
 
     use = function(self, card, area, copier)
-        G.GAME.LemegetonCharges = G.GAME.LemegetonCharges - 4
+        G.GAME.LemegetonCharges = G.GAME.LemegetonCharges - 5
         G.GAME.LemegetonMessageCheck = false
         G.E_MANAGER:add_event(Event({
             trigger = "after",

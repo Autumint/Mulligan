@@ -388,7 +388,7 @@ return {
                 text = {
                     "Create a random {C:purple}Frail Joker{}",
                     "Unusable when there are {C:purple}5+ Frail Jokers{}",
-                    "{C:inactive}(Currently {X:purple,C:white} #1#/4 {C:inactive} [Max: 8] Charges){}"
+                    "{C:inactive}(Currently {X:purple,C:white} #1#/5 {C:inactive} [Max: 8] Charges){}"
                 }
             },
             c_tdec_curdletext = {
