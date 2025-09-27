@@ -232,7 +232,7 @@ return {
                 }
             },
             b_tdec_tainted_black = {
-                name = "Umbral Deck",
+                name = "Senescent Deck",
                 text = {
                     "Start run with the {C:purple,T:c_tdec_lemegeton}Lemegeton{}",
                     "{C:purple,T:c_tdec_lemegetontext}Lifeblood{}"
@@ -508,7 +508,7 @@ return {
             ach_tdec_beast_blue      = "??? ???",
             ach_tdec_beast_yellow    = "The Monopoly",
             ach_tdec_beast_green     = "The Rapacity",
-            ach_tdec_beast_black     = "The Profane",
+            ach_tdec_beast_black     = "The Putrescent",
             ach_tdec_beast_magic     = "The Twisted",
             ach_tdec_beast_nebula    = "The Plagued",
             ach_tdec_beast_ghost     = "The Baleful",
