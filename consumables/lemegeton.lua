@@ -1,6 +1,6 @@
 SMODS.Consumable {
-    atlas = "tainted_atlas",
-    pos = { x = 4, y = 0 },
+    atlas = "Lemegeton_Atlas",
+    pos = { x = 0, y = 0 },
     unlocked = true,
     discovered = true,
     key = "lemegeton",

@@ -112,3 +112,10 @@ SMODS.Atlas {
     px = 71,
     py = 19
 }
+
+SMODS.Atlas {
+    key = "Lemegeton_Atlas",
+    path = "lemegeton.png",
+    px = 71,
+    py = 95
+}

@@ -3,7 +3,6 @@ G.FUNCS.stupidfailurebutton = function() end
 local old_run_setup = G.UIDEF.run_setup
 G.UIDEF.run_setup = function(run_type, saved_game)
     local ui = old_run_setup(run_type, saved_game)
-
     if ui and ui.nodes then
         local play_row = ui.nodes[#ui.nodes - 1]
         if play_row and play_row.n == G.UIT.R and play_row.nodes then
@@ -36,7 +35,6 @@ G.UIDEF.run_setup = function(run_type, saved_game)
             })
         end
     end
-
     return ui
 end
 

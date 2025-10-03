@@ -28,7 +28,7 @@ do
             G.GAME.AbyssActive = false
             G.GAME.AbyssLastConsumable = used_key
 
-            G.GAME.AbyssConsuming = true  
+            G.GAME.AbyssConsuming = true
 
             local spawn_key = abyss_consumable_to_joker[used_key]
             if spawn_key then
@@ -69,6 +69,14 @@ SMODS.Consumable {
     eternal_compat = true,
 
     loc_vars = function(self, info_queue, card)
+        for index, cardarea in ipairs(G.I.CARDAREA) do
+            if G.GAME.AbyssActive and cardarea.highlighted and #cardarea.highlighted == 1 then
+                local key = abyss_consumable_to_joker[cardarea.highlighted[1].config.center.key]
+                if key then
+                    info_queue[#info_queue + 1] = G.P_CENTERS[key]
+                end
+            end
+        end
         local active = G.GAME.AbyssActive
         local status_text = active and "Ready To Consume" or "Dormant..."
         local colour = active and G.C.GREEN or G.C.RED
